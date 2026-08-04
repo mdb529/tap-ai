@@ -7,7 +7,9 @@
     "dev": "next dev -p 3100",
     "build": "next build",
     "start": "npx serve out",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build",
+    "check:pages": "npm run typecheck && BASE_PATH=/tap-ai npm run build"
   },
   "dependencies": {
     "next": "^15.4.0",
