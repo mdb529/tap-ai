@@ -12,7 +12,10 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "export:decisions": "node scripts/export-decisions.mjs",
-    "verify": "python3 scripts/verify.py && python3 scripts/tone_audit.py"
+    "verify": "python3 scripts/verify.py && python3 scripts/tone_audit.py && python3 scripts/drift_check.py",
+    "check": "npm run typecheck && npm run verify",
+    "check:site": "npm --prefix site run check:pages",
+    "check:all": "npm run check && npm run check:site"
   },
   "dependencies": {
     "@duckdb/node-api": "latest",

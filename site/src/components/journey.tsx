@@ -82,7 +82,9 @@ export function Journey() {
           }
         });
       },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      // Narrow band: with a beat per screen the handover should happen as the
+      // block crosses the middle, not as it enters.
+      { rootMargin: "-48% 0px -48% 0px", threshold: 0 }
     );
     refs.current.forEach((r) => r && io.observe(r));
     return () => io.disconnect();
@@ -168,7 +170,7 @@ export function Journey() {
         </div>
       </div>
 
-      <p className="mb-5 px-0.5 text-[12.5px] leading-relaxed text-slate-400">
+      <p className="mb-2 px-0.5 text-[12.5px] leading-relaxed text-slate-400">
         <span className={`font-semibold ${t.text}`}>{tierMeta.label}.</span> {tierMeta.asks}.
       </p>
 
@@ -290,9 +292,22 @@ export function Journey() {
       >
         <div ref={outcomeRef}>
           {answered === null ? (
-            <div className="rounded-xl border border-dashed border-white/15 px-5 py-10 text-center">
-              <p className="text-[13px] text-slate-500">
-                Answer the question above and the outcome appears here.
+            <div className="rounded-2xl border border-dashed border-white/15 px-5 py-14 text-center sm:py-20">
+              <svg
+                aria-hidden
+                viewBox="0 0 24 24"
+                className="mx-auto h-7 w-7 animate-[fadeIn_.6s_ease-out] text-slate-600"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M12 19V5M6 11l6-6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <p className="mt-4 text-[15px] font-medium text-slate-400 sm:text-[17px]">
+                Pick an answer above
+              </p>
+              <p className="mx-auto mt-1.5 max-w-xs text-[12.5px] leading-relaxed text-slate-600">
+                The outcome — and what you just contributed — appears here.
               </p>
             </div>
           ) : (
@@ -407,32 +422,49 @@ const Block = ({
   active?: boolean;
   children: React.ReactNode;
 }) => (
-  <div ref={ref} className="relative mb-10 scroll-mt-32 pl-0 last:mb-0 sm:pl-11">
-    {/* connector: only on wide enough screens to have a gutter for it */}
+  <div
+    ref={ref}
+    // min-h + centred content = one beat per screen. It still grows past the
+    // minimum when the content is taller (the tap card on desktop), so nothing
+    // is ever clipped.
+    className={`relative flex min-h-[76svh] scroll-mt-[7.5rem] flex-col justify-center py-6 pl-0 transition-all duration-700 sm:min-h-[80svh] sm:pl-12 ${
+      active ? "opacity-100" : "opacity-40 sm:scale-[0.985]"
+    }`}
+  >
+    {/* Full-height connector between beats. Now that each beat owns a screen the
+        line is long, which is what makes the three read as one sequence rather
+        than three cards. */}
     <span
       aria-hidden
-      className={`absolute left-[15px] top-9 hidden w-px origin-top bg-gradient-to-b from-white/25 to-transparent sm:block ${
-        active ? "animate-[drawDown_.8s_ease-out]" : ""
+      className={`absolute bottom-0 left-[15px] top-0 hidden w-px origin-top bg-gradient-to-b from-transparent via-white/20 to-transparent sm:block ${
+        active ? "animate-[drawDown_1s_ease-out]" : ""
       }`}
-      style={{ height: "calc(100% - 1rem)" }}
     />
-    <div className="mb-3.5 flex items-start gap-2.5 sm:mb-4 sm:block">
+    <div className="mb-4 flex items-start gap-3 sm:mb-5 sm:block">
       <span
-        className={`z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[13px] font-bold transition-all duration-500 sm:absolute sm:-left-11 sm:top-0 ${
-          active ? "scale-110 bg-white text-slate-900" : "bg-white/15 text-slate-400"
+        className={`z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[14px] font-bold transition-all duration-500 sm:absolute sm:-left-12 sm:h-9 sm:w-9 sm:text-[15px] ${
+          active
+            ? "scale-110 bg-white text-slate-900 shadow-lg shadow-white/10"
+            : "bg-white/10 text-slate-500"
         }`}
       >
         {n}
       </span>
       <div className="min-w-0">
         <p
-          className={`text-[15px] font-semibold leading-tight transition-colors duration-500 sm:text-[17px] ${
-            active ? "text-white" : "text-slate-400"
+          className={`text-[17px] font-semibold leading-tight tracking-[-0.01em] transition-colors duration-500 sm:text-[21px] ${
+            active ? "text-white" : "text-slate-500"
           }`}
         >
           {label}
         </p>
-        <p className="mt-0.5 text-[12.5px] leading-snug text-slate-400">{sub}</p>
+        <p
+          className={`mt-1 text-[13px] leading-snug transition-colors duration-500 ${
+            active ? "text-slate-400" : "text-slate-600"
+          }`}
+        >
+          {sub}
+        </p>
       </div>
     </div>
     {children}

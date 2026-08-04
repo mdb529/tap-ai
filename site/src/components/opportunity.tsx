@@ -109,36 +109,60 @@ export function Opportunity() {
         </p>
       </div>
 
-      {/* --------------------------------------------------- the door graphic
-          Sticky on desktop so it stays beside the text while it changes; inline
-          on mobile where a sticky graphic would eat the viewport. */}
-      <div className="mt-10 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
-        <div className="lg:sticky lg:top-24 lg:h-fit">
-          <Doorway stage={i} tone={s.tone} />
+      {/* ----------------------------------------------------- the door graphic
+          STICKY AT BOTH SIZES. It used to be lg:sticky only, which meant the
+          graphic scrolled away on a phone and the visitor read panels 2 and 3
+          without ever seeing the thing they describe change. On mobile it
+          becomes a compact bar pinned under the nav — graphic and stat side by
+          side so it costs ~90px of viewport instead of ~400px. */}
+      <div className="mt-8 lg:mt-14 lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+        <div
+          className="sticky top-[52px] z-20 -mx-5 mb-6 border-b border-white/[0.07] bg-slate-950/95 px-5 py-3 backdrop-blur
+                     sm:-mx-6 sm:px-6
+                     lg:top-24 lg:z-0 lg:mx-0 lg:mb-0 lg:h-fit lg:border-0 lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none"
+        >
+          {/* row on mobile, stacked column on desktop */}
+          <div className="flex items-center gap-4 lg:block">
+            <div className="w-[7.5rem] shrink-0 sm:w-[9rem] lg:w-auto">
+              <Doorway stage={i} tone={s.tone} />
+            </div>
 
-          {/* the changing caption under the graphic */}
-          <div key={s.key} className="mt-5 animate-[fadeIn_.45s_ease-out] text-center lg:text-left">
-            <p className={`text-[11px] font-bold uppercase tracking-wider ${tone.text}`}>{s.era}</p>
-            <p className="mt-2 text-[2rem] font-semibold leading-none tracking-[-0.03em] text-white sm:text-[2.5rem]">
-              {s.stat}
-            </p>
-            <p className="mt-1.5 text-[12.5px] text-slate-400">{s.statLabel}</p>
+            <div key={s.key} className="min-w-0 flex-1 animate-[fadeIn_.45s_ease-out] lg:mt-5 lg:text-left">
+              <p className={`text-[10px] font-bold uppercase tracking-wider lg:text-[11px] ${tone.text}`}>
+                {s.era}
+              </p>
+              <p className="mt-0.5 text-[1.35rem] font-semibold leading-none tracking-[-0.03em] text-white lg:mt-2 lg:text-[2.5rem]">
+                {s.stat}
+              </p>
+              <p className="mt-1 text-[11.5px] leading-snug text-slate-400 lg:mt-1.5 lg:text-[12.5px]">
+                {s.statLabel}
+              </p>
+
+              {/* progress: inline on mobile where vertical space is scarce */}
+              <div className="mt-2 flex gap-1.5 lg:mt-5">
+                {STAGES.map((st, k) => (
+                  <button
+                    key={st.key}
+                    onClick={() => refs.current[k]?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                    aria-label={st.headline}
+                    aria-current={k === i}
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
+                      k === i ? "w-7 bg-teal-400 lg:w-8" : "w-1.5 bg-white/20 hover:bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* manual control, for anyone who would rather click than scroll */}
-          <div className="mt-5 flex justify-center gap-1.5 lg:justify-start">
-            {STAGES.map((st, k) => (
-              <button
-                key={st.key}
-                onClick={() => refs.current[k]?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                aria-label={st.headline}
-                aria-current={k === i}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  k === i ? "w-8 bg-teal-400" : "w-1.5 bg-white/20 hover:bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
+          {/* the annotation only fits on desktop; on mobile the stat carries it */}
+          <p className="mt-4 hidden text-center text-[11.5px] text-slate-500 lg:block lg:text-left">
+            {i === 0
+              ? "One door, and only a few people had the key."
+              : i === 1
+                ? "The door is open — but contributions have nowhere to land."
+                : "Routed to an owner, reviewed, and recorded."}
+          </p>
         </div>
 
         {/* the three panels */}
@@ -321,26 +345,13 @@ function Doorway({ stage, tone }: { stage: number; tone: "slate" | "amber" | "te
             strokeWidth="1.3"
             strokeDasharray="4 4"
           />
-          <text x="177" y="101" textAnchor="middle" className="fill-slate-500 text-[8px]">
-            nowhere
-          </text>
+          {/* No label: at mobile scale an 8px glyph renders at ~4px. An empty
+              dashed box says "nowhere to land" more clearly than a tiny word,
+              and the caption beside it says it in full. */}
+          <line x1="160" y1="86" x2="194" y2="107" stroke="#475569" strokeWidth="1.1" strokeLinecap="round" />
+          <line x1="194" y1="86" x2="160" y2="107" stroke="#475569" strokeWidth="1.1" strokeLinecap="round" />
         </g>
       </svg>
-
-      {/* the annotation — arrives from the side so it reads as pointing at the
-          graphic rather than being part of it */}
-      <div
-        key={stage}
-        className="absolute -bottom-1 left-0 right-0 animate-[slideInLeft_.5s_ease-out]"
-      >
-        <p className="text-center text-[11.5px] text-slate-500">
-          {stage === 0
-            ? "One door, and only engineers had the key."
-            : stage === 1
-              ? "The door is open — but contributions have nowhere to land."
-              : "Routed to an owner, reviewed, and recorded."}
-        </p>
-      </div>
     </div>
   );
 }
