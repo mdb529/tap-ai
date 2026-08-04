@@ -2,11 +2,11 @@
 # AUTHORITY LEVELS  (stand-in for Okta / Azure AD group + role claims)
 #
 # In production this comes from the IdP: group membership and role claims tell
-# us how much authority a person carries. TapIQ never owns the org chart --
+# us how much authority a person carries. Tap AI never owns the org chart --
 # it only asks the IdP "what level is this person, and can they resolve a tap
 # of this class?"
 #
-# The only thing TapIQ genuinely needs from an IdP is:
+# The only thing Tap AI genuinely needs from an IdP is:
 #   1. identity resolution (email -> person)
 #   2. authority level (can this person bind the org to an answer?)
 # Domain OWNERSHIP is deliberately NOT here -- see domains.yml for why.
@@ -17,42 +17,41 @@ levels:
     rank: 1
     label: Individual contributor
     can_resolve: [tactical]
-    idp_group: tapiq-ic
+    idp_group: tap-ai-ic
 
   - key: lead
     rank: 2
     label: Team lead
     can_resolve: [tactical]
-    idp_group: tapiq-lead
+    idp_group: tap-ai-lead
 
   - key: manager
     rank: 3
     label: Manager
     can_resolve: [tactical, strategic]
     strategic_scope: team          # may bind logic owned by their own team only
-    idp_group: tapiq-manager
+    idp_group: tap-ai-manager
 
   - key: director
     rank: 4
     label: Director
     can_resolve: [tactical, strategic]
     strategic_scope: domain        # may bind any logic in domains they own
-    idp_group: tapiq-director
+    idp_group: tap-ai-director
 
   - key: vp
     rank: 5
     label: Vice president
     can_resolve: [tactical, strategic]
     strategic_scope: department
-    idp_group: tapiq-vp
+    idp_group: tap-ai-vp
 
   - key: cxo
     rank: 6
     label: Executive
     can_resolve: [tactical, strategic]
     strategic_scope: enterprise
-    idp_group: tapiq-exec
-    funds_incentive_pool: true     # execs allocate rewards, never receive them
+    idp_group: tap-ai-exec
 
 # What happens when the resolved owner lacks the authority for the tap class.
 escalation:

@@ -1,5 +1,5 @@
 -- ===========================================================================
--- TapIQ local warehouse
+-- Tap AI local warehouse
 --
 -- Split of concerns, deliberately:
 --   * CONFIG lives in YAML under org/ and config/ and tap-types/. It is read
@@ -71,11 +71,10 @@ CREATE OR REPLACE TABLE tap_impacts AS
 SELECT * REPLACE (CAST(observed_at AS TIMESTAMP) AS observed_at)
 FROM read_csv_auto('seeds/tap_impacts.csv', header=true);
 
-CREATE OR REPLACE TABLE incentive_ledger AS
-SELECT * FROM read_csv_auto('seeds/incentive_ledger.csv', header=true);
-
-CREATE OR REPLACE TABLE billing_usage AS
-SELECT * FROM read_csv_auto('seeds/billing_usage.csv', header=true);
+-- Adoption, not consumption. Taps are unlimited on every tier, so there is no
+-- allowance and no overage to track -- only whether people are answering.
+CREATE OR REPLACE TABLE adoption_by_month AS
+SELECT * FROM read_csv_auto('seeds/adoption_by_month.csv', header=true);
 
 -- ---------------------------------------------------------------------------
 -- One row per tap with everything the UI needs. The app should prefer this
@@ -83,7 +82,7 @@ SELECT * FROM read_csv_auto('seeds/billing_usage.csv', header=true);
 -- ---------------------------------------------------------------------------
 CREATE VIEW v_tap_detail AS
 SELECT
-    t.tap_id, t.tap_type_id, t.tap_class, t.domain_key, t.month,
+    t.tap_id, t.trigger_id, t.tap_type_id, t.tap_class, t.domain_key, t.month,
     t.object_id, t.object_name, t.entity_key,
     t.recipient_email, t.recipient_name, t.recipient_department, t.recipient_authority,
     t.routed_via, t.channel,
@@ -217,9 +216,73 @@ SELECT r.responder_email AS email, r.responder_name AS name,
        COUNT(*) FILTER (WHERE r.tap_class = 'strategic')     AS strategic_resolved,
        ROUND(AVG(r.quality_score), 2)                        AS avg_quality,
        ROUND(100.0 * COUNT(*) FILTER (WHERE r.durable = true) / COUNT(*), 1) AS durability_pct,
-       ROUND(MEDIAN(r.minutes_to_respond), 0)                AS median_minutes,
-       COALESCE((SELECT SUM(l.amount_usd) FROM incentive_ledger l
-                 WHERE l.employee_email = r.responder_email), 0) AS incentive_usd
+       ROUND(MEDIAN(r.minutes_to_respond), 0)                AS median_minutes
 FROM tap_responses r
 WHERE r.outcome = 'answered'
 GROUP BY 1,2,3,4 ORDER BY taps_resolved DESC;
+
+-- ---------------------------------------------------------------------------
+-- THE DECISION LEDGER
+--
+-- One row per resolved tap, shaped for retrieval by an AI agent rather than for
+-- a dashboard. This is the format the product's long-term value sits in: an
+-- agent editing a warehouse has schemas and lineage but no record of what any
+-- of it was DECIDED to mean, so it infers intent and is sometimes confidently
+-- wrong.
+--
+-- Design choices that matter here:
+--   * one row per DECISION, not per event -- an agent needs the current answer,
+--     not an event log to fold
+--   * scope_objects binds each decision to the code objects it governs, so
+--     retrieval keys on lineage rather than text similarity
+--   * status makes staleness explicit; a reversed decision must be unusable,
+--     not merely old
+--   * authority and durability travel with the record as trust signals
+--   * retrieval_text is pre-rendered so one decision is one chunk and no
+--     chunking heuristic can split a decision from its scope
+-- ---------------------------------------------------------------------------
+DROP VIEW IF EXISTS v_decision_ledger;
+CREATE VIEW v_decision_ledger AS
+SELECT
+    'dec_' || lower(t.tap_id)                                   AS decision_id,
+    t.tap_id,
+    t.tap_class                                                 AS class,
+    t.domain_key                                                AS domain,
+    r.answer,
+    NULLIF(r.rationale, '')                                     AS rationale,
+    CASE WHEN r.reversed_at IS NOT NULL THEN 'reversed'
+         WHEN r.durable THEN 'active'
+         ELSE 'provisional' END                                 AS status,
+    -- the code objects this decision governs
+    ['model:' || t.object_name, 'domain:' || t.domain_key]       AS scope_objects,
+    t.dependent_count                                           AS downstream_count,
+    e.full_name                                                 AS decided_by_name,
+    e.title                                                     AS decided_by_role,
+    t.recipient_authority                                       AS decided_by_authority,
+    CAST(r.responded_at AS VARCHAR)                             AS decided_at,
+    w.target                                                    AS artifact_type,
+    w.artifact_ref,
+    CAST(w.landed_at AS VARCHAR)                                AS artifact_landed_at,
+    tr.trigger_source                                           AS provenance_trigger,
+    tr.object_path                                              AS provenance_path,
+    r.quality_score,
+    r.durable                                                   AS durability_survived,
+    CAST(r.reversed_at AS VARCHAR)                              AS reversed_at,
+    -- one chunk, pre-rendered for embedding
+    concat(
+      'Decision: ', r.answer, '. ',
+      'Question: ', t.tap_type_id, '. ',
+      'Decided by ', e.full_name, ' (', e.title, ') on ',
+      strftime(r.responded_at, '%Y-%m-%d'), '. ',
+      'Governs ', t.object_name, ' in domain ', t.domain_key,
+      ', which ', CAST(t.dependent_count AS VARCHAR), ' objects depend on. ',
+      CASE WHEN r.durable THEN 'Active -- survived the durability window.'
+           ELSE 'Provisional or reversed -- do not rely on this.' END
+    )                                                           AS retrieval_text
+FROM taps t
+JOIN tap_responses r USING (tap_id)
+JOIN write_backs   w USING (tap_id)
+JOIN triggers     tr ON tr.trigger_id = t.trigger_id
+JOIN employees     e ON e.email = t.recipient_email
+WHERE r.outcome = 'answered'
+  AND w.status IN ('merged', 'applied');

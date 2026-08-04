@@ -238,11 +238,6 @@ export default async function ConfigPage() {
                     </Td>
                     <Td className="text-xs">
                       {lvl?.label}
-                      {lvl?.funds_incentive_pool && (
-                        <Badge tone="violet" title="Executives allocate rewards and are ineligible to receive them">
-                          funds pool
-                        </Badge>
-                      )}
                     </Td>
                     <Td className="text-[11px] text-slate-600">{lvl?.can_resolve.join(", ")}</Td>
                   </tr>
@@ -253,7 +248,7 @@ export default async function ConfigPage() {
             <Note title="The honest scope of what the IdP gives us">
               Identity and authority. Nothing else. Okta does not know who owns the canonical revenue
               definition — that mapping lives in <code>org/domains.yml</code> and is the one piece of
-              ontology TapIQ cannot avoid. It converges from tap deflections rather than being
+              ontology Tap AI cannot avoid. It converges from tap deflections rather than being
               authored up front.
             </Note>
           </Card>

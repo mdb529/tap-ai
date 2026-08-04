@@ -25,7 +25,7 @@ channels:
     status: simulated
     supports: [buttons, free_text, conversational]
   - key: webapp
-    label: TapIQ inbox (this app)
+    label: Tap AI inbox (this app)
     status: active
     supports: [buttons, free_text, conversational]
 

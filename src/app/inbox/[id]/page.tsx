@@ -112,8 +112,8 @@ export default async function TapDetail({ params }: { params: Promise<{ id: stri
           </div>
           {tap.status === "deflected" && (
             <p className="mt-1 text-[11px] text-amber-700">
-              Recipient deflected to {String((tap as unknown as { deflected_to: string }).deflected_to)}. This is
-              the highest-signal training data for org/domains.yml.
+              Recipient deflected to {tap.deflected_to}. This is the highest-signal training data
+              for org/domains.yml.
             </p>
           )}
         </>

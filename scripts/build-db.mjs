@@ -1,5 +1,5 @@
 /**
- * Build db/tapiq.duckdb from db/schema.sql.
+ * Build db/tap-ai.duckdb from db/schema.sql.
  *
  * Run from the repo root: `npm run db:build`
  * Config (YAML) is NOT loaded here -- the app reads it from disk directly.
@@ -12,7 +12,7 @@ import { resolve, dirname } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 process.chdir(root);                     // schema.sql uses paths relative to root
 
-const dbPath = resolve(root, "db/tapiq.duckdb");
+const dbPath = resolve(root, "db/tap-ai.duckdb");
 mkdirSync(dirname(dbPath), { recursive: true });
 for (const p of [dbPath, `${dbPath}.wal`]) if (existsSync(p)) rmSync(p);
 
@@ -42,7 +42,7 @@ const tables = await conn.runAndReadAll(
   `select table_name, table_type from information_schema.tables
    where table_schema = 'main' order by table_type, table_name`
 );
-console.log(`\nran ${n} statements -> db/tapiq.duckdb\n`);
+console.log(`\nran ${n} statements -> db/tap-ai.duckdb\n`);
 for (const row of tables.getRowObjects()) {
   const name = String(row.table_name);
   const c = await conn.runAndReadAll(`select count(*) as n from "${name}"`);

@@ -55,7 +55,7 @@ sla:
 
 write_back:
   target: override_table
-  table: tapiq_overrides.visit_type_map
+  table: tap_ai_overrides.visit_type_map
   batch: daily
   requires_review: false
 

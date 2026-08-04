@@ -1,0 +1,60 @@
+# Publish the Tap AI site to GitHub Pages on every push to main.
+#
+# One-time setup in the GitHub repo:
+#   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
+#
+# The site is a static export, so there is nothing to run server-side and no
+# secrets to configure. BASE_PATH is set to the repo name because Pages serves
+# project sites from /<repo>; delete it if you attach a custom domain.
+name: Deploy site
+
+on:
+  push:
+    branches: [main, master]
+    paths: ["site/**", ".github/workflows/deploy-site.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      # npm ci needs site/package-lock.json committed. Fall back rather than
+      # failing the whole deploy if it is ever missing.
+      - run: npm ci || npm install
+      - run: npm run typecheck
+      - run: npm run build
+        env:
+          BASE_PATH: /${{ github.event.repository.name }}
+      # Pages serves the artifact as-is; .nojekyll stops it ignoring _next/.
+      - run: touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4

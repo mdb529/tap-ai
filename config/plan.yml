@@ -1,16 +1,35 @@
 # ---------------------------------------------------------------------------
-# COMMERCIAL PLAN + INCENTIVE POOL  (the CFO's view)
+# COMMERCIAL PLAN
 #
-# Two separate money flows, deliberately kept apart:
-#   1. SUBSCRIPTION -- what North Harbor pays TapIQ. Metered on resolved taps,
-#      not seats, because value accrues per decision captured.
-#   2. INCENTIVE POOL -- what North Harbor pays ITS OWN PEOPLE for contributing
-#      context. TapIQ never touches this money; it only tracks allocation.
-#      Executives fund and allocate the pool and are ineligible to receive from
-#      it, which is what keeps the incentive from becoming self-dealing.
+# WHAT CHANGED, AND WHY IT MATTERS ------------------------------------------
+# Two ideas were removed from this file on purpose.
 #
-# Billing on RESOLVED taps (not delivered taps) is the important choice: it
-# means TapIQ is not paid for spamming people. Noise costs us revenue.
+# 1. PER-TAP METERING. Simulating the tap types against their own dedupe rules
+#    showed that most of them EXHAUST their question space: once the org has
+#    answered every payer/code combination, or classified every product line,
+#    the type goes quiet. That is the product working — "every tap densifies the
+#    organization's knowledge so it asks fewer dumb questions" — but it means
+#    per-tap revenue falls as the product succeeds. Metering the thing you are
+#    trying to reduce is a bad business model, so it is gone.
+#
+# 2. THE INCENTIVE POOL. Paying employees per contribution added real
+#    administrative weight (eligibility rules, caps, durability windows, payout
+#    cycles) to buy something the product should earn on its own merits: an
+#    interaction so light that people answer because it is easier than not
+#    answering. If a tap needs a bounty attached, the tap is too much work.
+#
+# WHAT REPLACES THEM -------------------------------------------------------
+# Capability tiers. Price is a function of how much of the business you are
+# governing, not how many notifications we sent:
+#
+#   * how many source systems are connected
+#   * whether STRATEGIC taps are included — the company-level decisions
+#   * which delivery channels are available
+#   * whether the decision ledger is exportable and readable by AI agents
+#   * the governance surface: SSO, audit export, custom tap types
+#
+# Taps themselves are unlimited on every tier. Charging for them would put us
+# in the business of sending more.
 # ---------------------------------------------------------------------------
 
 account:
@@ -19,86 +38,97 @@ account:
   billing_contact: rmarsh@northharbor.health
   currency: USD
 
-# --- VOLUME CORRECTION -----------------------------------------------------
-# The first draft of this file assumed 25,000 included resolved taps per year.
-# Simulating the tap types against their own dedupe rules killed that number.
-#
-#   denial_reason_classification can only ask (10 payers x 12 codes) = 120
-#   distinct questions, and never re-asks within 180 days. Six of the eight tap
-#   types are similarly bounded by a FIXED taxonomy -- they exhaust themselves.
-#   Only phi_column_classification sustains volume, because new columns are
-#   created continuously by ordinary engineering work.
-#
-# Honest steady state for an account this size is ~200-260 resolved taps/month,
-# i.e. ~2,600-3,000/year. That is ~10x below the original assumption.
-#
-# The commercial consequence is the real finding: per-tap metering on a metric
-# that structurally decays means revenue falls as the product succeeds. The
-# tiers below shift weight onto the platform fee and price overage high enough
-# that it is a genuine ceiling rather than a growth engine. This needs a real
-# decision, not a default -- see README, "the pricing problem."
-# ---------------------------------------------------------------------------
-
 subscription:
   plan: Growth
   billing_period: annual
   period_start: 2026-02-01
   period_end: 2027-01-31
-  platform_fee_annual: 48000
-  included_resolved_taps: 3000
-  overage_rate_per_tap: 9.00
-  metered_on: resolved_taps      # delivered-but-ignored taps are never billed
+  annual_fee: 54000
+  # What the tier is actually sized on.
+  connectors_used: 2
+  domains_governed: 10
+  taps_included: unlimited
   seats_included: unlimited
 
+# Ordered cheapest first. `gates` are the things that genuinely change between
+# tiers -- if a row is the same across all three it does not belong here.
 plan_tiers:
-  - name: Pilot
-    platform_fee_annual: 0
-    included_resolved_taps: 250
-    overage_rate_per_tap: 0.00
-    features: [single_source, tactical_taps, webapp_inbox]
+  - name: Starter
+    annual_fee: 0
+    tagline: Prove the loop on one system.
+    gates:
+      connectors: 1
+      tap_classes: [tactical, operational]
+      channels: [webapp, slack]
+      decision_ledger: read_only
+      ai_agent_access: false
+      sso: false
+      audit_export: false
+      custom_tap_types: false
+      support: community
+
   - name: Growth
-    platform_fee_annual: 48000
-    included_resolved_taps: 3000
-    overage_rate_per_tap: 9.00
-    features: [multi_source, tactical_taps, strategic_taps, sso, slack, incentive_pool, analytics]
+    annual_fee: 54000
+    tagline: Govern the decisions that cross team boundaries.
+    gates:
+      connectors: 5
+      tap_classes: [tactical, operational, strategic]
+      channels: [webapp, slack, teams, email, assistant]
+      decision_ledger: export
+      ai_agent_access: true       # MCP server over the decision ledger
+      sso: true
+      audit_export: true
+      custom_tap_types: false
+      support: business_hours
+
   - name: Enterprise
-    platform_fee_annual: 145000
-    included_resolved_taps: 12000
-    overage_rate_per_tap: 6.50
-    features: [multi_source, tactical_taps, strategic_taps, sso, slack, incentive_pool, analytics, custom_tap_types, audit_export, sla_guarantee]
+    annual_fee: 145000
+    tagline: Company-wide, with your own tap types and your own reviewers.
+    gates:
+      connectors: unlimited
+      tap_classes: [tactical, operational, strategic]
+      channels: [webapp, slack, teams, email, assistant]
+      decision_ledger: export
+      ai_agent_access: true
+      sso: true
+      audit_export: true
+      custom_tap_types: true
+      support: dedicated_sla
 
-incentive_pool:
-  fiscal_year: FY2027
-  funded_by: rmarsh@northharbor.health
-  total_funded: 120000
-  allocation_model: reward_weight_x_durability
-  # A tap only earns once it has SURVIVED -- rewarding click volume is how you
-  # get fast, wrong answers. Durability window is the teeth of the model.
-  durability_window_days: 60
-  payout_cadence: quarterly
-  eligibility:
-    exclude_authority_levels: [cxo, vp]
-    min_response_quality_score: 0.6
-  caps:
-    max_per_person_per_quarter: 1500
-    max_per_department_per_quarter: 9000
-  department_allocations:
-    Revenue Cycle: 38000
-    Clinical Operations: 32000
-    Finance: 22000
-    Compliance: 14000
-    Growth: 8000
-    Data Platform: 6000
+# Human-readable labels for the gate keys, used by the pricing page so the table
+# and this file cannot drift apart.
+gate_labels:
+  connectors: Source systems connected
+  tap_classes: Tap classes included
+  channels: Delivery channels
+  decision_ledger: Decision ledger
+  ai_agent_access: AI agent access (MCP)
+  sso: SSO and just-in-time provisioning
+  audit_export: Audit export
+  custom_tap_types: Author your own tap types
+  support: Support
 
-# Inputs to the ROI figures on the billing page. These are ASSUMPTIONS, and the
-# UI labels them as such -- a CFO will discount any number whose derivation is
-# hidden, so we show the arithmetic rather than a magic total.
-roi_assumptions:
+# The single most important gate, called out because it is the one a buyer will
+# argue about.
+tier_rationale:
+  strategic_taps: >
+    Strategic taps are gated to Growth and above because they are the ones that
+    bind the whole company to a definition. They need authority resolution,
+    engineer review, and an audit trail — and they are where nearly all of the
+    modeled value sits. Starter deliberately proves the mechanic on lower-stakes
+    decisions first.
+  connectors: >
+    Connector count is the closest honest proxy for how much of the business is
+    under governance. It grows as adoption grows, which per-tap volume does not.
+
+# Inputs to the value figures on the pricing page. These are ASSUMPTIONS and the
+# UI labels them as such — a CFO discounts any number whose derivation is hidden.
+value_assumptions:
   blended_hourly_cost_analytics_engineer: 95
   blended_hourly_cost_business_stakeholder: 130
-  rework_hours_avoided_per_strategic_tap: 6.5
-  rework_hours_avoided_per_tactical_tap: 0.35
+  rework_hours_avoided_per_strategic_decision: 6.5
+  rework_hours_avoided_per_routine_decision: 0.35
   incident_cost_avoided_per_prevented_inconsistency: 2400
-  # Fraction of "prevented inconsistencies" we claim credit for. Deliberately
-  # conservative -- overclaiming attribution is how these dashboards lose trust.
+  # Deliberately conservative. Overclaiming attribution is how these numbers
+  # lose a technical buyer in the first five minutes.
   attribution_haircut: 0.55

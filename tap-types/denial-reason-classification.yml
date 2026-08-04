@@ -54,7 +54,7 @@ sla:
 
 write_back:
   target: override_table
-  table: tapiq_overrides.denial_reason_category
+  table: tap_ai_overrides.denial_reason_category
   batch: daily
   requires_review: false
 

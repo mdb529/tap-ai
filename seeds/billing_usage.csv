@@ -1,8 +1,2 @@
-month,triggers,suppressed,delivered_taps,resolved_taps,deflected_taps,unresolved_taps,billable_taps,cumulative_resolved,included_allowance_to_date,overage_taps,overage_amount_usd
-2026-02,145,55,90,58,8,24,58,58,250,0,0.0
-2026-03,161,73,88,56,4,28,56,114,500,0,0.0
-2026-04,227,30,197,131,14,52,131,245,750,0,0.0
-2026-05,232,32,200,146,14,40,146,391,1000,0,0.0
-2026-06,300,83,217,166,7,44,166,557,1250,0,0.0
-2026-07,457,247,210,151,11,48,151,708,1500,0,0.0
-2026-08,45,18,27,21,0,5,21,729,1750,0,0.0
+_removed
+"Replaced by adoption_by_month.csv. Taps are unlimited on every pricing tier, so there is no allowance and no overage to meter - only whether people are answering. Safe to delete."

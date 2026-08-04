@@ -30,12 +30,11 @@ taps   = load("seeds/taps.csv")
 resps  = load("seeds/tap_responses.csv")
 wbs    = load("seeds/write_backs.csv")
 imps   = load("seeds/tap_impacts.csv")
-ledger = load("seeds/incentive_ledger.csv")
-usage  = load("seeds/billing_usage.csv")
+usage  = load("seeds/adoption_by_month.csv")
 
 print(f"loaded: employees={len(emps)} objects={len(objs)} triggers={len(trigs)} "
       f"taps={len(taps)} responses={len(resps)} writebacks={len(wbs)} "
-      f"impacts={len(imps)} ledger={len(ledger)} usage={len(usage)}")
+      f"impacts={len(imps)} adoption={len(usage)}")
 
 # ---------------------------------------------------------------- integrity
 emails   = {e["email"] for e in emps}
@@ -103,26 +102,8 @@ for i in imps:
     if not w or w["status"] not in ("merged","applied"):
         fail(f"impact {i['impact_id']}: impact recorded without a landed write-back")
 
-# incentive rules from config/plan.yml must actually hold in the data
-auth_by_email = {e["email"]: e["authority_level"] for e in emps}
-per_person_q = defaultdict(float)
-for l in ledger:
-    if l["tap_id"] not in tap_ids: fail(f"ledger {l['entry_id']}: orphan tap_id")
-    if auth_by_email.get(l["employee_email"]) in ("cxo","vp"):
-        fail(f"ledger {l['entry_id']}: exec/vp is ineligible but has an entry")
-    r = resp_by_tap.get(l["tap_id"])
-    if not r: fail(f"ledger {l['entry_id']}: no response for tap")
-    else:
-        if r["durable"] != "true": fail(f"ledger {l['entry_id']}: paid on a non-durable answer")
-        if float(r["quality_score"]) < 0.6: fail(f"ledger {l['entry_id']}: below min quality 0.6")
-    per_person_q[(l["employee_email"], l["quarter"])] += float(l["amount_usd"])
-for k, v in per_person_q.items():
-    if v > 1500.0001: fail(f"incentive cap breached for {k}: ${v:,.2f} > $1,500")
-
-# billing: billable must equal resolved, and never exceed delivered
+# adoption: resolved can never exceed delivered
 for u in usage:
-    if u["billable_taps"] != u["resolved_taps"]:
-        fail(f"usage {u['month']}: billable != resolved")
     if int(u["resolved_taps"]) > int(u["delivered_taps"]):
         fail(f"usage {u['month']}: resolved > delivered")
     if int(u["delivered_taps"]) != sum(1 for t in taps if t["month"] == u["month"]):
@@ -140,7 +121,7 @@ def mk(name, rows):
                     [[r[c] for c in cols] for r in rows])
 for n, rows in [("employees",emps),("source_objects",objs),("triggers",trigs),("taps",taps),
                 ("tap_responses",resps),("write_backs",wbs),("tap_impacts",imps),
-                ("incentive_ledger",ledger),("billing_usage",usage)]:
+                ("adoption_by_month",usage)]:
     mk(n, rows)
 
 # v_funnel_by_month, without the MEDIAN dependency
@@ -174,35 +155,104 @@ for tt in sorted(tt_ids):
     print(f"   {tt:<32} {p:5.1f}%  n={len(rs):<4} durability={dur:4.0f}%  median={med:>5}m  {verdict}")
 
 # ------------------------------------------------ column existence in app SQL
+# ---- derive relation columns from schema.sql, do NOT hand-maintain them ----
+# An earlier version of this script asserted v_tap_detail's columns by hand and
+# was wrong -- it claimed trigger_id existed when the view never selected it,
+# so a broken page passed verification. Parse the real thing instead.
+schema = pathlib.Path("db/schema.sql").read_text()
+
+def _depth_map(sql):
+    """Yield (index, token, depth_before_token) for parens and bare keywords."""
+    depth = 0
+    for m in re.finditer(r"\(|\)|\bSELECT\b|\bFROM\b", sql, re.I):
+        tok = m.group(0).upper()
+        if tok == "(":
+            depth += 1
+        elif tok == ")":
+            depth -= 1
+        else:
+            yield m.start(), tok, depth
+
+def split_top_level(sql_list):
+    """Split a SELECT list on commas outside parens AND brackets.
+
+    Brackets matter: DuckDB list literals like ['model:' || x, 'domain:' || y]
+    contain commas that are not column separators.
+    """
+    out, depth, cur = [], 0, ""
+    for ch in sql_list:
+        if ch in "([": depth += 1
+        elif ch in ")]": depth -= 1
+        if ch == "," and depth == 0:
+            out.append(cur); cur = ""
+        else:
+            cur += ch
+    if cur.strip(): out.append(cur)
+    return out
+
+def output_name(expr):
+    """The column name a SELECT-list item produces."""
+    e = " ".join(expr.split())
+    m = re.search(r"\bAS\s+([A-Za-z_]\w*)\s*$", e, re.I)
+    if m: return m.group(1).lower()
+    m = re.match(r"^[A-Za-z_]\w*\.([A-Za-z_]\w*)$", e)
+    if m: return m.group(1).lower()
+    m = re.match(r"^([A-Za-z_]\w*)$", e)
+    if m: return m.group(1).lower()
+    return None
+
+def view_columns(name, base_cols):
+    """Columns a view produces.
+
+    Depth-aware on purpose. CTE bodies and correlated subqueries both contain
+    SELECT and FROM, so naive first/last-match parsing picks the wrong list --
+    which is exactly how the missing trigger_id slipped past this script.
+    """
+    # The terminator must be a semicolon at END OF LINE. A bare ";" also
+    # matches semicolons inside string literals, which silently truncates the
+    # view body and makes every column after it invisible.
+    m = re.search(rf"CREATE VIEW {name} AS(.*?);\s*$", schema, re.S | re.I | re.M)
+    if not m: return None
+    body = "\n".join(l for l in m.group(1).split("\n") if not l.strip().startswith("--"))
+
+    toks = list(_depth_map(body))
+    outer_selects = [i for i, tok, d in toks if tok == "SELECT" and d == 0]
+    if not outer_selects: return None
+    sel = outer_selects[-1]                       # the view's own SELECT
+    froms = [i for i, tok, d in toks if tok == "FROM" and d == 0 and i > sel]
+    cut = froms[0] if froms else len(body)
+
+    items = split_top_level(body[sel + 6 : cut])
+    cols = {output_name(e) for e in items}
+    cols.discard(None)
+    # A bare "*" or "alias.*" ITEM means everything from the base relation.
+    # Note: "100.0 * COUNT(*)" is multiplication, not a star -- test the whole
+    # item, never a substring.
+    if any(re.fullmatch(r"(\w+\.)?\*", " ".join(e.split())) for e in items):
+        cols |= base_cols
+    return cols
+
 view_cols = {
-  "v_tap_detail": set(taps[0]) | {"responded_at","minutes_to_respond","answer","deflected_to",
-     "rationale","quality_score","rated_worth_asking","durable","reversed_at",
-     "writeback_target","writeback_ref","writeback_status","writeback_landed_at","reviewer_email",
-     "impact_type","impact_magnitude","est_minutes_saved","within_sla"},
-  "v_funnel_by_month": {"month","triggers_fired","suppressed_dedupe","suppressed_rate_limit",
-     "suppressed_low_confidence","taps_generated","taps_delivered","answered","deflected",
-     "timed_out","expired","pending","writebacks","writebacks_landed","answer_rate_pct"},
-  "v_precision_by_type": {"tap_type_id","tap_class","ratings","rated_worth","precision_pct",
-     "avg_quality","durability_pct","median_minutes","verdict"},
-  "v_type_decay": {"tap_type_id","tap_class","month","taps","cumulative_taps"},
-  "v_roi_by_month": {"month","impacts","strategic_impacts","tactical_impacts","minutes_saved",
-     "hours_saved","inconsistencies_prevented","incidents_avoided"},
-  "v_routing_quality": {"domain_key","routed_via","taps","deflected","deflection_rate_pct",
-     "unresolved","answer_rate_pct"},
-  "v_department_mix": {"department","tap_class","taps","answered","answer_rate_pct","people_tapped"},
-  "v_leaderboard": {"email","name","department","authority","taps_resolved","strategic_resolved",
-     "avg_quality","durability_pct","median_minutes","incentive_usd"},
   "taps": set(taps[0]), "triggers": set(trigs[0]), "tap_responses": set(resps[0]),
   "write_backs": set(wbs[0]), "tap_impacts": set(imps[0]),
-  "incentive_ledger": set(ledger[0]), "billing_usage": set(usage[0]),
+  "adoption_by_month": set(usage[0]),
   "source_objects": set(objs[0]), "employees": set(emps[0]),
 }
+for vname in re.findall(r"CREATE VIEW (\w+) AS", schema, re.I):
+    cols = view_columns(vname, set(taps[0]))
+    if not cols:
+        fail(f"could not parse columns for view {vname}")
+        continue
+    view_cols[vname] = cols
+print("\nview columns parsed from schema.sql:")
+for vname in sorted(k for k in view_cols if k.startswith("v_")):
+    print(f"   {vname:<22} {len(view_cols[vname]):>3} columns")
 
 # Pull real SQL blocks out of the app and check bare identifiers.
 # Two things must be stripped before matching or the check is pure noise:
 #   * single-quoted string literals ('answered', 'merged') -- these are VALUES
 #   * prose in template literals that merely contains the word "from"
-SQL_RE = re.compile(r"`([^`]*?\bSELECT\b[^`]*?\bFROM\s+(\w+)\b[^`]*?)`", re.S | re.I)
+SQL_RE = re.compile(r"`(\s*(?:SELECT|WITH)\b[^`]*?\bFROM\s+(\w+)\b[^`]*?)`", re.S | re.I)
 LITERAL_RE = re.compile(r"'[^']*'")
 KEYWORDS = {"select","from","where","group","by","order","limit","as","and","or","not","null","is",
  "true","false",

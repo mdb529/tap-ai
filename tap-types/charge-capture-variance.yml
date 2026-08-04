@@ -57,7 +57,7 @@ sla:
 
 write_back:
   target: override_table
-  table: tapiq_overrides.charge_variance_notes
+  table: tap_ai_overrides.charge_variance_notes
   batch: daily
   requires_review: false
 

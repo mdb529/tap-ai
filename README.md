@@ -1,14 +1,51 @@
-# TapIQ — local MVP
+# Tap AI
 
-A lightweight, portable feedback layer that lets non-technical business stakeholders
-contribute subject-matter context directly into an organization's codebase and data
-logic — without touching PRs, command lines, or dashboards.
+**Put your experts' knowledge to work.** The people who understand your business already
+know the answers — what counts as revenue, which claims are appealable, when a contract is
+evergreen. That knowledge just has no way to reach the systems that depend on it. Tap AI
+turns it into one question they can answer in seconds, and hands engineers an explicit
+decision to build against.
 
-The thesis: agentic AI collapsed the technical barrier to contributing code. The scarce
-resource is no longer engineering capacity — it's the business context and judgment living
-in the heads of analysts, directors, and executives. TapIQ captures that context at the
-moment it matters, sized to a five-second **tap**, and turns the answer into a durable
-artifact an engineer can approve against existing guardrails.
+Three things have to be true at once, and the whole design follows from them:
+
+1. **Lightweight** — a subject-matter expert contributes in five seconds, from a tool they
+   already have open. One question, three lines of context, a few buttons. Nothing to
+   install, no login, no new vocabulary.
+2. **Safe and governed** — non-technical people can change what the business *means*
+   without being able to break how it *runs*. Company-level decisions open a pull request
+   for your engineers. Every decision is logged with who, when and what changed. SSO
+   decides who is allowed to answer. Unanswered privacy questions fail closed.
+3. **Drives real change** — the right person is asked at the moment the decision matters,
+   rather than shown a chart and left to notice. A dashboard has to be opened by someone
+   who already suspects a problem; a tap reaches out, and escalates if ignored.
+
+---
+
+## Two projects, deliberately decoupled
+
+| | `site/` | root (this project) |
+|---|---|---|
+| What | The public website | The working MVP |
+| Dependencies | next, react, react-dom | + DuckDB, yaml |
+| Data layer | **None** | DuckDB warehouse, YAML config |
+| Output | Static `out/` folder | Next server |
+| Deploy | GitHub Pages, Vercel, S3, a USB stick | Local |
+
+The split exists so the website can be shared without the warehouse. A demo that can fail
+because a local database was not built is a demo that will fail. The MVP keeps the full
+architecture to build on.
+
+```bash
+# the website
+cd site && npm install && npm run dev     # http://localhost:3100
+cd site && npm run build                  # -> site/out/  (static, no server)
+
+# the MVP
+npm install && npm run setup && npm run dev   # http://localhost:3000
+```
+
+See [`site/README.md`](site/README.md) for the three ways to publish — GitHub Pages via the
+included Actions workflow, Vercel, or handing someone a zipped folder.
 
 ---
 
@@ -18,7 +55,7 @@ Requires Node 20+ and Python 3 (only for regenerating seeds).
 
 ```bash
 npm install          # must run on your machine -- @duckdb/node-api is a native module
-npm run setup        # generate seeds -> build db/tapiq.duckdb
+npm run setup        # generate seeds -> build db/tap-ai.duckdb -> export decisions
 npm run dev          # http://localhost:3000
 ```
 
@@ -36,13 +73,54 @@ still publishing on a fast-moving version line.
 python3 scripts/verify.py
 ```
 
-It checks referential integrity, the status/response/write-back contracts, the incentive
-caps declared in `config/plan.yml`, and that every column the app's SQL references
-actually exists.
+It checks referential integrity, the status/response/write-back contracts, and that every
+column the app's SQL references actually exists — parsed out of `db/schema.sql` rather than
+hand-listed, because a hand-listed version silently passed a broken page once already.
+
+`npm run verify` runs that plus `scripts/tone_audit.py`, which fails the build on copy that
+frames engineers as the problem or reintroduces a removed concept (tap budget, incentive
+pool, overage). The messaging position is checked rather than remembered.
 
 ---
 
 ## What's real and what's faked
+
+### Pages
+
+| Route | Purpose |
+|---|---|
+| `/` | MVP overview — real activity from the warehouse, with a route into each surface. |
+| `/inbox` | Real taps from the warehouse, plus an end-to-end trace of any single one. |
+| `/tap-types` | The registry, lint report, and precision gate. |
+| `/analytics` | Funnel, per-type decay, routing quality, contributor breadth. |
+| `/pricing` | Capability tiers, adoption, and value shown as arithmetic. |
+| `/config` | Source connection, SSO, domain ownership, delivery pacing. |
+| `/notes` | The design findings and the what-this-proves framing. |
+
+**One nav on every route** — `src/components/shell.tsx`. On a phone it is a horizontally
+scrollable strip rather than a wrapping grid or a hamburger, so the current location stays
+visible and costs one line. `/billing` redirects to `/pricing`.
+
+The marketing homepage and its components moved to `site/`. The stubs left behind under
+`src/components/` and `src/lib/` say where they went and are safe to delete.
+
+### Scenarios (now in `site/src/lib/scenarios.ts`)
+
+Six industries x three tap classes = 18 hand-written scenarios, each carrying content for
+all six stages of the flow. `Vertical.scenarios` is a `Record<TapClass, Scenario>`, so the
+type system guarantees every industry/class combination resolves.
+
+Triggers are **business events, not file paths**. Six event types can open a tap and only
+one of them is a code change:
+
+| Event type | Example |
+|---|---|
+| logic change | How net patient revenue is calculated changed |
+| conflicting definitions | 41 dashboards compute "active customer" three ways |
+| new value | A product launched with no revenue category |
+| data anomaly | A closed-won deal's ARR dropped $48k overnight |
+| record needs judgment | 84 storm claims: wind or flood? |
+| unused metric | Something maintained that nobody appears to query |
 
 | Concern | In this MVP | Next step |
 |---|---|---|
@@ -66,7 +144,13 @@ tap-types/           The tap type registry. One YAML file per type, plus _SPEC.y
 seeds/               Simulated activity as CSV. Committed -- this is the demo fixture.
 db/schema.sql        Loads seeds into DuckDB and defines the analytical views.
 scripts/             Seed generator, database builder, verifier.
-src/app/             Next.js pages.
+src/app/page.tsx     Customer-facing homepage. No database dependency -- a demo that
+                     can fail because a local warehouse wasn't built is a demo that will.
+src/app/notes/       Internal design notes (the three findings). Off the customer path.
+src/app/             The rest of the product surface: inbox, tap types, analytics, billing, config.
+src/lib/scenarios.ts       18 curated scenarios, 6 industries x 3 tap classes. Hand-written.
+src/lib/decision-ledger.ts The AI-facing decision record format and MCP surface.
+src/components/            walkthrough, mobile-surfaces, tap-anatomy, ai-ledger, visuals.
 src/lib/             DuckDB access, config loaders, tap type lint, formatters.
 ```
 
@@ -94,7 +178,7 @@ Trigger  →  Classify  →  Route  →  Tap  →  Write back
 A source is anything that can satisfy four calls: `discover()`, `diff(a, b)`,
 `annotations()`, `write_back()`. That's the entire portability claim, and it's worth
 keeping honest — dbt is the first adapter because the semantic layer is where business
-intent gets explicit enough to detect disagreement cleanly, not because TapIQ is a dbt
+intent gets explicit enough to detect disagreement cleanly, not because Tap AI is a dbt
 product.
 
 ---
@@ -156,11 +240,16 @@ taps per year. Honest steady state for this account is ~200–260/month, or abou
 — **10x lower**. Worse, metering on a number that structurally decays means revenue falls
 as the product succeeds.
 
-> **The pricing problem.** Per-tap metering is misaligned with the mechanic that makes the
-> product non-annoying. Options: weight the platform fee heavily; meter something that
-> genuinely grows (source objects under coverage, domains governed, engineers whose work is
-> gated); or price on outcomes. This needs a real decision, not a default. The tiers in
-> `config/plan.yml` currently take the platform-fee-weighted option as a placeholder.
+> **Resolved: pricing is now capability tiers.** Taps are unlimited on every plan. Price is
+> a function of connectors, whether strategic (company-level) taps are included, channels,
+> decision-ledger export and AI agent access, and governance features. Charging per tap
+> would have put us in the business of sending more of them, and metering a number that
+> structurally decays means revenue falls as the product succeeds.
+>
+> **Also removed: the incentive pool.** Paying people per contribution added real
+> administrative weight — eligibility, caps, durability windows, payout cycles — to buy
+> something the product should earn on its own: an interaction lighter than the effort of
+> ignoring it. If a tap needs a bounty attached, the tap is too much work.
 >
 > The design corollary is sharper than the pricing one: **a tap type tied to a fixed
 > taxonomy is a one-time migration; a tap type tied to ongoing creation is a
@@ -170,7 +259,7 @@ as the product succeeds.
 
 Okta knows org structure and group membership. It does **not** know who owns "the
 canonical revenue definition." Mapping business domain → owner is a real ontology, and
-it's the one piece TapIQ can't avoid owning something like.
+it's the one piece Tap AI can't avoid owning something like.
 
 Three things keep the cost low:
 

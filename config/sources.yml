@@ -3,7 +3,7 @@
 #
 # A "source" is any Git-backed system whose logic encodes business meaning.
 # dbt is the first adapter because the semantic layer is where business intent
-# gets explicit enough to detect disagreement cleanly -- NOT because TapIQ is
+# gets explicit enough to detect disagreement cleanly -- NOT because Tap AI is
 # a dbt product. The adapter interface below is deliberately generic:
 #
 #   discover()   -> list of source objects (a model, a pricing rule, an API

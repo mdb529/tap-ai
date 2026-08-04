@@ -50,7 +50,7 @@ export default async function AnalyticsPage() {
     q<{ domain_key: string; routed_via: string; taps: number; deflected: number; deflection_rate_pct: number; answer_rate_pct: number }>(
       `SELECT * FROM v_routing_quality WHERE taps >= 5`
     ),
-    q<{ name: string; department: string; authority: string; taps_resolved: number; strategic_resolved: number; avg_quality: number; durability_pct: number; median_minutes: number; incentive_usd: number }>(
+    q<{ name: string; department: string; authority: string; taps_resolved: number; strategic_resolved: number; avg_quality: number; durability_pct: number; median_minutes: number }>(
       `SELECT * FROM v_leaderboard LIMIT 12`
     ),
     q<{ impact_type: string; tap_class: string; n: number; magnitude: number; minutes: number }>(
@@ -270,9 +270,9 @@ export default async function AnalyticsPage() {
       <div className="mt-5 grid gap-5 lg:grid-cols-[1.3fr_1fr]">
         <Card
           title="Who is carrying the context load"
-          subtitle="Ranked by resolved taps. Durability matters more than volume -- an answer that gets reversed cost the org twice."
+          subtitle="Ranked by decisions captured. Durability matters more than volume — an answer that gets reversed cost the org twice."
         >
-          <Table head={["Person", "Resolved", "Strategic", "Quality", "Durability", "Median", "Incentive"]} dense>
+          <Table head={["Person", "Resolved", "Strategic", "Quality", "Durability", "Median"]} dense>
             {leaders.map((l) => (
               <tr key={l.name}>
                 <Td>
@@ -288,9 +288,6 @@ export default async function AnalyticsPage() {
                   {pct(l.durability_pct)}
                 </Td>
                 <Td className="tabular-nums text-xs">{duration(l.median_minutes)}</Td>
-                <Td className="tabular-nums text-xs">
-                  {l.incentive_usd ? `$${Math.round(l.incentive_usd).toLocaleString()}` : "--"}
-                </Td>
               </tr>
             ))}
           </Table>

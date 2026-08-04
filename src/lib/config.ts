@@ -32,7 +32,6 @@ export interface AuthorityLevel {
   can_resolve: TapClass[];
   strategic_scope?: string;
   idp_group: string;
-  funds_incentive_pool?: boolean;
 }
 
 export interface Domain {

@@ -1,5 +1,5 @@
 """
-Generate simulated TapIQ activity data as CSVs under seeds/.
+Generate simulated Tap AI activity data as CSVs under seeds/.
 
 Deterministic (fixed seed) so the demo is stable and diffs are meaningful.
 
@@ -459,7 +459,7 @@ for ym in MONTHS:
             wid += 1
             tgt = prof["wb"]
             if tgt == "override_table":
-                art = "tapiq_overrides." + ("denial_reason_category" if "denial" in tt_id
+                art = "tap_ai_overrides." + ("denial_reason_category" if "denial" in tt_id
                        else "visit_type_map" if "encounter" in tt_id else "charge_variance_notes")
                 st, reviewer, revdelay = "applied", "", 0
             else:
@@ -505,45 +505,17 @@ write("tap_responses.csv", responses)
 write("write_backs.csv", writebacks)
 write("tap_impacts.csv", impacts)
 
-# ---- incentive ledger ----------------------------------------------------
-# Only DURABLE answers earn, execs are ineligible, caps enforced per plan.yml.
-POINT_VALUE = 12.0
-CAP_PERSON_Q = 1500.0
-by_person_q = defaultdict(float)
-ledger = []
-eid = 0
-resp_by_tap = {r["tap_id"]: r for r in responses}
-tap_by_id = {t["tap_id"]: t for t in taps}
-for r in responses:
-    if r["outcome"] != "answered" or r["durable"] != "true":
-        continue
-    prof = TT[r["tap_type_id"]]
-    if r["responder_authority"] in ("cxo","vp"):
-        continue
-    if float(r["quality_score"]) < 0.6:
-        continue
-    m = r["month"]; q = "FY27-Q1" if m <= "2026-04" else "FY27-Q2" if m <= "2026-07" else "FY27-Q3"
-    pts = prof["reward"] * (1.35 if r["tap_class"] == "strategic" else 1.0)
-    amt = round(pts * POINT_VALUE, 2)
-    k = (r["responder_email"], q)
-    if by_person_q[k] + amt > CAP_PERSON_Q:
-        amt, status_l = round(max(0.0, CAP_PERSON_Q - by_person_q[k]), 2), "capped"
-    else:
-        status_l = "paid" if q != "FY27-Q3" else "accrued"
-    by_person_q[k] += amt
-    eid += 1
-    ledger.append({"entry_id": f"INC{eid:06d}", "tap_id": r["tap_id"],
-        "employee_email": r["responder_email"], "employee_name": r["responder_name"],
-        "department": r["responder_department"], "authority_level": r["responder_authority"],
-        "quarter": q, "month": m, "tap_type_id": r["tap_type_id"], "tap_class": r["tap_class"],
-        "points": round(pts,2), "amount_usd": amt, "status": status_l})
-write("incentive_ledger.csv", ledger)
+# ---- incentive ledger: REMOVED ------------------------------------------
+# Paying people per contribution bought administrative weight (eligibility,
+# caps, durability windows, payout cycles) to purchase something the product
+# should earn on its own: an interaction lighter than the effort of ignoring it.
+# If a tap needs a bounty attached, the tap is too much work.
 
 # ---- billing usage -------------------------------------------------------
 # Metered on RESOLVED taps. Delivered-but-ignored taps are never billed, which
-# is the whole point: noise costs TapIQ revenue.
-INCLUDED_ANNUAL = 3000
-monthly_allow = INCLUDED_ANNUAL / 12
+# is the whole point: noise costs Tap AI revenue.
+# Taps are unlimited on every tier now, so this table tracks ADOPTION rather
+# than consumption. No allowance, no overage.
 rows, cum = [], 0.0
 for ym in MONTHS:
     deliv = sum(1 for t in taps if t["month"] == ym)
@@ -552,15 +524,11 @@ for ym in MONTHS:
     to = sum(1 for t in taps if t["month"] == ym and t["status"] in ("timed_out","expired"))
     supp = sum(1 for t in triggers if t["month"] == ym and t["outcome"] != "tap_generated")
     cum += resolved
-    allow_cum = monthly_allow * (MONTHS.index(ym) + 1)
-    over = max(0, int(cum - allow_cum)) if cum > allow_cum else 0
     rows.append({"month": ym, "triggers": sum(1 for t in triggers if t["month"] == ym),
         "suppressed": supp, "delivered_taps": deliv, "resolved_taps": resolved,
         "deflected_taps": defl, "unresolved_taps": to,
-        "billable_taps": resolved, "cumulative_resolved": int(cum),
-        "included_allowance_to_date": int(allow_cum),
-        "overage_taps": over, "overage_amount_usd": round(over * 9.00, 2)})
-write("billing_usage.csv", rows)
+        "cumulative_resolved": int(cum)})
+write("adoption_by_month.csv", rows)
 
 # ---- console summary -----------------------------------------------------
 print("\nper-month taps (watch per-type decay under net growth):")
@@ -574,8 +542,7 @@ for ym in MONTHS:
         tot += c
         cells += f"{(c or '-'):>13}"
     print(f"  {ym}" + cells + f"{tot:>9}")
-print(f"\n  total taps {len(taps)}  |  resolved {sum(1 for r in responses if r['outcome']=='answered')}"
-      f"  |  incentive $ {sum(l['amount_usd'] for l in ledger):,.0f}")
+print(f"\n  total taps {len(taps)}  |  resolved {sum(1 for r in responses if r['outcome']=='answered')}")
 print("\n  precision (rated 'worth asking') by tap type:")
 for t in tt_ids:
     rs = [r for r in responses if r["tap_type_id"] == t and r["rated_worth_asking"]]

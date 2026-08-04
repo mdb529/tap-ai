@@ -1,16 +1,18 @@
 {
-  "name": "tapiq",
+  "name": "tap-ai",
   "version": "0.1.0",
   "private": true,
-  "description": "TapIQ MVP -- a lightweight, portable feedback layer that lets business stakeholders contribute subject-matter context into an org's codebase.",
+  "description": "Tap AI -- a lightweight, governed way for subject-matter experts to contribute business context into the systems that depend on it.",
   "scripts": {
     "seeds:build": "python3 scripts/gen_employees.py && python3 scripts/gen_seeds.py",
     "db:build": "node scripts/build-db.mjs",
-    "setup": "npm run seeds:build && npm run db:build",
+    "setup": "npm run seeds:build && npm run db:build && npm run export:decisions",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "export:decisions": "node scripts/export-decisions.mjs",
+    "verify": "python3 scripts/verify.py && python3 scripts/tone_audit.py"
   },
   "dependencies": {
     "@duckdb/node-api": "latest",

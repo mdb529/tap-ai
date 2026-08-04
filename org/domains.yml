@@ -4,7 +4,7 @@
 # DESIGN NOTE / HONEST CAVEAT -------------------------------------------------
 # An IdP does NOT know who owns "the canonical revenue definition." Okta knows
 # org structure and group membership. Mapping business domain -> owner is a
-# genuine ontology, and it is the one piece of ontology TapIQ cannot avoid
+# genuine ontology, and it is the one piece of ontology Tap AI cannot avoid
 # owning something like.
 #
 # We keep the cost low three ways:

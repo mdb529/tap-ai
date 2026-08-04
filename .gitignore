@@ -8,5 +8,7 @@ next-env.d.ts
 
 # Generated warehouse -- rebuild with `npm run db:build`.
 # Seeds ARE committed: they are the fixture that makes the demo reproducible.
-db/tapiq.duckdb
-db/tapiq.duckdb.wal
+db/*.duckdb
+db/*.duckdb.wal
+
+exports/

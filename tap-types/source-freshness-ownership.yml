@@ -5,14 +5,14 @@ status: active
 class: tactical
 description: >
   A source has breached its freshness SLA and no owner is on record. Rather
-  than paging the data platform team, TapIQ asks the likeliest business owner
+  than paging the data platform team, Tap AI asks the likeliest business owner
   to confirm ownership -- turning an alert into a durable ownership record.
 
 trigger:
   source: annotation
   match:
     object_type: source
-    annotation_key: tapiq.needs_owner
+    annotation_key: tap_ai.needs_owner
   rate_limit: 20
 
 classification:

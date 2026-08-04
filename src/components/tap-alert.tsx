@@ -23,14 +23,22 @@ export interface TapRow {
   dependent_count: number;
   status: string;
   context_json: string;
+  // Everything below comes from the LEFT JOINs in v_tap_detail, so it is
+  // legitimately absent for a pending tap. Optional here rather than asserted
+  // at the call site.
   responded_at?: string | null;
   minutes_to_respond?: number | null;
   answer?: string | null;
+  deflected_to?: string | null;
+  rationale?: string | null;
   quality_score?: number | null;
+  rated_worth_asking?: boolean | null;
   durable?: boolean | null;
+  reversed_at?: string | null;
   writeback_target?: string | null;
   writeback_ref?: string | null;
   writeback_status?: string | null;
+  writeback_landed_at?: string | null;
 }
 
 export const ctxOf = (t: TapRow): Record<string, unknown> => {
@@ -67,8 +75,8 @@ export function TapAlert({
   const requireRationale = new Set(type?.question.response.require_rationale_on ?? []);
 
   const chrome = {
-    slack: { name: "TapIQ", handle: "APP", accent: "border-l-teal-600" },
-    email: { name: "TapIQ digest", handle: "no-reply@tapiq.dev", accent: "border-l-slate-400" },
+    slack: { name: "Tap AI", handle: "APP", accent: "border-l-teal-600" },
+    email: { name: "Tap AI digest", handle: "no-reply@tap-ai.dev", accent: "border-l-slate-400" },
     claude: { name: "Claude", handle: "assistant", accent: "border-l-violet-500" },
   }[surface];
 

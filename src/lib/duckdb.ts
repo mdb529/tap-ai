@@ -14,25 +14,25 @@ type Conn = Awaited<ReturnType<Awaited<ReturnType<typeof DuckDBInstance.create>>
  * modules; without the global cache you leak a connection per save).
  */
 
-const DB_PATH = resolve(process.cwd(), "db/tapiq.duckdb");
+const DB_PATH = resolve(process.cwd(), "db/tap-ai.duckdb");
 
 declare global {
   // eslint-disable-next-line no-var
-  var __tapiqConn: Promise<Conn> | undefined;
+  var __tapAiConn: Promise<Conn> | undefined;
 }
 
 function connect(): Promise<Conn> {
   if (!existsSync(DB_PATH)) {
     throw new Error(
-      `No warehouse at db/tapiq.duckdb.\nRun: npm run setup   (generates seeds, then builds the database)`
+      `No warehouse at db/tap-ai.duckdb.\nRun: npm run setup   (generates seeds, then builds the database)`
     );
   }
   return DuckDBInstance.create(DB_PATH).then((i) => i.connect());
 }
 
 function conn(): Promise<Conn> {
-  if (!globalThis.__tapiqConn) globalThis.__tapiqConn = connect();
-  return globalThis.__tapiqConn;
+  if (!globalThis.__tapAiConn) globalThis.__tapAiConn = connect();
+  return globalThis.__tapAiConn;
 }
 
 /**

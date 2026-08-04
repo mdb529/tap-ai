@@ -5,13 +5,13 @@
 # the connection an admin would configure, and the local resolver in
 # src/lib/org.ts reads org/employees.csv + org/authority.yml in its place.
 #
-# What TapIQ actually needs from the IdP is small and worth stating plainly,
+# What Tap AI actually needs from the IdP is small and worth stating plainly,
 # because it is the difference between "easy enterprise sale" and "six-month
 # security review":
 #   - OIDC login (no password storage)
 #   - email, name, department claims
 #   - group membership -> authority level
-# TapIQ does NOT need: write access, SCIM provisioning, or the full org chart.
+# Tap AI does NOT need: write access, SCIM provisioning, or the full org chart.
 # ---------------------------------------------------------------------------
 
 provider: okta
@@ -22,7 +22,7 @@ protocol: oidc
 connection:
   issuer: https://northharbor.okta.com/oauth2/default
   client_id: 0oa8SIMULATEDxxxxx
-  client_secret_ref: env:TAPIQ_SSO_CLIENT_SECRET   # never inline a secret
+  client_secret_ref: env:TAP_AI_SSO_CLIENT_SECRET   # never inline a secret
   redirect_uri: http://localhost:3000/api/auth/callback
   scopes: [openid, profile, email, groups]
 
@@ -32,14 +32,14 @@ claim_mapping:
   department: department
   groups: groups
 
-# IdP group -> TapIQ authority level. Mirrors org/authority.yml idp_group keys.
+# IdP group -> Tap AI authority level. Mirrors org/authority.yml idp_group keys.
 group_to_authority:
-  tapiq-exec: cxo
-  tapiq-vp: vp
-  tapiq-director: director
-  tapiq-manager: manager
-  tapiq-lead: lead
-  tapiq-ic: ic
+  tap-ai-exec: cxo
+  tap-ai-vp: vp
+  tap-ai-director: director
+  tap-ai-manager: manager
+  tap-ai-lead: lead
+  tap-ai-ic: ic
 
 provisioning:
   mode: jit                  # just-in-time on first login; no SCIM required
