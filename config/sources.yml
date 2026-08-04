@@ -1,0 +1,83 @@
+# ---------------------------------------------------------------------------
+# SOURCE SYSTEM CONNECTIONS
+#
+# A "source" is any Git-backed system whose logic encodes business meaning.
+# dbt is the first adapter because the semantic layer is where business intent
+# gets explicit enough to detect disagreement cleanly -- NOT because TapIQ is
+# a dbt product. The adapter interface below is deliberately generic:
+#
+#   discover()   -> list of source objects (a model, a pricing rule, an API
+#                   handler, a feature flag) each with a path + domain hint
+#   diff(a, b)   -> semantic changes between two revisions
+#   annotations()-> explicit human-authored tap requests found in the code
+#   write_back() -> pull_request | override_table | metadata_patch
+#
+# Anything that can satisfy those four calls is a source. That is the whole
+# portability claim, and it is the claim to keep honest.
+# ---------------------------------------------------------------------------
+
+adapters:
+  - key: dbt
+    label: dbt project
+    status: seeded            # seeded -> live_api is the next step
+    write_back_targets: [pull_request, override_table, metadata_patch]
+    notes: >
+      MVP reads from seeds/ and DuckDB. Next step is the dbt platform
+      Discovery + Administrative APIs against Mike's sandbox project, which
+      gives us lineage for blast radius and manifest diffs for triggers.
+  - key: github_generic
+    label: Generic Git repository
+    status: planned
+    write_back_targets: [pull_request]
+    notes: Language-agnostic fallback. Diff classification only, no lineage.
+  - key: looker
+    label: BI semantic layer
+    status: planned
+    write_back_targets: [pull_request]
+
+connections:
+  - id: SRC001
+    name: North Harbor Analytics
+    adapter: dbt
+    status: connected
+    connected_at: 2026-02-11
+    connected_by: dpalmer@northharbor.health
+    repo:
+      provider: github
+      url: https://github.com/northharbor/dbt-healthcare-analytics
+      default_branch: main
+      # Ride CODEOWNERS -- do not rebuild it. Where CODEOWNERS resolves an
+      # owner, prefer it over domains.yml.
+      codeowners_path: .github/CODEOWNERS
+      prefer_codeowners: true
+    object_counts:
+      models: 118
+      semantic_models: 9
+      metrics: 24
+      sources: 14
+      exposures: 31
+    domain_hints:
+      # Path prefix -> business domain. The cheapest possible classifier, and
+      # it handles the majority of cases before any LLM is involved.
+      "models/marts/core/": finance.revenue
+      "models/marts/rcm/": rcm.coding
+      "models/marts/clinical/": clinical.encounters
+      "models/marts/quality/": clinical.quality
+      "models/input_layer/": platform.pipelines
+    triggers_enabled:
+      code_change: true
+      annotation: true
+      anomaly: true
+      llm_audit: false        # OFF in v1 on purpose -- see README, precision
+    health:
+      last_sync: 2026-08-04T06:12:00Z
+      last_sync_status: success
+      objects_unmapped_to_domain: 7
+
+  - id: SRC002
+    name: Patient Billing Service
+    adapter: github_generic
+    status: not_connected
+    repo:
+      provider: github
+      url: https://github.com/northharbor/billing-service

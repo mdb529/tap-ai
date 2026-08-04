@@ -1,0 +1,64 @@
+id: metric_deprecation
+name: Confirm metric deprecation
+version: 1
+status: active
+class: strategic
+description: >
+  A metric has had no queries in 90+ days but still has live exposures. Before
+  deleting it, the domain owner confirms nobody is quietly depending on it.
+  This is the cheapest strategic tap type and a good first one to deploy.
+
+trigger:
+  source: anomaly
+  match:
+    object_type: metric
+    signal: zero_queries_with_live_exposures
+    lookback_days: 90
+  rate_limit: 3
+
+classification:
+  domain: inferred
+  blast_radius:
+    method: downstream_dependents
+    thresholds: { low: 1, medium: 4, high: 10 }
+
+routing:
+  domain_key: inferred
+  min_authority: manager
+  fallback: route_to_steward
+  deflection_allowed: true
+
+question:
+  template: >
+    {metric_name} has not been queried in {days_idle} days but is still wired
+    into {dependent_count} reports. Can we retire it?
+  context:
+    - "Last queried {last_queried_date} by {last_queried_by}."
+    - "Still referenced by {top_exposure}."
+  response:
+    kind: single_select
+    options:
+      - Retire it
+      - Keep it -- still needed
+      - Keep it for now, revisit next quarter
+    require_rationale_on:
+      - Keep it -- still needed
+
+sla:
+  respond_within_hours: 72
+  on_timeout: default
+  default_response: Keep it for now, revisit next quarter
+
+write_back:
+  target: pull_request
+  path: models/marts/core/_core_schema.yml
+  batch: immediate
+  requires_review: true
+
+dedupe:
+  key: [object_id]
+  cooldown_days: 90
+
+economics:
+  reward_weight: 2.5
+  est_minutes_saved: 95

@@ -1,0 +1,70 @@
+id: charge_capture_variance
+name: Explain a charge capture variance
+version: 1
+status: paused
+class: tactical
+description: >
+  A service line's charge-per-encounter moved more than two standard deviations
+  from trend. Asks the charge capture analyst whether this is a real operational
+  change or a data problem.
+paused_reason: >
+  Precision was 41% over the first two weeks -- below the 60% bar. Statistical
+  outliers turned out to be a poor proxy for "a human knows something the
+  pipeline doesn't." Kept in the registry on purpose as a worked example of a
+  tap type that failed its quality gate. See README, "precision is the product."
+
+trigger:
+  source: anomaly
+  match:
+    object_type: model
+    signal: statistical_outlier
+    column: charge_per_encounter
+    sigma: 2.0
+  rate_limit: 40
+
+classification:
+  domain: rcm.coding
+  blast_radius:
+    method: record_count
+    thresholds: { low: 10, medium: 100, high: 500 }
+
+routing:
+  domain_key: rcm.coding
+  min_authority: ic
+  fallback: escalate_to_manager
+  deflection_allowed: true
+
+question:
+  template: >
+    Charge per encounter for {service_line} moved {variance_pct}% versus its
+    90-day trend. Is that a real change?
+  context:
+    - "{encounter_count} encounters in the period."
+    - "Trend baseline ${baseline_amount}, current ${current_amount}."
+  response:
+    kind: single_select
+    options:
+      - Real -- operational change
+      - Real -- fee schedule change
+      - Data problem
+      - Not sure
+    require_rationale_on: []
+
+sla:
+  respond_within_hours: 24
+  on_timeout: expire
+  default_response: null
+
+write_back:
+  target: override_table
+  table: tapiq_overrides.charge_variance_notes
+  batch: daily
+  requires_review: false
+
+dedupe:
+  key: [service_line, period_month]
+  cooldown_days: 30
+
+economics:
+  reward_weight: 0.4
+  est_minutes_saved: 11

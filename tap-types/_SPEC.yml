@@ -1,0 +1,95 @@
+# ===========================================================================
+# THE TapType SPEC
+#
+# A TapType is to a tap what a dbt test definition is to a test failure, or
+# what a monitor is to an alert: a reusable, versioned spec that GENERATES
+# instances. Making it first-class is the single highest-leverage decision in
+# the product, because it moves the four hardest questions out of application
+# code and into declarative config that a customer can author and audit:
+#
+#   1. When should we bother a human?        -> trigger
+#   2. Who is allowed to answer this?        -> routing + min_authority
+#   3. What shape is a valid answer?         -> question.response
+#   4. Where does the answer become durable? -> write_back
+#
+# It also makes the economics legible. reward_weight and est_minutes_saved live
+# on the TYPE, not the instance, so the CFO's ROI page is auditable arithmetic
+# instead of a black box. If a tap type's payoff assumption is wrong, you can
+# see it, argue with it, and change it in one file.
+#
+# Consequences of this design worth being explicit about:
+#   - New tap types are configuration, not a release. That is the moat.
+#   - Every field below is a place a customer can misconfigure themselves into
+#     noise, so the app validates on load and surfaces a lint report.
+#   - dedupe is NOT optional. A tap type without a dedupe key WILL eventually
+#     ask the same person the same question twice, and that is the fastest way
+#     to lose a channel permanently.
+# ===========================================================================
+
+schema_version: 1
+
+fields:
+
+  id:            "Stable snake_case key. Referenced by seeds and the ledger. Never reuse."
+  name:          "Human label shown in the registry UI."
+  version:       "Integer. Bump when question or response shape changes; the ledger keeps the version that was asked so history stays interpretable."
+  status:        "active | paused | draft. Paused types stop generating but keep history."
+  class:         "tactical | strategic. THE primary axis. Drives routing authority, write-back path, SLA, and reward weight."
+  description:   "One or two sentences. Shown to the admin, not the recipient."
+
+  trigger:
+    source:      "code_change | annotation | anomaly | llm_audit"
+    match:       "Adapter-specific predicate. For dbt: object_type, path_glob, change_kind."
+    rate_limit:  "Max instances this type may generate per day, org-wide. A safety valve independent of per-user caps."
+
+  classification:
+    domain:            "Domain key from org/domains.yml, or 'inferred' to let the classifier decide."
+    blast_radius:      "method + thresholds. For dbt, downstream dependent count from lineage. Drives interrupt policy and reward weight."
+
+  routing:
+    domain_key:          "Which domain owns this. Resolved via CODEOWNERS first, then org/domains.yml."
+    min_authority:       "Minimum authority level that may bind the org to an answer."
+    fallback:            "escalate_to_manager | route_to_backup | route_to_steward"
+    deflection_allowed:  "If true, recipient gets a 'not me, ask X' action. Deflections train domains.yml -- keep this true."
+
+  question:
+    template:    "Recipient-facing text with {placeholders} filled from the trigger context. Must be answerable without opening a dashboard."
+    context:     "Ordered list of facts to show alongside the question. Keep to 3 or fewer -- this is a notification, not a report."
+    response:
+      kind:      "single_select | multi_select | approve_reject | free_text | numeric"
+      options:   "For select kinds. Include an explicit uncertainty option; forcing a guess poisons the ledger."
+      require_rationale_on: "Options that demand a written why. Use sparingly -- every required field cuts response rate."
+
+  sla:
+    respond_within_hours: "Clock starts at DELIVERY, not generation."
+    on_timeout:           "escalate | default | expire. Every tap must have an answer to 'what if nobody replies' or it silently blocks an engineer."
+    default_response:     "Required when on_timeout is 'default'."
+
+  write_back:
+    target:      "pull_request | override_table | metadata_patch"
+    # WHY THIS FORKS BY CLASS -- a record-level tactical answer ('this claim is
+    # a clinical denial') is DATA, not a code change. Opening a PR per tactical
+    # tap drowns the repo and buries the strategic taps that actually need
+    # review. Tactical answers accumulate in an override table; strategic
+    # answers go through the full PR-and-review path.
+    path:        "For pull_request / metadata_patch: file to modify."
+    table:       "For override_table: destination table."
+    batch:       "immediate | daily. Tactical override writes should batch."
+    requires_review: "Whether a human engineer must approve before the change lands."
+
+  dedupe:
+    key:           "Fields whose combination makes two taps 'the same question'."
+    cooldown_days: "Do not re-ask the same key within this window even if the trigger refires."
+
+  economics:
+    reward_weight:      "Relative weight for incentive pool allocation. Strategic >> tactical."
+    est_minutes_saved:  "Engineering + rework minutes avoided per resolved tap. Feeds the ROI page. This is an ASSUMPTION and is labeled as such in the UI."
+
+lint_rules:
+  - "class=strategic requires write_back.target=pull_request and requires_review=true"
+  - "class=tactical with write_back.target=pull_request must set batch=daily"
+  - "dedupe.key must be non-empty"
+  - "sla.on_timeout=default requires sla.default_response"
+  - "question.response.kind in [single_select, multi_select] requires >=2 options"
+  - "question.context must contain 3 or fewer items"
+  - "trigger.rate_limit must be set for source in [anomaly, llm_audit]"

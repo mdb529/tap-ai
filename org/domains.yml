@@ -1,0 +1,104 @@
+# ---------------------------------------------------------------------------
+# BUSINESS DOMAIN OWNERSHIP
+#
+# DESIGN NOTE / HONEST CAVEAT -------------------------------------------------
+# An IdP does NOT know who owns "the canonical revenue definition." Okta knows
+# org structure and group membership. Mapping business domain -> owner is a
+# genuine ontology, and it is the one piece of ontology TapIQ cannot avoid
+# owning something like.
+#
+# We keep the cost low three ways:
+#   1. This file is small, flat, and human-editable -- it is CODEOWNERS for
+#      business meaning, not a semantic graph.
+#   2. It can be BOOTSTRAPPED rather than authored. Every tap has a "not me,
+#      ask <person>" deflection button; deflections are the highest-signal
+#      training data for this file. Start it wrong on purpose, let it converge.
+#   3. Ownership is resolved lazily -- an unmapped domain does not block a tap,
+#      it routes to the steward with "who should own this?" as the tap itself.
+# ---------------------------------------------------------------------------
+
+# Fallback recipient for any domain we cannot resolve.
+default_steward: dpalmer@northharbor.health
+
+domains:
+  - key: finance.revenue
+    label: Net patient revenue
+    department: Finance
+    owner: rmarsh@northharbor.health
+    backup: tchen@northharbor.health
+    min_authority_strategic: director
+    description: >
+      Recognized net patient service revenue, contractual allowances,
+      and the canonical revenue definition used by Finance reporting.
+
+  - key: finance.claims_ar
+    label: Claims & accounts receivable
+    department: Finance
+    owner: tchen@northharbor.health
+    backup: rmarsh@northharbor.health
+    min_authority_strategic: manager
+    description: AR aging, days-in-AR, claim balance and adjustment logic.
+
+  - key: rcm.coding
+    label: Coding & charge capture
+    department: Revenue Cycle
+    owner: jokafor@northharbor.health
+    backup: lbrennan@northharbor.health
+    min_authority_strategic: manager
+    description: CPT/ICD assignment rules, charge capture, denial reason taxonomy.
+
+  - key: rcm.denials
+    label: Denials management
+    department: Revenue Cycle
+    owner: lbrennan@northharbor.health
+    backup: jokafor@northharbor.health
+    min_authority_strategic: manager
+    description: Denial categorization, appeal workflow, write-off thresholds.
+
+  - key: clinical.encounters
+    label: Encounters & visit types
+    department: Clinical Operations
+    owner: avoss@northharbor.health
+    backup: sramirez@northharbor.health
+    min_authority_strategic: director
+    description: Encounter grain, visit type taxonomy, admission/discharge logic.
+
+  - key: clinical.quality
+    label: Quality measures
+    department: Clinical Operations
+    owner: sramirez@northharbor.health
+    backup: avoss@northharbor.health
+    min_authority_strategic: director
+    description: HEDIS/CMS measure numerators, denominators, exclusion criteria.
+
+  - key: compliance.phi
+    label: PHI & data classification
+    department: Compliance
+    owner: mgrant@northharbor.health
+    backup: dpalmer@northharbor.health
+    min_authority_strategic: director
+    description: PHI/PII column classification, minimum-necessary access, retention.
+
+  - key: ops.capacity
+    label: Capacity & staffing
+    department: Clinical Operations
+    owner: kmoreau@northharbor.health
+    backup: avoss@northharbor.health
+    min_authority_strategic: manager
+    description: Bed capacity, census, staffing ratios, throughput definitions.
+
+  - key: growth.acquisition
+    label: Patient acquisition
+    department: Growth
+    owner: nfarrell@northharbor.health
+    backup: dpalmer@northharbor.health
+    min_authority_strategic: manager
+    description: Referral attribution, campaign spend, new-patient definitions.
+
+  - key: platform.pipelines
+    label: Data platform & pipelines
+    department: Data Platform
+    owner: dpalmer@northharbor.health
+    backup: hyusuf@northharbor.health
+    min_authority_strategic: manager
+    description: Source freshness, orchestration ownership, warehouse contracts.

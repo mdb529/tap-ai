@@ -1,0 +1,67 @@
+id: denial_reason_classification
+name: Classify ambiguous claim denial
+version: 3
+status: active
+class: tactical
+description: >
+  A denied claim carries a payer reason code that maps to more than one internal
+  denial category. The pipeline cannot resolve it and a coder can in five
+  seconds. Highest-volume tap type in the account.
+
+trigger:
+  source: anomaly
+  match:
+    object_type: model
+    signal: unmapped_enum_value
+    column: denial_reason_category
+    path_glob: "models/marts/rcm/**"
+  rate_limit: 400
+
+classification:
+  domain: rcm.denials
+  blast_radius:
+    method: record_count
+    thresholds: { low: 1, medium: 25, high: 100 }
+
+routing:
+  domain_key: rcm.denials
+  min_authority: ic
+  fallback: route_to_backup
+  deflection_allowed: true
+
+question:
+  template: >
+    Payer {payer_name} denied claim {claim_id} with code {payer_code}. Which
+    denial category is this?
+  context:
+    - "Claim amount ${claim_amount}, service date {service_date}."
+    - "{similar_count} similar claims are waiting on the same answer."
+  response:
+    kind: single_select
+    options:
+      - Clinical / medical necessity
+      - Authorization or referral
+      - Eligibility or coverage
+      - Coding or documentation
+      - Timely filing
+      - Not sure -- route to a coder
+    require_rationale_on: []
+
+sla:
+  respond_within_hours: 8
+  on_timeout: default
+  default_response: Not sure -- route to a coder
+
+write_back:
+  target: override_table
+  table: tapiq_overrides.denial_reason_category
+  batch: daily
+  requires_review: false
+
+dedupe:
+  key: [payer_code, payer_name]
+  cooldown_days: 180
+
+economics:
+  reward_weight: 0.5
+  est_minutes_saved: 14

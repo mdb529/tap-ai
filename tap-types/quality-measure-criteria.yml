@@ -1,0 +1,66 @@
+id: quality_measure_criteria
+name: Quality measure exclusion criteria ambiguous
+version: 1
+status: active
+class: strategic
+description: >
+  A HEDIS/CMS measure's numerator or exclusion logic changed, or was authored
+  without a documented clinical rationale. Quality leadership owns the call
+  because a wrong exclusion is a reportable error, not a reporting bug.
+
+trigger:
+  source: code_change
+  match:
+    object_type: model
+    path_glob: "models/marts/quality/**"
+    change_kind: [filter_change, logic_change]
+  rate_limit: 4
+
+classification:
+  domain: clinical.quality
+  blast_radius:
+    method: downstream_dependents
+    thresholds: { low: 2, medium: 6, high: 15 }
+
+routing:
+  domain_key: clinical.quality
+  min_authority: director
+  fallback: route_to_backup
+  deflection_allowed: true
+
+question:
+  template: >
+    {measure_name} now excludes {excluded_population}. Is that exclusion
+    clinically correct for this measure?
+  context:
+    - "Changes the denominator by roughly {denominator_delta_pct}%."
+    - "Measure is reported to {reporting_body} on a {reporting_cadence} basis."
+  response:
+    kind: single_select
+    options:
+      - Correct as written
+      - Incorrect -- exclusion is too broad
+      - Incorrect -- exclusion is too narrow
+      - Need to check the measure specification
+    require_rationale_on:
+      - Incorrect -- exclusion is too broad
+      - Incorrect -- exclusion is too narrow
+
+sla:
+  respond_within_hours: 48
+  on_timeout: escalate
+  default_response: null
+
+write_back:
+  target: pull_request
+  path: models/marts/quality/_quality_schema.yml
+  batch: immediate
+  requires_review: true
+
+dedupe:
+  key: [object_id, measure_name, change_hash]
+  cooldown_days: 45
+
+economics:
+  reward_weight: 5.0
+  est_minutes_saved: 300

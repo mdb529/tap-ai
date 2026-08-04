@@ -1,0 +1,66 @@
+id: phi_column_classification
+name: Classify a new column for PHI
+version: 1
+status: active
+class: tactical
+description: >
+  A new column landed in a model without a PHI classification. Compliance needs
+  it tagged before the model is exposed. Tactical by volume but governance by
+  consequence -- which is why it batches into a metadata patch rather than
+  either a raw override or a full PR.
+
+trigger:
+  source: code_change
+  match:
+    object_type: model
+    change_kind: [column_added]
+    predicate: "column has no meta.phi_class"
+  rate_limit: 80
+
+classification:
+  domain: compliance.phi
+  blast_radius:
+    method: downstream_dependents
+    thresholds: { low: 1, medium: 5, high: 20 }
+
+routing:
+  domain_key: compliance.phi
+  min_authority: ic
+  fallback: escalate_to_manager
+  deflection_allowed: true
+
+question:
+  template: >
+    New column {column_name} was added to {model_name}. How should it be
+    classified?
+  context:
+    - "Sample values: {sample_values}."
+    - "Model is exposed to {exposure_count} downstream consumers."
+  response:
+    kind: single_select
+    options:
+      - PHI -- direct identifier
+      - PHI -- indirect / limited data set
+      - De-identified
+      - Not patient data
+      - Not sure -- escalate to privacy
+    require_rationale_on: []
+
+sla:
+  respond_within_hours: 24
+  on_timeout: default
+  default_response: PHI -- direct identifier   # fail closed, always
+
+write_back:
+  target: metadata_patch
+  path: models/**/_*_schema.yml
+  batch: daily
+  requires_review: true
+
+dedupe:
+  key: [model_name, column_name]
+  cooldown_days: 365
+
+economics:
+  reward_weight: 1.2
+  est_minutes_saved: 34

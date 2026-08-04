@@ -1,0 +1,102 @@
+# ---------------------------------------------------------------------------
+# NOTIFICATION SETTINGS
+#
+# Two tiers, and the precedence order matters:
+#   1. defaults_by_authority  -- the admin sets the org-wide posture. An exec
+#      should never get a raw tap firehose; an IC can take them in real time.
+#   2. overrides_by_user      -- the individual tunes their own experience.
+#
+# The lightweight design principle lives or dies here. A tap must feel like
+# clearing a notification. That means: hard daily caps, quiet hours honored,
+# and batching for anyone senior enough that interruption cost is high.
+# ---------------------------------------------------------------------------
+
+channels:
+  - key: slack_dm
+    label: Slack direct message
+    status: simulated        # MVP renders this in the local webapp instead
+    supports: [buttons, free_text, thread_reply]
+  - key: email
+    label: Email
+    status: simulated
+    supports: [buttons, free_text]
+  - key: claude
+    label: Claude / assistant surface
+    status: simulated
+    supports: [buttons, free_text, conversational]
+  - key: webapp
+    label: TapIQ inbox (this app)
+    status: active
+    supports: [buttons, free_text, conversational]
+
+defaults_by_authority:
+  ic:
+    channel: slack_dm
+    delivery: realtime
+    max_taps_per_day: 12
+    quiet_hours: "18:00-08:00"
+    digest_time: null
+  lead:
+    channel: slack_dm
+    delivery: realtime
+    max_taps_per_day: 10
+    quiet_hours: "18:00-08:00"
+    digest_time: null
+  manager:
+    channel: slack_dm
+    delivery: batched_hourly
+    max_taps_per_day: 6
+    quiet_hours: "18:00-08:00"
+    digest_time: null
+  director:
+    channel: slack_dm
+    delivery: batched_daily
+    max_taps_per_day: 4
+    quiet_hours: "17:30-08:30"
+    digest_time: "09:00"
+  vp:
+    channel: email
+    delivery: batched_daily
+    max_taps_per_day: 3
+    quiet_hours: "17:00-09:00"
+    digest_time: "08:30"
+  cxo:
+    channel: email
+    delivery: batched_weekly
+    max_taps_per_day: 2
+    quiet_hours: "17:00-09:00"
+    digest_time: "Mon 08:00"
+
+# Strategic taps may pierce batching -- but only these, and only once.
+interrupt_policy:
+  allow_realtime_for_class: [strategic]
+  requires_blast_radius_at_least: high
+  max_interrupts_per_week: 2
+
+overrides_by_user:
+  rmarsh@northharbor.health:
+    channel: email
+    delivery: batched_weekly
+    digest_time: "Mon 07:30"
+    max_taps_per_day: 2
+    note: CFO -- wants a Monday roll-up, not a stream.
+  sramirez@northharbor.health:
+    channel: slack_dm
+    delivery: realtime
+    max_taps_per_day: 8
+    note: Prefers to handle quality measure taps as they land.
+  jokafor@northharbor.health:
+    channel: slack_dm
+    delivery: batched_hourly
+    max_taps_per_day: 15
+    note: High tactical volume owner -- opted into a larger cap.
+  mgrant@northharbor.health:
+    channel: email
+    delivery: batched_daily
+    digest_time: "08:00"
+    max_taps_per_day: 3
+  ysong@northharbor.health:
+    channel: slack_dm
+    delivery: realtime
+    max_taps_per_day: 20
+    note: Coding lead, absorbs overflow from the coder pool.

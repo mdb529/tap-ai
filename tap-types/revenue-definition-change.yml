@@ -1,0 +1,66 @@
+id: revenue_definition_change
+name: Canonical revenue definition changed
+version: 2
+status: active
+class: strategic
+description: >
+  A change to net patient revenue logic was detected in a governed metric.
+  Finance must confirm whether the new definition is canonical before it
+  propagates to the 31 exposures downstream.
+
+trigger:
+  source: code_change
+  match:
+    object_type: metric
+    path_glob: "models/marts/core/**"
+    change_kind: [logic_change, filter_change, grain_change]
+  rate_limit: 5
+
+classification:
+  domain: finance.revenue
+  blast_radius:
+    method: downstream_dependents
+    thresholds: { low: 3, medium: 10, high: 25 }
+
+routing:
+  domain_key: finance.revenue
+  min_authority: director
+  fallback: escalate_to_manager
+  deflection_allowed: true
+
+question:
+  template: >
+    {actor} changed how {metric_name} is calculated -- it now {change_summary}.
+    Should this be the canonical definition going forward?
+  context:
+    - "Affects {dependent_count} downstream reports, including {top_exposure}."
+    - "Previous definition in place since {previous_definition_date}."
+    - "Change is staged on branch {branch} and has not merged."
+  response:
+    kind: single_select
+    options:
+      - Yes, make it canonical
+      - No, revert to the previous definition
+      - Not my call -- needs a finance review meeting
+    require_rationale_on:
+      - No, revert to the previous definition
+      - Not my call -- needs a finance review meeting
+
+sla:
+  respond_within_hours: 24
+  on_timeout: escalate
+  default_response: null
+
+write_back:
+  target: pull_request
+  path: models/marts/core/_core_schema.yml
+  batch: immediate
+  requires_review: true
+
+dedupe:
+  key: [object_id, change_hash]
+  cooldown_days: 30
+
+economics:
+  reward_weight: 5.0
+  est_minutes_saved: 390

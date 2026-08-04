@@ -1,0 +1,39 @@
+employee_id,email,full_name,title,department,authority_level,manager_email,domains_owned,slack_handle,active
+EMP001,ewhitfield@northharbor.health,Elena Whitfield,chief executive officer,Executive,cxo,,,@ewhitfield,true
+EMP002,rmarsh@northharbor.health,Robert Marsh,chief financial officer,Finance,cxo,ewhitfield@northharbor.health,finance.revenue,@rmarsh,true
+EMP003,avoss@northharbor.health,Adaeze Voss,chief operating officer,Clinical Operations,cxo,ewhitfield@northharbor.health,clinical.encounters,@avoss,true
+EMP004,mgrant@northharbor.health,Miriam Grant,chief compliance officer,Compliance,cxo,ewhitfield@northharbor.health,compliance.phi,@mgrant,true
+EMP005,dpalmer@northharbor.health,Devon Palmer,vice president of data,Data Platform,vp,ewhitfield@northharbor.health,platform.pipelines,@dpalmer,true
+EMP006,tchen@northharbor.health,Theresa Chen,director of revenue cycle finance,Finance,director,rmarsh@northharbor.health,finance.claims_ar,@tchen,true
+EMP007,pahmadi@northharbor.health,Parisa Ahmadi,finance manager,Finance,manager,tchen@northharbor.health,,@pahmadi,true
+EMP008,gwallace@northharbor.health,Grant Wallace,senior financial analyst,Finance,lead,pahmadi@northharbor.health,,@gwallace,true
+EMP009,bnovak@northharbor.health,Bela Novak,financial analyst,Finance,ic,pahmadi@northharbor.health,,@bnovak,true
+EMP010,cortiz@northharbor.health,Camila Ortiz,financial analyst,Finance,ic,pahmadi@northharbor.health,,@cortiz,true
+EMP011,fdelacruz@northharbor.health,Fidel Dela Cruz,reimbursement analyst,Finance,ic,tchen@northharbor.health,,@fdelacruz,true
+EMP012,jokafor@northharbor.health,Joy Okafor,director of coding,Revenue Cycle,director,rmarsh@northharbor.health,rcm.coding,@jokafor,true
+EMP013,lbrennan@northharbor.health,Liam Brennan,denials manager,Revenue Cycle,manager,rmarsh@northharbor.health,rcm.denials,@lbrennan,true
+EMP014,ysong@northharbor.health,Yuna Song,lead medical coder,Revenue Cycle,lead,jokafor@northharbor.health,,@ysong,true
+EMP015,rpatel@northharbor.health,Rohan Patel,medical coder,Revenue Cycle,ic,ysong@northharbor.health,,@rpatel,true
+EMP016,mdiallo@northharbor.health,Mariam Diallo,medical coder,Revenue Cycle,ic,ysong@northharbor.health,,@mdiallo,true
+EMP017,thoffman@northharbor.health,Tobias Hoffman,denials specialist,Revenue Cycle,ic,lbrennan@northharbor.health,,@thoffman,true
+EMP018,nabara@northharbor.health,Nkechi Abara,denials specialist,Revenue Cycle,ic,lbrennan@northharbor.health,,@nabara,true
+EMP019,kobrien@northharbor.health,Kate O'Brien,charge capture analyst,Revenue Cycle,ic,jokafor@northharbor.health,,@kobrien,true
+EMP020,sramirez@northharbor.health,Sofia Ramirez,director of quality,Clinical Operations,director,avoss@northharbor.health,clinical.quality,@sramirez,true
+EMP021,kmoreau@northharbor.health,Kwame Moreau,manager of capacity planning,Clinical Operations,manager,avoss@northharbor.health,ops.capacity,@kmoreau,true
+EMP022,hlindqvist@northharbor.health,Hanna Lindqvist,clinical informatics lead,Clinical Operations,lead,sramirez@northharbor.health,,@hlindqvist,true
+EMP023,jmwangi@northharbor.health,James Mwangi,quality analyst,Clinical Operations,ic,sramirez@northharbor.health,,@jmwangi,true
+EMP024,apereira@northharbor.health,Ana Pereira,quality analyst,Clinical Operations,ic,sramirez@northharbor.health,,@apereira,true
+EMP025,dschultz@northharbor.health,Dana Schultz,nurse informaticist,Clinical Operations,ic,hlindqvist@northharbor.health,,@dschultz,true
+EMP026,obayo@northharbor.health,Olu Bayo,capacity analyst,Clinical Operations,ic,kmoreau@northharbor.health,,@obayo,true
+EMP027,iharlow@northharbor.health,Ines Harlow,throughput analyst,Clinical Operations,ic,kmoreau@northharbor.health,,@iharlow,true
+EMP028,vosei@northharbor.health,Vera Osei,privacy manager,Compliance,manager,mgrant@northharbor.health,,@vosei,true
+EMP029,bkoval@northharbor.health,Boris Koval,compliance analyst,Compliance,ic,vosei@northharbor.health,,@bkoval,true
+EMP030,rsantos@northharbor.health,Rita Santos,health information manager,Compliance,manager,mgrant@northharbor.health,,@rsantos,true
+EMP031,hyusuf@northharbor.health,Hana Yusuf,analytics engineering manager,Data Platform,manager,dpalmer@northharbor.health,,@hyusuf,true
+EMP032,mkeller@northharbor.health,Marcus Keller,senior analytics engineer,Data Platform,lead,hyusuf@northharbor.health,,@mkeller,true
+EMP033,swhitaker@northharbor.health,Simone Whitaker,analytics engineer,Data Platform,ic,hyusuf@northharbor.health,,@swhitaker,true
+EMP034,ptran@northharbor.health,Phong Tran,analytics engineer,Data Platform,ic,hyusuf@northharbor.health,,@ptran,true
+EMP035,egarrido@northharbor.health,Elias Garrido,data engineer,Data Platform,ic,hyusuf@northharbor.health,,@egarrido,true
+EMP036,nfarrell@northharbor.health,Nora Farrell,director of growth,Growth,director,ewhitfield@northharbor.health,growth.acquisition,@nfarrell,true
+EMP037,cadeyemi@northharbor.health,Chidi Adeyemi,marketing analyst,Growth,ic,nfarrell@northharbor.health,,@cadeyemi,true
+EMP038,lberger@northharbor.health,Lena Berger,referral operations lead,Growth,lead,nfarrell@northharbor.health,,@lberger,true

@@ -1,0 +1,63 @@
+id: source_freshness_ownership
+name: Claim ownership of a stale source
+version: 1
+status: active
+class: tactical
+description: >
+  A source has breached its freshness SLA and no owner is on record. Rather
+  than paging the data platform team, TapIQ asks the likeliest business owner
+  to confirm ownership -- turning an alert into a durable ownership record.
+
+trigger:
+  source: annotation
+  match:
+    object_type: source
+    annotation_key: tapiq.needs_owner
+  rate_limit: 20
+
+classification:
+  domain: platform.pipelines
+  blast_radius:
+    method: downstream_dependents
+    thresholds: { low: 2, medium: 8, high: 20 }
+
+routing:
+  domain_key: platform.pipelines
+  min_authority: lead
+  fallback: route_to_steward
+  deflection_allowed: true
+
+question:
+  template: >
+    {source_name} has been stale for {hours_stale} hours and has no owner on
+    record. Does your team own this feed?
+  context:
+    - "{dependent_count} models depend on it, including {top_dependent}."
+    - "Last successful load {last_loaded_at}."
+  response:
+    kind: single_select
+    options:
+      - Yes, my team owns it
+      - No -- belongs to another team
+      - Nobody owns it, it should be retired
+    require_rationale_on:
+      - No -- belongs to another team
+
+sla:
+  respond_within_hours: 6
+  on_timeout: escalate
+  default_response: null
+
+write_back:
+  target: pull_request
+  path: models/input_layer/_input_layer_sources.yml
+  batch: daily
+  requires_review: true
+
+dedupe:
+  key: [source_name]
+  cooldown_days: 60
+
+economics:
+  reward_weight: 1.5
+  est_minutes_saved: 48

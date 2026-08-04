@@ -1,0 +1,68 @@
+id: encounter_type_mapping
+name: Map unrecognized encounter type
+version: 2
+status: active
+class: tactical
+description: >
+  A new visit type code appeared in the source feed with no mapping to the
+  canonical encounter taxonomy. Left unmapped it silently drops out of census
+  and throughput reporting.
+
+trigger:
+  source: anomaly
+  match:
+    object_type: source
+    signal: unmapped_enum_value
+    column: visit_type_code
+    path_glob: "models/input_layer/**"
+  rate_limit: 60
+
+classification:
+  domain: clinical.encounters
+  blast_radius:
+    method: record_count
+    thresholds: { low: 5, medium: 50, high: 250 }
+
+routing:
+  domain_key: clinical.encounters
+  min_authority: ic
+  fallback: escalate_to_manager
+  deflection_allowed: true
+
+question:
+  template: >
+    New visit type code {visit_type_code} ("{visit_type_label}") started
+    appearing on {first_seen_date}. Which encounter category does it belong to?
+  context:
+    - "{record_count} encounters affected so far."
+    - "Source system: {source_system}."
+  response:
+    kind: single_select
+    options:
+      - Inpatient
+      - Outpatient
+      - Emergency
+      - Observation
+      - Telehealth
+      - Not a real encounter -- exclude
+      - Not sure
+    require_rationale_on: []
+
+sla:
+  respond_within_hours: 12
+  on_timeout: escalate
+  default_response: null
+
+write_back:
+  target: override_table
+  table: tapiq_overrides.visit_type_map
+  batch: daily
+  requires_review: false
+
+dedupe:
+  key: [visit_type_code, source_system]
+  cooldown_days: 365
+
+economics:
+  reward_weight: 0.8
+  est_minutes_saved: 26

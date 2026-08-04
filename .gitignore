@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+.env*.local
+
+# Generated warehouse -- rebuild with `npm run db:build`.
+# Seeds ARE committed: they are the fixture that makes the demo reproducible.
+db/tapiq.duckdb
+db/tapiq.duckdb.wal

@@ -1,0 +1,104 @@
+# ---------------------------------------------------------------------------
+# COMMERCIAL PLAN + INCENTIVE POOL  (the CFO's view)
+#
+# Two separate money flows, deliberately kept apart:
+#   1. SUBSCRIPTION -- what North Harbor pays TapIQ. Metered on resolved taps,
+#      not seats, because value accrues per decision captured.
+#   2. INCENTIVE POOL -- what North Harbor pays ITS OWN PEOPLE for contributing
+#      context. TapIQ never touches this money; it only tracks allocation.
+#      Executives fund and allocate the pool and are ineligible to receive from
+#      it, which is what keeps the incentive from becoming self-dealing.
+#
+# Billing on RESOLVED taps (not delivered taps) is the important choice: it
+# means TapIQ is not paid for spamming people. Noise costs us revenue.
+# ---------------------------------------------------------------------------
+
+account:
+  company: North Harbor Health
+  account_id: ACC-4417
+  billing_contact: rmarsh@northharbor.health
+  currency: USD
+
+# --- VOLUME CORRECTION -----------------------------------------------------
+# The first draft of this file assumed 25,000 included resolved taps per year.
+# Simulating the tap types against their own dedupe rules killed that number.
+#
+#   denial_reason_classification can only ask (10 payers x 12 codes) = 120
+#   distinct questions, and never re-asks within 180 days. Six of the eight tap
+#   types are similarly bounded by a FIXED taxonomy -- they exhaust themselves.
+#   Only phi_column_classification sustains volume, because new columns are
+#   created continuously by ordinary engineering work.
+#
+# Honest steady state for an account this size is ~200-260 resolved taps/month,
+# i.e. ~2,600-3,000/year. That is ~10x below the original assumption.
+#
+# The commercial consequence is the real finding: per-tap metering on a metric
+# that structurally decays means revenue falls as the product succeeds. The
+# tiers below shift weight onto the platform fee and price overage high enough
+# that it is a genuine ceiling rather than a growth engine. This needs a real
+# decision, not a default -- see README, "the pricing problem."
+# ---------------------------------------------------------------------------
+
+subscription:
+  plan: Growth
+  billing_period: annual
+  period_start: 2026-02-01
+  period_end: 2027-01-31
+  platform_fee_annual: 48000
+  included_resolved_taps: 3000
+  overage_rate_per_tap: 9.00
+  metered_on: resolved_taps      # delivered-but-ignored taps are never billed
+  seats_included: unlimited
+
+plan_tiers:
+  - name: Pilot
+    platform_fee_annual: 0
+    included_resolved_taps: 250
+    overage_rate_per_tap: 0.00
+    features: [single_source, tactical_taps, webapp_inbox]
+  - name: Growth
+    platform_fee_annual: 48000
+    included_resolved_taps: 3000
+    overage_rate_per_tap: 9.00
+    features: [multi_source, tactical_taps, strategic_taps, sso, slack, incentive_pool, analytics]
+  - name: Enterprise
+    platform_fee_annual: 145000
+    included_resolved_taps: 12000
+    overage_rate_per_tap: 6.50
+    features: [multi_source, tactical_taps, strategic_taps, sso, slack, incentive_pool, analytics, custom_tap_types, audit_export, sla_guarantee]
+
+incentive_pool:
+  fiscal_year: FY2027
+  funded_by: rmarsh@northharbor.health
+  total_funded: 120000
+  allocation_model: reward_weight_x_durability
+  # A tap only earns once it has SURVIVED -- rewarding click volume is how you
+  # get fast, wrong answers. Durability window is the teeth of the model.
+  durability_window_days: 60
+  payout_cadence: quarterly
+  eligibility:
+    exclude_authority_levels: [cxo, vp]
+    min_response_quality_score: 0.6
+  caps:
+    max_per_person_per_quarter: 1500
+    max_per_department_per_quarter: 9000
+  department_allocations:
+    Revenue Cycle: 38000
+    Clinical Operations: 32000
+    Finance: 22000
+    Compliance: 14000
+    Growth: 8000
+    Data Platform: 6000
+
+# Inputs to the ROI figures on the billing page. These are ASSUMPTIONS, and the
+# UI labels them as such -- a CFO will discount any number whose derivation is
+# hidden, so we show the arithmetic rather than a magic total.
+roi_assumptions:
+  blended_hourly_cost_analytics_engineer: 95
+  blended_hourly_cost_business_stakeholder: 130
+  rework_hours_avoided_per_strategic_tap: 6.5
+  rework_hours_avoided_per_tactical_tap: 0.35
+  incident_cost_avoided_per_prevented_inconsistency: 2400
+  # Fraction of "prevented inconsistencies" we claim credit for. Deliberately
+  # conservative -- overclaiming attribution is how these dashboards lose trust.
+  attribution_haircut: 0.55

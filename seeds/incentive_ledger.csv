@@ -1,0 +1,479 @@
+entry_id,tap_id,employee_email,employee_name,department,authority_level,quarter,month,tap_type_id,tap_class,points,amount_usd,status
+INC000001,TAP000001,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000002,TAP000002,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000003,TAP000003,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000004,TAP000004,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000005,TAP000005,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000006,TAP000006,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000007,TAP000010,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000008,TAP000011,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000009,TAP000012,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000010,TAP000013,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000011,TAP000014,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000012,TAP000016,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000013,TAP000018,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000014,TAP000020,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000015,TAP000022,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000016,TAP000023,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000017,TAP000025,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000018,TAP000027,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000019,TAP000029,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000020,TAP000030,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000021,TAP000031,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000022,TAP000032,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000023,TAP000036,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000024,TAP000037,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000025,TAP000038,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000026,TAP000039,lbrennan@northharbor.health,Liam Brennan,Revenue Cycle,manager,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000027,TAP000040,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,denial_reason_classification,tactical,0.5,6.0,paid
+INC000028,TAP000047,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000029,TAP000049,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000030,TAP000050,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000031,TAP000058,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000032,TAP000059,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000033,TAP000061,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000034,TAP000065,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000035,TAP000066,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000036,TAP000070,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000037,TAP000072,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000038,TAP000073,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000039,TAP000074,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000040,TAP000085,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000041,TAP000089,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000042,TAP000090,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-02,charge_capture_variance,tactical,0.4,4.8,paid
+INC000043,TAP000093,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000044,TAP000096,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000045,TAP000097,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000046,TAP000098,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000047,TAP000100,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000048,TAP000102,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000049,TAP000103,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000050,TAP000104,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000051,TAP000105,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000052,TAP000106,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000053,TAP000107,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000054,TAP000108,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000055,TAP000109,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000056,TAP000111,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000057,TAP000115,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000058,TAP000117,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,denial_reason_classification,tactical,0.5,6.0,paid
+INC000059,TAP000124,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000060,TAP000130,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000061,TAP000131,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000062,TAP000133,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000063,TAP000137,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000064,TAP000138,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000065,TAP000144,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000066,TAP000159,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-03,charge_capture_variance,tactical,0.4,4.8,paid
+INC000067,TAP000161,apereira@northharbor.health,Ana Pereira,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000068,TAP000162,iharlow@northharbor.health,Ines Harlow,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000069,TAP000164,dschultz@northharbor.health,Dana Schultz,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000070,TAP000167,apereira@northharbor.health,Ana Pereira,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000071,TAP000168,apereira@northharbor.health,Ana Pereira,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000072,TAP000169,hlindqvist@northharbor.health,Hanna Lindqvist,Clinical Operations,lead,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000073,TAP000170,dschultz@northharbor.health,Dana Schultz,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000074,TAP000171,dschultz@northharbor.health,Dana Schultz,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000075,TAP000173,obayo@northharbor.health,Olu Bayo,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000076,TAP000174,apereira@northharbor.health,Ana Pereira,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000077,TAP000175,obayo@northharbor.health,Olu Bayo,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000078,TAP000177,hlindqvist@northharbor.health,Hanna Lindqvist,Clinical Operations,lead,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000079,TAP000178,jmwangi@northharbor.health,James Mwangi,Clinical Operations,ic,FY27-Q1,2026-03,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000080,TAP000180,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000081,TAP000181,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000082,TAP000182,kobrien@northharbor.health,Kate O'Brien,Revenue Cycle,ic,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000083,TAP000183,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000084,TAP000185,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000085,TAP000186,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000086,TAP000191,lbrennan@northharbor.health,Liam Brennan,Revenue Cycle,manager,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000087,TAP000192,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000088,TAP000193,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000089,TAP000194,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q1,2026-04,denial_reason_classification,tactical,0.5,6.0,paid
+INC000090,TAP000196,hlindqvist@northharbor.health,Hanna Lindqvist,Clinical Operations,lead,FY27-Q1,2026-04,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000091,TAP000197,jmwangi@northharbor.health,James Mwangi,Clinical Operations,ic,FY27-Q1,2026-04,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000092,TAP000198,jmwangi@northharbor.health,James Mwangi,Clinical Operations,ic,FY27-Q1,2026-04,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000093,TAP000200,iharlow@northharbor.health,Ines Harlow,Clinical Operations,ic,FY27-Q1,2026-04,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000094,TAP000204,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000095,TAP000205,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000096,TAP000207,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000097,TAP000210,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000098,TAP000211,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000099,TAP000213,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000100,TAP000214,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000101,TAP000216,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000102,TAP000220,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000103,TAP000221,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000104,TAP000225,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000105,TAP000232,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000106,TAP000237,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000107,TAP000240,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000108,TAP000241,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000109,TAP000243,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000110,TAP000244,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000111,TAP000249,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000112,TAP000253,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000113,TAP000254,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000114,TAP000256,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000115,TAP000257,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000116,TAP000258,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000117,TAP000259,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000118,TAP000261,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000119,TAP000264,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000120,TAP000265,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000121,TAP000275,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000122,TAP000276,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000123,TAP000281,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000124,TAP000286,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000125,TAP000287,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000126,TAP000288,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000127,TAP000297,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000128,TAP000298,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000129,TAP000299,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000130,TAP000303,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000131,TAP000304,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000132,TAP000308,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000133,TAP000309,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000134,TAP000311,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000135,TAP000312,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000136,TAP000314,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000137,TAP000315,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000138,TAP000316,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000139,TAP000318,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000140,TAP000319,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000141,TAP000320,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000142,TAP000322,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000143,TAP000325,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000144,TAP000326,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000145,TAP000327,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000146,TAP000331,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000147,TAP000333,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000148,TAP000335,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000149,TAP000338,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000150,TAP000339,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000151,TAP000341,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000152,TAP000342,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000153,TAP000343,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000154,TAP000345,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000155,TAP000346,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000156,TAP000347,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000157,TAP000350,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000158,TAP000352,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000159,TAP000353,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000160,TAP000357,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000161,TAP000358,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000162,TAP000359,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000163,TAP000361,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000164,TAP000363,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000165,TAP000364,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000166,TAP000366,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000167,TAP000367,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000168,TAP000369,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000169,TAP000370,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q1,2026-04,phi_column_classification,tactical,1.2,14.4,paid
+INC000170,TAP000376,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000171,TAP000377,lbrennan@northharbor.health,Liam Brennan,Revenue Cycle,manager,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000172,TAP000378,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000173,TAP000379,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000174,TAP000380,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000175,TAP000381,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000176,TAP000386,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000177,TAP000387,lbrennan@northharbor.health,Liam Brennan,Revenue Cycle,manager,FY27-Q2,2026-05,denial_reason_classification,tactical,0.5,6.0,paid
+INC000178,TAP000390,iharlow@northharbor.health,Ines Harlow,Clinical Operations,ic,FY27-Q2,2026-05,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000179,TAP000392,apereira@northharbor.health,Ana Pereira,Clinical Operations,ic,FY27-Q2,2026-05,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000180,TAP000393,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000181,TAP000397,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000182,TAP000398,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000183,TAP000399,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000184,TAP000405,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000185,TAP000406,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000186,TAP000409,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000187,TAP000410,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000188,TAP000413,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000189,TAP000414,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000190,TAP000416,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000191,TAP000417,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000192,TAP000420,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000193,TAP000421,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000194,TAP000423,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000195,TAP000427,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000196,TAP000433,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000197,TAP000434,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000198,TAP000435,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000199,TAP000436,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000200,TAP000437,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000201,TAP000438,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000202,TAP000439,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000203,TAP000440,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000204,TAP000443,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000205,TAP000444,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000206,TAP000445,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000207,TAP000447,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000208,TAP000448,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000209,TAP000449,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000210,TAP000451,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000211,TAP000455,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000212,TAP000458,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000213,TAP000459,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000214,TAP000463,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000215,TAP000464,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000216,TAP000465,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000217,TAP000467,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000218,TAP000471,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000219,TAP000472,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000220,TAP000474,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000221,TAP000475,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000222,TAP000477,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000223,TAP000479,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000224,TAP000481,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000225,TAP000487,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000226,TAP000489,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000227,TAP000490,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000228,TAP000491,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000229,TAP000492,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000230,TAP000494,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000231,TAP000495,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000232,TAP000497,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000233,TAP000499,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000234,TAP000504,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000235,TAP000505,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000236,TAP000506,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000237,TAP000508,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000238,TAP000511,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000239,TAP000512,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000240,TAP000514,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000241,TAP000515,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000242,TAP000517,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000243,TAP000518,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000244,TAP000521,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000245,TAP000524,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000246,TAP000526,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000247,TAP000528,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000248,TAP000532,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000249,TAP000533,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000250,TAP000537,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000251,TAP000540,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000252,TAP000543,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000253,TAP000547,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000254,TAP000548,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000255,TAP000551,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000256,TAP000552,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000257,TAP000553,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000258,TAP000556,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000259,TAP000559,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000260,TAP000564,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-05,phi_column_classification,tactical,1.2,14.4,paid
+INC000261,TAP000572,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-05,quality_measure_criteria,strategic,6.75,81.0,paid
+INC000262,TAP000574,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-05,quality_measure_criteria,strategic,6.75,81.0,paid
+INC000263,TAP000576,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-06,denial_reason_classification,tactical,0.5,6.0,paid
+INC000264,TAP000578,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-06,denial_reason_classification,tactical,0.5,6.0,paid
+INC000265,TAP000580,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q2,2026-06,denial_reason_classification,tactical,0.5,6.0,paid
+INC000266,TAP000582,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-06,denial_reason_classification,tactical,0.5,6.0,paid
+INC000267,TAP000585,thoffman@northharbor.health,Tobias Hoffman,Revenue Cycle,ic,FY27-Q2,2026-06,denial_reason_classification,tactical,0.5,6.0,paid
+INC000268,TAP000586,jmwangi@northharbor.health,James Mwangi,Clinical Operations,ic,FY27-Q2,2026-06,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000269,TAP000587,dschultz@northharbor.health,Dana Schultz,Clinical Operations,ic,FY27-Q2,2026-06,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000270,TAP000588,hlindqvist@northharbor.health,Hanna Lindqvist,Clinical Operations,lead,FY27-Q2,2026-06,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000271,TAP000589,dschultz@northharbor.health,Dana Schultz,Clinical Operations,ic,FY27-Q2,2026-06,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000272,TAP000592,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000273,TAP000596,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000274,TAP000601,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000275,TAP000604,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000276,TAP000605,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000277,TAP000610,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000278,TAP000611,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000279,TAP000613,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000280,TAP000614,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000281,TAP000615,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000282,TAP000620,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000283,TAP000621,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000284,TAP000622,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000285,TAP000623,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000286,TAP000624,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000287,TAP000629,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000288,TAP000631,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000289,TAP000633,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000290,TAP000635,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000291,TAP000636,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000292,TAP000639,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000293,TAP000640,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000294,TAP000642,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000295,TAP000644,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000296,TAP000645,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000297,TAP000647,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000298,TAP000650,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000299,TAP000651,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000300,TAP000652,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000301,TAP000655,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000302,TAP000656,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000303,TAP000658,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000304,TAP000659,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000305,TAP000662,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000306,TAP000664,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000307,TAP000665,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000308,TAP000666,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000309,TAP000670,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000310,TAP000671,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000311,TAP000674,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000312,TAP000678,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000313,TAP000680,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000314,TAP000681,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000315,TAP000685,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000316,TAP000686,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000317,TAP000689,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000318,TAP000691,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000319,TAP000693,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000320,TAP000695,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000321,TAP000700,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000322,TAP000702,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000323,TAP000703,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000324,TAP000704,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000325,TAP000709,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000326,TAP000711,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000327,TAP000712,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000328,TAP000717,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000329,TAP000718,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000330,TAP000720,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000331,TAP000721,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000332,TAP000722,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000333,TAP000725,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000334,TAP000727,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000335,TAP000729,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000336,TAP000731,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000337,TAP000732,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000338,TAP000733,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000339,TAP000734,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000340,TAP000735,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000341,TAP000737,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000342,TAP000738,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000343,TAP000739,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000344,TAP000742,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,2.4,capped
+INC000345,TAP000743,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000346,TAP000745,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000347,TAP000748,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000348,TAP000749,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000349,TAP000752,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000350,TAP000753,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000351,TAP000754,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000352,TAP000755,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000353,TAP000757,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,14.4,paid
+INC000354,TAP000759,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000355,TAP000761,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000356,TAP000762,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000357,TAP000763,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-06,phi_column_classification,tactical,1.2,0.0,capped
+INC000358,TAP000773,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-06,quality_measure_criteria,strategic,6.75,81.0,paid
+INC000359,TAP000775,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000360,TAP000776,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000361,TAP000777,hyusuf@northharbor.health,Hana Yusuf,Data Platform,manager,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000362,TAP000778,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000363,TAP000779,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000364,TAP000780,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000365,TAP000781,hyusuf@northharbor.health,Hana Yusuf,Data Platform,manager,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000366,TAP000782,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-06,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000367,TAP000786,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-06,metric_deprecation,strategic,3.38,40.5,paid
+INC000368,TAP000787,jokafor@northharbor.health,Joy Okafor,Revenue Cycle,director,FY27-Q2,2026-06,metric_deprecation,strategic,3.38,40.5,paid
+INC000369,TAP000788,nfarrell@northharbor.health,Nora Farrell,Growth,director,FY27-Q2,2026-06,metric_deprecation,strategic,3.38,40.5,paid
+INC000370,TAP000789,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-06,metric_deprecation,strategic,3.38,40.5,paid
+INC000371,TAP000792,nfarrell@northharbor.health,Nora Farrell,Growth,director,FY27-Q2,2026-06,metric_deprecation,strategic,3.38,40.5,paid
+INC000372,TAP000793,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q2,2026-07,denial_reason_classification,tactical,0.5,6.0,paid
+INC000373,TAP000794,ysong@northharbor.health,Yuna Song,Revenue Cycle,lead,FY27-Q2,2026-07,denial_reason_classification,tactical,0.5,6.0,paid
+INC000374,TAP000796,lbrennan@northharbor.health,Liam Brennan,Revenue Cycle,manager,FY27-Q2,2026-07,denial_reason_classification,tactical,0.5,6.0,paid
+INC000375,TAP000798,rpatel@northharbor.health,Rohan Patel,Revenue Cycle,ic,FY27-Q2,2026-07,denial_reason_classification,tactical,0.5,6.0,paid
+INC000376,TAP000799,nabara@northharbor.health,Nkechi Abara,Revenue Cycle,ic,FY27-Q2,2026-07,denial_reason_classification,tactical,0.5,6.0,paid
+INC000377,TAP000802,iharlow@northharbor.health,Ines Harlow,Clinical Operations,ic,FY27-Q2,2026-07,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000378,TAP000803,dschultz@northharbor.health,Dana Schultz,Clinical Operations,ic,FY27-Q2,2026-07,encounter_type_mapping,tactical,0.8,9.6,paid
+INC000379,TAP000804,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000380,TAP000805,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000381,TAP000806,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000382,TAP000809,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000383,TAP000812,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000384,TAP000813,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000385,TAP000817,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000386,TAP000818,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000387,TAP000819,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000388,TAP000823,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000389,TAP000827,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000390,TAP000832,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000391,TAP000833,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000392,TAP000836,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000393,TAP000839,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000394,TAP000840,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000395,TAP000843,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000396,TAP000848,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000397,TAP000856,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000398,TAP000861,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000399,TAP000862,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000400,TAP000866,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000401,TAP000868,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000402,TAP000869,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000403,TAP000870,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000404,TAP000871,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000405,TAP000873,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000406,TAP000875,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000407,TAP000877,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000408,TAP000879,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000409,TAP000880,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000410,TAP000881,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000411,TAP000891,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000412,TAP000895,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000413,TAP000896,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000414,TAP000897,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000415,TAP000898,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000416,TAP000899,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000417,TAP000902,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000418,TAP000903,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000419,TAP000904,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000420,TAP000909,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000421,TAP000910,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000422,TAP000911,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000423,TAP000912,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000424,TAP000913,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000425,TAP000914,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000426,TAP000916,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000427,TAP000917,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000428,TAP000918,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000429,TAP000920,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000430,TAP000922,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000431,TAP000923,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000432,TAP000925,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000433,TAP000927,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000434,TAP000928,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000435,TAP000930,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000436,TAP000931,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000437,TAP000934,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000438,TAP000936,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000439,TAP000937,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000440,TAP000940,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000441,TAP000943,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000442,TAP000944,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000443,TAP000947,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000444,TAP000950,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000445,TAP000951,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000446,TAP000955,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000447,TAP000960,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000448,TAP000963,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000449,TAP000966,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000450,TAP000967,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000451,TAP000968,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000452,TAP000974,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000453,TAP000975,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000454,TAP000976,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000455,TAP000981,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000456,TAP000982,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,14.4,paid
+INC000457,TAP000984,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000458,TAP000985,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q2,2026-07,phi_column_classification,tactical,1.2,0.0,capped
+INC000459,TAP000992,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-07,quality_measure_criteria,strategic,6.75,81.0,paid
+INC000460,TAP000994,sramirez@northharbor.health,Sofia Ramirez,Clinical Operations,director,FY27-Q2,2026-07,quality_measure_criteria,strategic,6.75,81.0,paid
+INC000461,TAP000995,mkeller@northharbor.health,Marcus Keller,Data Platform,lead,FY27-Q2,2026-07,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000462,TAP000996,hyusuf@northharbor.health,Hana Yusuf,Data Platform,manager,FY27-Q2,2026-07,source_freshness_ownership,tactical,1.5,18.0,paid
+INC000463,TAP000999,nfarrell@northharbor.health,Nora Farrell,Growth,director,FY27-Q2,2026-07,metric_deprecation,strategic,3.38,40.5,paid
+INC000464,TAP001001,jokafor@northharbor.health,Joy Okafor,Revenue Cycle,director,FY27-Q2,2026-07,metric_deprecation,strategic,3.38,40.5,paid
+INC000465,TAP001002,jokafor@northharbor.health,Joy Okafor,Revenue Cycle,director,FY27-Q2,2026-07,metric_deprecation,strategic,3.38,40.5,paid
+INC000466,TAP001003,mdiallo@northharbor.health,Mariam Diallo,Revenue Cycle,ic,FY27-Q3,2026-08,denial_reason_classification,tactical,0.5,6.0,accrued
+INC000467,TAP001005,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000468,TAP001006,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000469,TAP001007,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000470,TAP001010,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000471,TAP001013,rsantos@northharbor.health,Rita Santos,Compliance,manager,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000472,TAP001014,vosei@northharbor.health,Vera Osei,Compliance,manager,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000473,TAP001016,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000474,TAP001017,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000475,TAP001019,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000476,TAP001021,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000477,TAP001022,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued
+INC000478,TAP001024,bkoval@northharbor.health,Boris Koval,Compliance,ic,FY27-Q3,2026-08,phi_column_classification,tactical,1.2,14.4,accrued

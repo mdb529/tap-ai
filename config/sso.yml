@@ -1,0 +1,53 @@
+# ---------------------------------------------------------------------------
+# SSO / IDENTITY PROVIDER CONNECTION
+#
+# SIMULATED IN THIS MVP. No network calls are made. The values below describe
+# the connection an admin would configure, and the local resolver in
+# src/lib/org.ts reads org/employees.csv + org/authority.yml in its place.
+#
+# What TapIQ actually needs from the IdP is small and worth stating plainly,
+# because it is the difference between "easy enterprise sale" and "six-month
+# security review":
+#   - OIDC login (no password storage)
+#   - email, name, department claims
+#   - group membership -> authority level
+# TapIQ does NOT need: write access, SCIM provisioning, or the full org chart.
+# ---------------------------------------------------------------------------
+
+provider: okta
+status: simulated
+display_name: North Harbor Okta
+protocol: oidc
+
+connection:
+  issuer: https://northharbor.okta.com/oauth2/default
+  client_id: 0oa8SIMULATEDxxxxx
+  client_secret_ref: env:TAPIQ_SSO_CLIENT_SECRET   # never inline a secret
+  redirect_uri: http://localhost:3000/api/auth/callback
+  scopes: [openid, profile, email, groups]
+
+claim_mapping:
+  email: email
+  full_name: name
+  department: department
+  groups: groups
+
+# IdP group -> TapIQ authority level. Mirrors org/authority.yml idp_group keys.
+group_to_authority:
+  tapiq-exec: cxo
+  tapiq-vp: vp
+  tapiq-director: director
+  tapiq-manager: manager
+  tapiq-lead: lead
+  tapiq-ic: ic
+
+provisioning:
+  mode: jit                  # just-in-time on first login; no SCIM required
+  deactivate_on_idp_removal: true
+
+local_simulation:
+  directory_file: org/employees.csv
+  authority_file: org/authority.yml
+  # Who you are "logged in as" when clicking around the local app.
+  impersonate_default: hyusuf@northharbor.health
+  impersonation_enabled: true
