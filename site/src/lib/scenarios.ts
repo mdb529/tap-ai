@@ -72,7 +72,7 @@ export interface Scenario {
   /** Why this person, in one sentence. */
   routing: string;
   persona: { name: string; title: string; initials: string };
-  channel: "Slack" | "Email" | "Teams" | "Assistant";
+  channel: "Claude" | "Slack" | "Email" | "Teams";
 
   /** ---- stages 3 & 4: the tap ------------------------------------------ */
   /** The succinct, high-impact form. This is what stays pinned while the visitor
@@ -130,10 +130,208 @@ export interface Vertical {
 /* ========================================================================== */
 
 export const VERTICALS: Vertical[] = [
+  // -------------------------------------------------------------- saas / b2b
+  {
+    id: "saas",
+    label: "SaaS",
+    blurb:
+      "Sales, finance and product each carry a piece of what a customer actually is. The dashboards only carry whichever piece got built first.",
+    glyph: "M4 17V7a2 2 0 012-2h12a2 2 0 012 2v10M2 21h20M9 21v-4h6v4",
+    scenarios: {
+      tactical: {
+        id: "saas-deal",
+        tab: "ARR moved",
+        tapClass: "tactical",
+        detected: {
+          eventType: "data anomaly",
+          signal:
+            "A closed-won deal's ARR dropped $48k overnight, and nobody can tell whether that was a real downgrade or a data correction.",
+          where: "pipeline · ARR moved after close",
+          by: "Detected on the nightly snapshot",
+        },
+        implications: [
+          "Closed-won ARR feeds the board number, quota attainment and the commission run.",
+          "If it is a correction, three downstream reports are already wrong.",
+        ],
+        routing:
+          "The rep who closed it knows what was actually signed. No amount of history reconstruction beats asking them.",
+        persona: { name: "Diego Salas", title: "senior account executive", initials: "DS" },
+        channel: "Claude",
+        shortQuestion: "Did this deal's ARR really drop $48k?",
+        impact: {
+          headline: "$48k, unexplained",
+          detail:
+            "Closed-won ARR feeds the board number, quota attainment and the commission run. Three reports are already downstream of it.",
+        },
+        question: "Northwind's ARR went from $192k to $144k after close. Is that right?",
+        context: ["Changed overnight, 4 days after signature.", "Feeds this quarter's commission run."],
+        options: [
+          "Yes — they downgraded a tier",
+          "Yes — original figure was wrong",
+          "No — this looks like an error",
+          "Let me check with the customer",
+        ],
+        suggested: 0,
+        medianSeconds: 26,
+        writeBack: {
+          target: "override_table",
+          artifact: "confirmed ARR change · deal NW-4471",
+          file: "applied to the revenue record, batched nightly",
+          diff: [
+            { sign: " ", text: "deal      arr_before   arr_after   reason              confirmed_by" },
+            { sign: "+", text: "NW-4471   192,000      144,000     tier downgrade      dsalas" },
+          ],
+          summary:
+            "The rep's five-second confirmation turned an unexplained movement into a labelled, attributable one — before finance had to chase it.",
+        },
+        contribution:
+          "You just explained a number that finance would otherwise have chased you about next week — in the time it took to read the question.",
+        shipped: {
+          reviewer: "no engineering review needed for a record-level confirmation",
+          checks: ["commission run updated", "board figure reconciled", "reason recorded"],
+          effect:
+            "Finance closed the quarter without a reconciliation thread, and the reason the number moved is attached to the deal permanently.",
+          facts: [
+            { label: "ARR clarified", value: "$48,000" },
+            { label: "Time to answer", value: "26s" },
+            { label: "Reconciliation", value: "avoided" },
+          ],
+        },
+      },
+      operational: {
+        id: "saas-sku",
+        tab: "New product",
+        tapClass: "operational",
+        detected: {
+          eventType: "new value",
+          signal:
+            "A new usage-based product line launched with no revenue category, so it is being left out of ARR entirely.",
+          where: "product catalog · revenue category unset",
+          by: "Product launch · 3 days ago",
+        },
+        implications: [
+          "Uncategorized products are excluded from ARR, net revenue retention and cohort reporting.",
+          "$310k of bookings has accumulated in three days.",
+        ],
+        routing:
+          "Revenue Operations owns how products roll up. Engineering can wire any answer but should not choose one.",
+        persona: { name: "Aisha Bello", title: "revenue operations manager", initials: "AB" },
+        channel: "Claude",
+        shortQuestion: "Does usage-based revenue count toward ARR?",
+        impact: {
+          headline: "$310k excluded from ARR",
+          detail:
+            "Three days of bookings on a new product line sit outside ARR, retention cohorts and every revenue report.",
+        },
+        question: "How should the new usage-based tier count toward ARR?",
+        context: ["$310k in bookings so far.", "Excluded from ARR until categorized."],
+        options: [
+          "Recurring — include at committed minimum",
+          "Recurring — include at trailing run rate",
+          "Usage — exclude from ARR",
+          "Needs a finance decision",
+        ],
+        suggested: 0,
+        medianSeconds: 112,
+        writeBack: {
+          target: "metadata_patch",
+          artifact: "revenue category rule · usage tier",
+          file: "product-to-revenue mapping, reviewed and batched",
+          diff: [
+            { sign: " ", text: "product_line,revenue_type,arr_basis" },
+            { sign: "-", text: "usage_tier_v1,," },
+            { sign: "+", text: "usage_tier_v1,recurring,committed_minimum" },
+          ],
+          summary:
+            "One answer set the rule for this product and every future one launched the same way — not a one-off patch on three days of bookings.",
+        },
+        contribution:
+          "You just set the ARR rule for this product and every future one launched the same way, without writing a spec.",
+        shipped: {
+          reviewer: "Priya Raman, analytics engineer",
+          checks: ["ARR recalculated", "retention cohorts rebuilt", "rule applies to future launches"],
+          effect:
+            "The new line shows up in ARR the way RevOps intended, and the next product launch inherits the rule instead of repeating the gap.",
+          facts: [
+            { label: "Bookings recovered", value: "$310,000" },
+            { label: "Rule scope", value: "all future launches" },
+            { label: "Reporting gap", value: "closed" },
+          ],
+        },
+      },
+      strategic: {
+        id: "saas-active",
+        tab: "Active customer",
+        tapClass: "strategic",
+        detected: {
+          eventType: "conflicting definitions",
+          signal:
+            "41 dashboards compute 'active customer' three different ways, so board reporting, churn and expansion all disagree.",
+          where: "41 dashboards · 3 definitions",
+          by: "Found by a usage audit across the BI layer",
+        },
+        implications: [
+          "Churn rate differs by 4.2 points depending on which definition a report happens to use.",
+          "The board deck and the customer success dashboard have never matched.",
+          "Every team believes their own number is the real one.",
+        ],
+        routing:
+          "This is a company decision, not a reporting preference. It needs someone who can settle it for everyone.",
+        persona: { name: "Elena Whitfield", title: "chief operating officer", initials: "EW" },
+        channel: "Claude",
+        shortQuestion: "What is the canonical definition of 'active customer'?",
+        impact: {
+          headline: "41 dashboards, 3 definitions",
+          detail:
+            "Churn differs by 4.2 points depending on which definition a report happens to use. The board deck and the customer success dashboard have never matched.",
+        },
+        question: "What makes a customer 'active'? Three definitions are in use today.",
+        context: [
+          "Churn differs by 4.2 points depending which one is used.",
+          "41 dashboards affected; the board deck uses the oldest.",
+        ],
+        options: [
+          "Any login in 30 days",
+          "Any billable usage in 30 days",
+          "Paid and not in cancellation",
+          "Convene the leadership team",
+        ],
+        suggested: 1,
+        medianSeconds: 620,
+        writeBack: {
+          target: "pull_request",
+          artifact: "definition of record · active_customer",
+          file: "the shared metric definition all 41 dashboards read from",
+          diff: [
+            { sign: " ", text: "  - name: active_customer" },
+            { sign: "-", text: "    definition: any login in the last 30 days" },
+            { sign: "+", text: "    definition: any billable usage in the last 30 days" },
+            { sign: "+", text: "    decided_by: Elena Whitfield, COO" },
+            { sign: "+", text: "    supersedes: login_based_v1, paid_status_v1" },
+          ],
+          summary:
+            "Three competing definitions collapsed into one of record, with the two it replaced named explicitly so nobody quietly keeps using them.",
+        },
+        contribution:
+          "You just retired two competing definitions and made one official across 41 dashboards. Before, that took a steering committee.",
+        shipped: {
+          reviewer: "Hana Yusuf, analytics engineering manager",
+          checks: ["41 dashboards repointed", "churn restated", "old definitions deprecated"],
+          effect:
+            "Every team now reports the same customer count, and the two definitions that lost are marked as retired rather than left lying around.",
+          facts: [
+            { label: "Dashboards aligned", value: "41" },
+            { label: "Churn discrepancy", value: "resolved" },
+            { label: "Definitions retired", value: "2" },
+          ],
+        },
+      },
+    },
+  },
   // ---------------------------------------------------------------- commerce
   {
     id: "commerce",
-    label: "Commerce",
+    label: "E-commerce",
     blurb:
       "Merchandisers and category managers know what a SKU is. The pipeline only knows what column it arrived in.",
     glyph: "M4 7h16l-1.5 12H5.5zM9 7V5a3 3 0 016 0v2",
@@ -312,204 +510,6 @@ export const VERTICALS: Vertical[] = [
     },
   },
 
-  // ------------------------------------------------------------- saas / b2b
-  {
-    id: "saas",
-    label: "SaaS",
-    blurb:
-      "Sales, finance and product each carry a piece of what a customer actually is. The dashboards only carry whichever piece got built first.",
-    glyph: "M4 17V7a2 2 0 012-2h12a2 2 0 012 2v10M2 21h20M9 21v-4h6v4",
-    scenarios: {
-      tactical: {
-        id: "saas-deal",
-        tab: "ARR moved",
-        tapClass: "tactical",
-        detected: {
-          eventType: "data anomaly",
-          signal:
-            "A closed-won deal's ARR dropped $48k overnight, and nobody can tell whether that was a real downgrade or a data correction.",
-          where: "pipeline · ARR moved after close",
-          by: "Detected on the nightly snapshot",
-        },
-        implications: [
-          "Closed-won ARR feeds the board number, quota attainment and the commission run.",
-          "If it is a correction, three downstream reports are already wrong.",
-        ],
-        routing:
-          "The rep who closed it knows what was actually signed. No amount of history reconstruction beats asking them.",
-        persona: { name: "Diego Salas", title: "senior account executive", initials: "DS" },
-        channel: "Slack",
-        shortQuestion: "Did this deal's ARR really drop $48k?",
-        impact: {
-          headline: "$48k, unexplained",
-          detail:
-            "Closed-won ARR feeds the board number, quota attainment and the commission run. Three reports are already downstream of it.",
-        },
-        question: "Northwind's ARR went from $192k to $144k after close. Is that right?",
-        context: ["Changed overnight, 4 days after signature.", "Feeds this quarter's commission run."],
-        options: [
-          "Yes — they downgraded a tier",
-          "Yes — original figure was wrong",
-          "No — this looks like an error",
-          "Let me check with the customer",
-        ],
-        suggested: 0,
-        medianSeconds: 26,
-        writeBack: {
-          target: "override_table",
-          artifact: "confirmed ARR change · deal NW-4471",
-          file: "applied to the revenue record, batched nightly",
-          diff: [
-            { sign: " ", text: "deal      arr_before   arr_after   reason              confirmed_by" },
-            { sign: "+", text: "NW-4471   192,000      144,000     tier downgrade      dsalas" },
-          ],
-          summary:
-            "The rep's five-second confirmation turned an unexplained movement into a labelled, attributable one — before finance had to chase it.",
-        },
-        contribution:
-          "You just explained a number that finance would otherwise have chased you about next week — in the time it took to read the question.",
-        shipped: {
-          reviewer: "no engineering review needed for a record-level confirmation",
-          checks: ["commission run updated", "board figure reconciled", "reason recorded"],
-          effect:
-            "Finance closed the quarter without a reconciliation thread, and the reason the number moved is attached to the deal permanently.",
-          facts: [
-            { label: "ARR clarified", value: "$48,000" },
-            { label: "Time to answer", value: "26s" },
-            { label: "Reconciliation", value: "avoided" },
-          ],
-        },
-      },
-      operational: {
-        id: "saas-sku",
-        tab: "New product",
-        tapClass: "operational",
-        detected: {
-          eventType: "new value",
-          signal:
-            "A new usage-based product line launched with no revenue category, so it is being left out of ARR entirely.",
-          where: "product catalog · revenue category unset",
-          by: "Product launch · 3 days ago",
-        },
-        implications: [
-          "Uncategorized products are excluded from ARR, net revenue retention and cohort reporting.",
-          "$310k of bookings has accumulated in three days.",
-        ],
-        routing:
-          "Revenue Operations owns how products roll up. Engineering can wire any answer but should not choose one.",
-        persona: { name: "Aisha Bello", title: "revenue operations manager", initials: "AB" },
-        channel: "Slack",
-        shortQuestion: "Does usage-based revenue count toward ARR?",
-        impact: {
-          headline: "$310k excluded from ARR",
-          detail:
-            "Three days of bookings on a new product line sit outside ARR, retention cohorts and every revenue report.",
-        },
-        question: "How should the new usage-based tier count toward ARR?",
-        context: ["$310k in bookings so far.", "Excluded from ARR until categorized."],
-        options: [
-          "Recurring — include at committed minimum",
-          "Recurring — include at trailing run rate",
-          "Usage — exclude from ARR",
-          "Needs a finance decision",
-        ],
-        suggested: 0,
-        medianSeconds: 112,
-        writeBack: {
-          target: "metadata_patch",
-          artifact: "revenue category rule · usage tier",
-          file: "product-to-revenue mapping, reviewed and batched",
-          diff: [
-            { sign: " ", text: "product_line,revenue_type,arr_basis" },
-            { sign: "-", text: "usage_tier_v1,," },
-            { sign: "+", text: "usage_tier_v1,recurring,committed_minimum" },
-          ],
-          summary:
-            "One answer set the rule for this product and every future one launched the same way — not a one-off patch on three days of bookings.",
-        },
-        contribution:
-          "You just set the ARR rule for this product and every future one launched the same way, without writing a spec.",
-        shipped: {
-          reviewer: "Priya Raman, analytics engineer",
-          checks: ["ARR recalculated", "retention cohorts rebuilt", "rule applies to future launches"],
-          effect:
-            "The new line shows up in ARR the way RevOps intended, and the next product launch inherits the rule instead of repeating the gap.",
-          facts: [
-            { label: "Bookings recovered", value: "$310,000" },
-            { label: "Rule scope", value: "all future launches" },
-            { label: "Reporting gap", value: "closed" },
-          ],
-        },
-      },
-      strategic: {
-        id: "saas-active",
-        tab: "Active customer",
-        tapClass: "strategic",
-        detected: {
-          eventType: "conflicting definitions",
-          signal:
-            "41 dashboards compute 'active customer' three different ways, so board reporting, churn and expansion all disagree.",
-          where: "41 dashboards · 3 definitions",
-          by: "Found by a usage audit across the BI layer",
-        },
-        implications: [
-          "Churn rate differs by 4.2 points depending on which definition a report happens to use.",
-          "The board deck and the customer success dashboard have never matched.",
-          "Every team believes their own number is the real one.",
-        ],
-        routing:
-          "This is a company decision, not a reporting preference. It needs someone who can settle it for everyone.",
-        persona: { name: "Elena Whitfield", title: "chief operating officer", initials: "EW" },
-        channel: "Email",
-        shortQuestion: "What is the canonical definition of 'active customer'?",
-        impact: {
-          headline: "41 dashboards, 3 definitions",
-          detail:
-            "Churn differs by 4.2 points depending on which definition a report happens to use. The board deck and the customer success dashboard have never matched.",
-        },
-        question: "What makes a customer 'active'? Three definitions are in use today.",
-        context: [
-          "Churn differs by 4.2 points depending which one is used.",
-          "41 dashboards affected; the board deck uses the oldest.",
-        ],
-        options: [
-          "Any login in 30 days",
-          "Any billable usage in 30 days",
-          "Paid and not in cancellation",
-          "Convene the leadership team",
-        ],
-        suggested: 1,
-        medianSeconds: 620,
-        writeBack: {
-          target: "pull_request",
-          artifact: "definition of record · active_customer",
-          file: "the shared metric definition all 41 dashboards read from",
-          diff: [
-            { sign: " ", text: "  - name: active_customer" },
-            { sign: "-", text: "    definition: any login in the last 30 days" },
-            { sign: "+", text: "    definition: any billable usage in the last 30 days" },
-            { sign: "+", text: "    decided_by: Elena Whitfield, COO" },
-            { sign: "+", text: "    supersedes: login_based_v1, paid_status_v1" },
-          ],
-          summary:
-            "Three competing definitions collapsed into one of record, with the two it replaced named explicitly so nobody quietly keeps using them.",
-        },
-        contribution:
-          "You just retired two competing definitions and made one official across 41 dashboards. Before, that took a steering committee.",
-        shipped: {
-          reviewer: "Hana Yusuf, analytics engineering manager",
-          checks: ["41 dashboards repointed", "churn restated", "old definitions deprecated"],
-          effect:
-            "Every team now reports the same customer count, and the two definitions that lost are marked as retired rather than left lying around.",
-          facts: [
-            { label: "Dashboards aligned", value: "41" },
-            { label: "Churn discrepancy", value: "resolved" },
-            { label: "Definitions retired", value: "2" },
-          ],
-        },
-      },
-    },
-  },
   // -------------------------------------------------------------- healthcare
   {
     id: "healthcare",
