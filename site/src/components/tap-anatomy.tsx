@@ -72,7 +72,7 @@ const DIMENSIONS: Dimension[] = [
     values: [
       { label: "Slack / Teams", note: "Real time for people already living in chat." },
       { label: "Email", note: "Digested. The default for executives." },
-      { label: "Assistant", note: "Conversational, for people who work through an AI surface." },
+      { label: "Claude", note: "Conversational — ask what is at stake before deciding." },
       { label: "In-app inbox", note: "A queue for anyone who prefers to batch their own." },
     ],
     why: "Form factor flexes by persona; the tap itself does not. A CFO gets a Monday roll-up, not a stream.",

@@ -66,7 +66,7 @@ const CLASS_STYLE: Record<TapClass, { chip: string; dot: string; ring: string; t
 };
 
 export function Walkthrough() {
-  // Commerce is index 0 in VERTICALS, so it is the default with no special case.
+  // Index 0 of VERTICALS is the default. SaaS leads, so no special case here.
   const [vi, setVi] = useState(0);
   const [cls, setCls] = useState<TapClass>("strategic");
   const [stage, setStage] = useState(2); // land on the tap — it is what people came for
