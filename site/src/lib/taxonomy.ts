@@ -211,6 +211,16 @@ export const FAMILIES: TapFamily[] = [
   },
 ];
 
+/**
+ * How many family x class cells exist at all. Derived, because the pricing page
+ * renders "N of TOTAL" and a hand-typed total is the first thing to go stale when
+ * a family is added.
+ */
+export const TOTAL_CELLS = FAMILIES.reduce<number>(
+  (n, f) => n + Object.values(f.cells).filter(Boolean).length,
+  0
+);
+
 /** Plan ordering, cheapest first. Used to test "does plan X include cell Y". */
 export const PLAN_ORDER: PlanKey[] = ["starter", "growth", "enterprise"];
 

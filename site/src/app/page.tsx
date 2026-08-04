@@ -5,8 +5,8 @@ import { Democratize } from "@/components/democratize";
 import { KnowledgeGraph } from "@/components/knowledge-graph";
 import { Roi } from "@/components/roi";
 import { TapMatrix } from "@/components/tap-matrix";
+import { Pricing } from "@/components/pricing";
 import { Reveal } from "@/components/reveal";
-import { PRICING_PRINCIPLE, TIERS } from "@/lib/tiers";
 import { href } from "@/lib/href";
 
 /**
@@ -222,24 +222,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============================================================= pricing */}
+      {/* ============================================================= pricing
+          The family x class grid sits ABOVE the tier cards: "which questions do I
+          get" is what a buyer actually wants answered, and the cards alone cannot
+          show it, because a tap has two axes rather than one. */}
       <section id="pricing" className="scroll-mt-16 border-y border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-6 sm:py-20">
-          <Reveal className="mx-auto mb-9 max-w-2xl text-center">
-            <h2 className="text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.03em] text-slate-900 sm:text-[2.5rem]">
-              Never priced per question.
-            </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-              {PRICING_PRINCIPLE.body}
-            </p>
-          </Reveal>
-
-          {/* The grid goes ABOVE the tier cards. "Which questions do I get" is
-              the thing a buyer actually wants answered, and the cards alone
-              cannot show it — a tap has two axes, not one. */}
           <Reveal className="mb-10 sm:mb-12">
             <div className="mx-auto mb-6 max-w-2xl text-center">
-              <h3 className="text-[1.15rem] font-semibold tracking-[-0.02em] text-slate-900 sm:text-[1.4rem]">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-teal-700">
+                What gets asked
+              </p>
+              <h3 className="mt-2 text-[1.3rem] font-semibold tracking-[-0.025em] text-slate-900 sm:text-[1.6rem]">
                 Two axes: how much it binds, and what it is about.
               </h3>
               <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-600">
@@ -254,74 +248,9 @@ export default function Home() {
             <TapMatrix />
           </Reveal>
 
-          <div className="grid gap-3.5 lg:grid-cols-3">
-            {TIERS.map((t, k) => (
-              <Reveal key={t.name} delay={k * 90}>
-                <div
-                  className={`flex h-full flex-col rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-0.5 sm:p-6 ${
-                    t.highlight ? "bg-slate-900 ring-2 ring-teal-500" : "border border-slate-200 bg-white"
-                  }`}
-                >
-                  <div className="flex items-baseline justify-between gap-2">
-                    <h3 className={`text-[19px] font-semibold ${t.highlight ? "text-white" : "text-slate-900"}`}>
-                      {t.name}
-                    </h3>
-                    {t.highlight && (
-                      <span className="shrink-0 rounded-full bg-teal-500 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-slate-900">
-                        most teams
-                      </span>
-                    )}
-                  </div>
-                  <p className={`mt-1 text-[12.5px] ${t.highlight ? "text-slate-400" : "text-slate-500"}`}>
-                    {t.tagline}
-                  </p>
-                  <p className="mt-4 flex items-baseline gap-1.5">
-                    <span className={`text-[26px] font-semibold ${t.highlight ? "text-white" : "text-slate-900"}`}>
-                      {t.price}
-                    </span>
-                    <span className={`text-[12px] ${t.highlight ? "text-slate-400" : "text-slate-500"}`}>
-                      {t.cadence}
-                    </span>
-                  </p>
-                  <dl
-                    className="mt-4 space-y-1.5 border-t pt-4 text-[12px]"
-                    style={{ borderColor: t.highlight ? "rgba(255,255,255,.12)" : "#e2e8f0" }}
-                  >
-                    {t.gates.map((g) => (
-                      <div key={g.label} className="flex items-baseline justify-between gap-2">
-                        <dt className={`shrink-0 ${t.highlight ? "text-slate-400" : "text-slate-500"}`}>
-                          {g.label}
-                        </dt>
-                        <dd
-                          className={`text-right font-medium ${
-                            g.absent
-                              ? t.highlight
-                                ? "text-slate-600"
-                                : "text-slate-300"
-                              : g.strong
-                                ? "text-teal-500"
-                                : t.highlight
-                                  ? "text-slate-100"
-                                  : "text-slate-800"
-                          }`}
-                        >
-                          {g.value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-                  <div className="mt-4 flex-1" />
-                  <p
-                    className={`rounded-xl px-3 py-2.5 text-center text-[12px] font-semibold ${
-                      t.highlight ? "bg-white text-slate-900" : "bg-slate-100 text-slate-700"
-                    }`}
-                  >
-                    Questions: unlimited
-                  </p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Reveal delay={60}>
+            <Pricing />
+          </Reveal>
         </div>
       </section>
 

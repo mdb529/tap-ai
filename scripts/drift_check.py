@@ -60,11 +60,19 @@ def check_pricing() -> None:
         )
     )
 
-    # Site: name + price string
+    # Site: name + price, read PER TIER BLOCK rather than by adjacency. The old
+    # regex required `price` to be the line after `name`, so inserting any field
+    # between them broke the check -- and a pricing check that silently stops
+    # matching is worse than no check.
     site = {}
-    for m in re.finditer(r'name: "(\w+)",\s*\n\s*price: "([^"]+)"', tiers_ts):
-        name, price = m.group(1), m.group(2)
-        site[name] = 0 if price.lower() == "free" else int(re.sub(r"[^\d]", "", price))
+    for block in re.split(r"\n  \{\n", tiers_ts)[1:]:
+        nm = re.search(r'name: "(\w+)"', block)
+        pr = re.search(r'price: "([^"]+)"', block)
+        if nm and pr:
+            price = pr.group(1)
+            site[nm.group(1)] = (
+                0 if price.lower() == "free" else int(re.sub(r"[^\d]", "", price))
+            )
 
     if set(mvp) != set(site):
         fail(
@@ -174,7 +182,7 @@ def check_end_users() -> None:
     site = {}
     for block in re.split(r'\n  \{\n', tiers_ts)[1:]:
         nm = re.search(r'name: "(\w+)"', block)
-        row = re.search(r'label: "End users who can tap", value: "([^"]+)"', block)
+        row = re.search(r'endUsers: \{ text: "([^"]+)"', block)
         if nm and row:
             val = row.group(1)
             # "50+, unlimited" states a floor AND no cap. The word wins -- reading
@@ -186,7 +194,7 @@ def check_end_users() -> None:
 
     mvp = {t["name"]: t["gates"]["end_users"] for t in plan}
     if not site:
-        fail("tiers.ts has no 'End users who can tap' rows -- the cap is unstated")
+        fail("tiers.ts has no endUsers cell -- the contributor cap is unstated")
         return
     for name, cap in mvp.items():
         want = "unlimited" if cap == "unlimited" else int(cap)

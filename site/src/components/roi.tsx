@@ -81,7 +81,7 @@ export function Roi() {
             <p className="mt-1.5 text-[12.5px] leading-relaxed text-amber-800">
               Some of these decisions would have been made anyway — later, and more expensively. We
               discard {Math.round((1 - ASSUMPTION.attribution) * 100)}% of modelled value on that
-              basis. Claiming all of it would not survive a serious review.
+              basis.
             </p>
           </div>
         </div>
