@@ -1,7 +1,12 @@
-# Publish the Tap AI site to GitHub Pages on every push to main.
+# Publish the Tap AI site to GitHub Pages.
 #
-# One-time setup in the GitHub repo:
+# ONE-TIME SETUP, AND IT IS EASY TO MISS:
 #   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
+#
+# If Source is left as "Deploy from a branch", Pages runs Jekyll over the repo
+# root and serves README.md as the homepage -- which looks like a successful
+# deploy of the wrong thing. The tell is `<meta name="generator" content="Jekyll">`
+# in the served HTML.
 #
 # The site is a static export, so there is nothing to run server-side and no
 # secrets to configure. BASE_PATH is set to the repo name because Pages serves
@@ -11,7 +16,7 @@ name: Deploy site
 on:
   push:
     branches: [main, master]
-    paths: ["site/**", ".github/workflows/deploy-site.yml"]
+  # Lets you deploy from the Actions tab without pushing anything.
   workflow_dispatch:
 
 permissions:
