@@ -84,10 +84,40 @@ export default function Home() {
       {/* ============================================================= journey */}
       <section id="flow" className="scroll-mt-16 border-t border-white/5 bg-slate-950">
         <div className="mx-auto max-w-[47rem] px-5 py-16 sm:px-6 sm:py-20">
-          <Reveal className="mb-9 text-center">
-            <h2 className="text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-[2.5rem]">
+          {/* Framing before the walkthrough. Three things a visitor needs to
+              believe before the mechanics mean anything: a tap is a contribution
+              (not an alert), contributions compound into money, and volume is
+              bounded by design. */}
+          <Reveal className="mx-auto mb-10 max-w-2xl text-center sm:mb-12">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-teal-300">
+              What a tap is
+            </p>
+            <h2 className="mt-2 text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-[2.5rem]">
               One decision, end to end.
             </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-slate-300 sm:text-[16.5px]">
+              A tap is not an alert — it is a{" "}
+              <strong className="font-semibold text-white">contribution</strong>. Each one settles a
+              question your systems were about to guess at, and settled questions compound: fewer
+              competing definitions, less reconciliation, less rework, and numbers your teams stop
+              arguing about.
+            </p>
+
+            <div className="mt-6 grid gap-2.5 text-left sm:grid-cols-3">
+              {[
+                ["Every tap is a contribution", "Not a notification to clear — a decision that lands in your systems."],
+                ["Contributions compound", "Definitions stop drifting, so the rework they cause stops too."],
+                ["No alert fatigue", "Every question has a cooldown, a daily ceiling, and quiet hours. Answered once, never re-asked."],
+              ].map(([t, b]) => (
+                <div
+                  key={t}
+                  className="rounded-xl bg-white/[0.04] px-4 py-3.5 ring-1 ring-inset ring-white/10"
+                >
+                  <p className="text-[13px] font-semibold text-white">{t}</p>
+                  <p className="mt-1 text-[12.5px] leading-relaxed text-slate-400">{b}</p>
+                </div>
+              ))}
+            </div>
           </Reveal>
           <Journey />
         </div>

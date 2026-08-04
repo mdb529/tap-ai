@@ -73,7 +73,7 @@ const PILLARS: Pillar[] = [
     claim:
       "The right person is asked at the moment the decision matters — not shown a chart and left to notice.",
     proof: [
-      { label: "Reaches out, not waits", detail: "A dashboard has to be opened by someone who already suspects a problem." },
+      { label: "Proactive, not reactive", detail: "A dashboard waits to be opened by someone who already suspects a problem. A tap arrives when the decision is needed." },
       { label: "No alert fatigue", detail: "Every question has a cooldown, a daily ceiling, and quiet hours. Answered once, never re-asked." },
       { label: "Precision is gated", detail: "Every tap carries a 'was this worth asking?' rating. A question type below 60% gets paused." },
       { label: "Ends in a change", detail: "The output is a decision applied to your systems, not a number on a screen." },

@@ -75,7 +75,15 @@ export interface Scenario {
   channel: "Slack" | "Email" | "Teams" | "Assistant";
 
   /** ---- stages 3 & 4: the tap ------------------------------------------ */
+  /** The succinct, high-impact form. This is what stays pinned while the visitor
+   *  scrolls the three beats, so it has to be readable in one glance and make
+   *  sense with no surrounding context. */
+  shortQuestion: string;
+  /** The full text as it appears inside the tap itself. */
   question: string;
+  /** Shown behind a "see the impact" link: what is actually at stake, as one
+   *  number and one sentence. The number is the part people repeat. */
+  impact: { headline: string; detail: string };
   context: string[];
   options: string[];
   /** Index of the answer the walkthrough plays by default. */
@@ -148,6 +156,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Pricing owns discount policy. Engineering can implement either rule but cannot choose one.",
         persona: { name: "Marta Kovac", title: "pricing manager", initials: "MK" },
         channel: "Slack",
+        shortQuestion: "Can this promotion stack with loyalty discounts?",
+        impact: {
+          headline: "42% worst-case discount",
+          detail:
+            "Without a stacking rule the margin model and the checkout guardrail disagree, so the site can discount further than pricing intends.",
+        },
         question: "Should the new BUNDLE promo codes stack with loyalty discounts?",
         context: ["Stacking allows up to 42% off some baskets.", "Live on site since 6am today."],
         options: ["Yes, stack them", "No, highest discount wins", "Stack up to a 30% cap", "Not sure"],
@@ -198,6 +212,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Finance owns revenue recognition timing; Marketing consumes it downstream.",
         persona: { name: "Grant Wallace", title: "vice president of finance", initials: "GW" },
         channel: "Slack",
+        shortQuestion: "Which month do returns belong to?",
+        impact: {
+          headline: "6% apart, 18 months running",
+          detail:
+            "Finance and Marketing report net revenue differently because returns land in different months. Cohort payback math inherits the gap.",
+        },
         question: "Should returns be netted against the month of the original order, or the month of the refund?",
         context: [
           "Restates prior reported months either way.",
@@ -253,6 +273,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Merchandising assigns departments — a five-second call for them, a guess for anyone else.",
         persona: { name: "Lena Berger", title: "senior merchandiser", initials: "LB" },
         channel: "Slack",
+        shortQuestion: "Which department do these 47 new products belong to?",
+        impact: {
+          headline: "47 SKUs, 0 categories",
+          detail:
+            "Live on the site since 6am and invisible to category performance and the reorder model. Every hour unassigned is an hour of demand nobody is planning for.",
+        },
         question: "47 new SKUs from Kaiser Outdoor have no department. Where do insulated bottles belong?",
         context: ["Live on the site since 6am.", "Missing from the reorder model until assigned."],
         options: ["Outdoor & camping", "Kitchen & dining", "Fitness", "Split — I'll review the list"],
@@ -313,6 +339,12 @@ export const VERTICALS: Vertical[] = [
           "The rep who closed it knows what was actually signed. No amount of history reconstruction beats asking them.",
         persona: { name: "Diego Salas", title: "senior account executive", initials: "DS" },
         channel: "Slack",
+        shortQuestion: "Did this deal's ARR really drop $48k?",
+        impact: {
+          headline: "$48k, unexplained",
+          detail:
+            "Closed-won ARR feeds the board number, quota attainment and the commission run. Three reports are already downstream of it.",
+        },
         question: "Northwind's ARR went from $192k to $144k after close. Is that right?",
         context: ["Changed overnight, 4 days after signature.", "Feeds this quarter's commission run."],
         options: [
@@ -367,6 +399,12 @@ export const VERTICALS: Vertical[] = [
           "Revenue Operations owns how products roll up. Engineering can wire any answer but should not choose one.",
         persona: { name: "Aisha Bello", title: "revenue operations manager", initials: "AB" },
         channel: "Slack",
+        shortQuestion: "Does usage-based revenue count toward ARR?",
+        impact: {
+          headline: "$310k excluded from ARR",
+          detail:
+            "Three days of bookings on a new product line sit outside ARR, retention cohorts and every revenue report.",
+        },
         question: "How should the new usage-based tier count toward ARR?",
         context: ["$310k in bookings so far.", "Excluded from ARR until categorized."],
         options: [
@@ -423,6 +461,12 @@ export const VERTICALS: Vertical[] = [
           "This is a company decision, not a reporting preference. It needs someone who can settle it for everyone.",
         persona: { name: "Elena Whitfield", title: "chief operating officer", initials: "EW" },
         channel: "Email",
+        shortQuestion: "What is the canonical definition of 'active customer'?",
+        impact: {
+          headline: "41 dashboards, 3 definitions",
+          detail:
+            "Churn differs by 4.2 points depending on which definition a report happens to use. The board deck and the customer success dashboard have never matched.",
+        },
         question: "What makes a customer 'active'? Three definitions are in use today.",
         context: [
           "Churn differs by 4.2 points depending which one is used.",
@@ -493,6 +537,12 @@ export const VERTICALS: Vertical[] = [
           "Clinical Informatics owns the encounter taxonomy — a recurring rule for them, guesswork for anyone else.",
         persona: { name: "Hanna Lindqvist", title: "clinical informatics lead", initials: "HL" },
         channel: "Slack",
+        shortQuestion: "Is a telehealth visit from home an outpatient encounter?",
+        impact: {
+          headline: "1,120 encounters missing",
+          detail:
+            "Telehealth visits from home are falling outside the census, so capacity planning and payer mix are both understated.",
+        },
         question: "Place of service 10 (telehealth in the patient's home) is new. Which care setting?",
         context: ["1,120 encounters affected this month.", "Feeds capacity planning and payer mix."],
         options: ["Outpatient", "Virtual", "Home health", "Exclude from census", "Not sure"],
@@ -544,6 +594,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Finance owns net patient revenue, and only a director or above can rebase a company metric.",
         persona: { name: "Robert Marsh", title: "chief financial officer", initials: "RM" },
         channel: "Slack",
+        shortQuestion: "Does net patient revenue include self-pay?",
+        impact: {
+          headline: "31 reports, board pack included",
+          detail:
+            "The definition has been stable since March 2024. Changing it without a decision means the board sees a different number than Finance signed off on.",
+        },
         question: "Net patient revenue now excludes self-pay accounts. Should that be the official definition?",
         context: [
           "Affects 31 reports, including the board pack.",
@@ -604,6 +660,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Denials Management owns this taxonomy, and the lead coder is closest to the work.",
         persona: { name: "Yuna Song", title: "lead medical coder", initials: "YS" },
         channel: "Slack",
+        shortQuestion: "Which category is this denial?",
+        impact: {
+          headline: "24 claims, 90-day clock",
+          detail:
+            "Unclassified denials drop out of the denials dashboard, and unworked denials past 90 days become write-offs.",
+        },
         question: "Aetna denied claim CLM0740219 with code CO-197. Which category is this?",
         context: ["$4,180 claim, service date June 12.", "23 more claims are waiting on the same answer."],
         options: [
@@ -670,6 +732,12 @@ export const VERTICALS: Vertical[] = [
           "Treasury Operations recognizes trading names on sight. No fuzzy match will resolve this confidently.",
         persona: { name: "Omar Haddad", title: "treasury operations analyst", initials: "OH" },
         channel: "Slack",
+        shortQuestion: "Is this wire from an existing customer?",
+        impact: {
+          headline: "$1.4M unapplied",
+          detail:
+            "Six wires sit in suspense because the sender's trading name does not match a customer on file. The closest system match scored 0.71.",
+        },
         question: "A $340k wire is from “NORTHBRIDGE HLDG LTD”. Is that our customer Northbridge Holdings?",
         context: ["6 wires totalling $1.4M are unapplied.", "Closest system match scored 0.71."],
         options: ["Yes, same entity", "No, different entity", "New customer — create", "Not sure"],
@@ -719,6 +787,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Only the controller can decide how a product is classified for external reporting.",
         persona: { name: "Dana Whitfield", title: "corporate controller", initials: "DW" },
         channel: "Email",
+        shortQuestion: "Do buy-now-pay-later balances count as loans?",
+        impact: {
+          headline: "40 basis points",
+          detail:
+            "Including buy-now-pay-later moves the delinquency rate reported in the quarterly filing and the investor deck.",
+        },
         question:
           "Should buy-now-pay-later balances count as loans in the delinquency rate we report externally?",
         context: [
@@ -776,6 +850,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Card Operations owns the spend taxonomy; the analyst reviewing the network file is closest.",
         persona: { name: "Omar Haddad", title: "card operations analyst", initials: "OH" },
         channel: "Slack",
+        shortQuestion: "Which spend category is this merchant code?",
+        impact: {
+          headline: "1,840 transactions unclassified",
+          detail:
+            "Spend categories drive the 3% rewards tier, so a misclassification is a cash issue rather than a reporting one.",
+        },
         question: "MCC 5817 (“digital goods”) is new. Which spend category does it belong to?",
         context: ["1,840 transactions affected so far this month.", "Drives the 3% rewards tier."],
         options: ["Entertainment", "Software & subscriptions", "Retail", "Exclude from rewards", "Not sure"],
@@ -835,6 +915,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Legal Operations knows which matter a firm is actually working. Finance can only guess.",
         persona: { name: "Vera Osei", title: "legal operations manager", initials: "VO" },
         channel: "Slack",
+        shortQuestion: "Which matter should this invoice bill to?",
+        impact: {
+          headline: "$86k unaccrued",
+          detail:
+            "Four invoices cannot be coded, so legal spend closes understated and the accrual has to be trued up next period.",
+        },
         question: "Harlow & Voss invoice 88431 cites matter M-2291, which doesn't exist. Which matter is this?",
         context: ["$86k across 4 invoices is unaccrued.", "Firm's last 3 invoices were matter M-2219."],
         options: ["M-2219 — Delaware filing", "M-2304 — employment", "New matter", "Reject the invoice"],
@@ -883,6 +969,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Only Legal can interpret a clause; Finance only consumes the classification.",
         persona: { name: "Priya Raman", title: "deputy general counsel", initials: "PR" },
         channel: "Slack",
+        shortQuestion: "Does this renewal clause make the contract evergreen?",
+        impact: {
+          headline: "3 contracts, 90-day reserve",
+          detail:
+            "Evergreen status triggers a notice reserve on the balance sheet. Misclassifying one has produced a surprise renewal twice before.",
+        },
         question:
           "This MSA renews automatically unless cancelled 60 days out. Does it count as evergreen for the obligation tracker?",
         context: ["3 contracts this week use the same clause.", "Evergreen triggers a notice reserve."],
@@ -933,6 +1025,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Records Management owns retention schedules; this is routine for them and guesswork for anyone else.",
         persona: { name: "Rita Santos", title: "records manager", initials: "RS" },
         channel: "Teams",
+        shortQuestion: "How long do we retain clinical trial consent?",
+        impact: {
+          headline: "412 documents, indefinite",
+          detail:
+            "With no schedule set, documents default to indefinite retention — which is its own liability.",
+        },
         question: "New document type “clinical trial consent” has no retention schedule. Which applies?",
         context: ["412 documents already classified this way.", "Currently defaulting to indefinite."],
         options: ["7 years", "10 years", "25 years", "Permanent", "Not sure — escalate to counsel"],
@@ -994,6 +1092,12 @@ export const VERTICALS: Vertical[] = [
         routing: "Underwriting owns rating classification. This is a recurring judgment, not a one-off decision.",
         persona: { name: "Kwame Moreau", title: "underwriting operations manager", initials: "KM" },
         channel: "Teams",
+        shortQuestion: "Which rating tier is an indoor vertical farm?",
+        impact: {
+          headline: "38 quotes blocked",
+          detail:
+            "Rating tier drives premium and the reinsurance cession percentage, so nothing can be quoted until the class is tiered.",
+        },
         question: "New occupancy class “indoor vertical farm” needs a rating tier. Which one?",
         context: ["38 quotes are blocked.", "Closest existing class: greenhouse, tier 3."],
         options: ["Tier 2 — light industrial", "Tier 3 — agricultural", "Tier 4 — high hazard", "Refer to underwriting"],
@@ -1044,6 +1148,12 @@ export const VERTICALS: Vertical[] = [
         routing: "The chief actuary owns aggregation methodology — this is a reserve decision, not a code decision.",
         persona: { name: "Adaeze Voss", title: "chief actuary", initials: "AV" },
         channel: "Email",
+        shortQuestion: "Do severe storms count as catastrophe losses?",
+        impact: {
+          headline: "6% PML movement",
+          detail:
+            "Catastrophe aggregation sets the reinsurance attachment point, and renewal negotiations start in three weeks.",
+        },
         question:
           "Should severe convective storm losses aggregate into the catastrophe PML, or stay in attritional?",
         context: [
@@ -1100,6 +1210,12 @@ export const VERTICALS: Vertical[] = [
         routing: "The field adjuster saw the property. No model can infer what they already know.",
         persona: { name: "Tobias Hoffman", title: "senior field adjuster", initials: "TH" },
         channel: "Slack",
+        shortQuestion: "Wind, or flood?",
+        impact: {
+          headline: "84 claims, 2 treaties",
+          detail:
+            "Wind and flood attach to different policies and different reinsurance treaties. The routing decides who pays.",
+        },
         question: "Claim CL-88210: was the primary loss cause wind or flood?",
         context: ["$62,400 estimate, inspected July 30.", "84 claims from this storm need the same call."],
         options: ["Wind", "Flood", "Both — concurrent causation", "Cannot determine from inspection"],
@@ -1165,30 +1281,51 @@ export interface Tier {
   who: string;
   /** What kind of call this person gets asked to make. */
   asks: string;
+  /** What this person is uniquely trying to find out. */
+  looksFor: string;
+  /** The shape of their contribution. */
+  contributes: string;
+  /** Why a tap is worth their attention specifically. */
+  means: string;
   glyph: string;
 }
 
 export const TIERS: Tier[] = [
   {
-    key: "tactical",
-    label: "Frontline",
-    who: "Coders, adjusters, reps, merchandisers — closest to the work",
-    asks: "A routine call only you can make, dozens of times a week",
-    glyph: "M12 3v18M3 12h18",
+    key: "strategic",
+    label: "C-Suite",
+    who: "Executives who can bind the whole company to a definition",
+    asks: "A decision every team downstream will report against",
+    looksFor: "Whether the numbers your board sees mean what you think they mean.",
+    contributes:
+      "Rare, high-stakes calls that settle a definition for the whole company rather than one team.",
+    means:
+      "A finger on the pulse without another standing meeting — and your judgment reaching the systems that report on it, not just the deck that describes it.",
+    glyph: "M3 20h18M12 4l3.5 6.5h-7z",
   },
   {
     key: "operational",
     label: "Director",
     who: "Managers and directors who own how a function operates",
     asks: "A recurring rule your team will live with",
+    looksFor: "Whether your function's rules are actually being applied the way you set them.",
+    contributes:
+      "The recurring rules your team lives with — set once, applied to everything that arrives after.",
+    means:
+      "Policy you own enforced in the systems rather than re-litigated every quarter, and visibility when something new does not fit an existing rule.",
     glyph: "M4 18V9m5 9V5m5 13v-6m5 6V8",
   },
   {
-    key: "strategic",
-    label: "C-Suite",
-    who: "Executives who can bind the whole company to a definition",
-    asks: "A decision every team downstream will report against",
-    glyph: "M3 20h18M12 4l3.5 6.5h-7z M12 12l4 8H8z",
+    key: "tactical",
+    label: "Frontline",
+    who: "Coders, adjusters, reps, merchandisers — closest to the work",
+    asks: "A routine call only you can make, dozens of times a week",
+    looksFor: "Whether the work in front of you is classified the way you would classify it.",
+    contributes:
+      "The routine judgments only someone doing the work can make, and the system learns each one.",
+    means:
+      "Five seconds to settle something that would otherwise sit in a queue, or come back to you next week as a question from finance.",
+    glyph: "M12 3v18M3 12h18",
   },
 ];
 
