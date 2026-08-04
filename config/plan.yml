@@ -48,7 +48,7 @@ subscription:
   connectors_used: 2
   domains_governed: 10
   taps_included: unlimited
-  seats_included: unlimited
+  end_users_included: 50
 
 # Ordered cheapest first. `gates` are the things that genuinely change between
 # tiers -- if a row is the same across all three it does not belong here.
@@ -58,7 +58,17 @@ plan_tiers:
     tagline: Prove the loop on one system.
     gates:
       connectors: 1
-      tap_classes: [tactical, operational]
+      # END USERS is the cap that matters. It counts people who ANSWER taps, not
+      # people who can log in and read. Contribution is the value, so
+      # contributors are what we meter -- and unlike per-tap pricing, this number
+      # grows as the product succeeds rather than shrinking.
+      end_users: 10
+      tap_classes: [tactical]
+      tap_families: [record, quality, logic]
+      # Only deterministic triggers. Something specific happened and we can point
+      # at it -- a PR diff, a new enum value, a failing test. No inference, which
+      # is precisely why it costs nothing.
+      detection_modes: [triggered]
       channels: [webapp, slack]
       decision_ledger: read_only
       ai_agent_access: false
@@ -72,8 +82,15 @@ plan_tiers:
     tagline: Govern the decisions that cross team boundaries.
     gates:
       connectors: 5
+      end_users: 50
       tap_classes: [tactical, operational, strategic]
-      channels: [webapp, slack, teams, email, assistant]
+      tap_families: [record, quality, logic, metric, governance]
+      # Adds pattern detection over usage and metadata: definitions diverging, a
+      # metric nobody queries, a rule accumulating exceptions. No single event
+      # fired -- the pattern IS the signal, and finding it needs the platform to
+      # be watching over time.
+      detection_modes: [triggered, automatic]
+      channels: [webapp, slack, teams, email, claude]
       decision_ledger: export
       ai_agent_access: true       # MCP server over the decision ledger
       sso: true
@@ -86,8 +103,16 @@ plan_tiers:
     tagline: Company-wide, with your own tap types and your own reviewers.
     gates:
       connectors: unlimited
+      # No cap. Above ~50 contributors the constraint stops being licensing and
+      # starts being routing quality, which is what the higher tier actually buys.
+      end_users: unlimited
       tap_classes: [tactical, operational, strategic]
-      channels: [webapp, slack, teams, email, assistant]
+      tap_families: [record, quality, logic, metric, governance]
+      # Adds the AI agent audit: an agent sweeps the project and PROPOSES taps
+      # nobody thought to configure, reasoning attached, for a human to accept or
+      # reject. This is the mode that finds the questions you did not know to ask.
+      detection_modes: [triggered, automatic, audit]
+      channels: [webapp, slack, teams, email, claude]
       decision_ledger: export
       ai_agent_access: true
       sso: true
@@ -99,7 +124,10 @@ plan_tiers:
 # and this file cannot drift apart.
 gate_labels:
   connectors: Source systems connected
+  end_users: End users who can answer taps
   tap_classes: Tap classes included
+  tap_families: Question categories included
+  detection_modes: How taps get raised
   channels: Delivery channels
   decision_ledger: Decision ledger
   ai_agent_access: AI agent access (MCP)
@@ -120,6 +148,61 @@ tier_rationale:
   connectors: >
     Connector count is the closest honest proxy for how much of the business is
     under governance. It grows as adoption grows, which per-tap volume does not.
+  end_users: >
+    We meter CONTRIBUTORS, not questions. The failure mode of per-tap pricing was
+    that revenue fell as the product worked; contributor count moves the other way
+    -- the more of the company is included, the more we are worth. It is also the
+    number a buyer can verify without trusting our telemetry.
+  detection_modes: >
+    The three detection modes need strictly increasing amounts of inference, so
+    they price themselves. Triggered detection is deterministic and free.
+    Automatic detection requires watching usage and metadata over time. The agent
+    audit requires judgement, and is the only mode that surfaces questions nobody
+    configured -- which is the whole reason Enterprise exists.
+
+# ---------------------------------------------------------------------------
+# ROI SCENARIOS
+#
+# Volumes for the three worked examples on the pricing page. The site computes
+# every figure from these plus `value_assumptions` -- no total is ever hand-typed,
+# because a hand-typed total is how a model silently stops matching its own
+# inputs, and one caught arithmetic error discards the entire page in the eyes of
+# a CFO.
+#
+# These land at roughly 2-3x on the paid tiers. That is a credible enterprise
+# software return rather than a spectacular one, and it is stated plainly on the
+# page. See site/src/lib/roi.ts for what is deliberately NOT counted.
+# ---------------------------------------------------------------------------
+roi_scenarios:
+  - key: small
+    label: 150 employees
+    employees: 150
+    contributors: 10
+    plan: Starter
+    strategic_per_year: 12
+    routine_per_year: 500
+    inconsistencies_prevented: 5
+    meeting_hours_avoided: 70
+
+  - key: mid
+    label: 600 employees
+    employees: 600
+    contributors: 50
+    plan: Growth
+    strategic_per_year: 45
+    routine_per_year: 2600
+    inconsistencies_prevented: 18
+    meeting_hours_avoided: 300
+
+  - key: large
+    label: 2,500 employees
+    employees: 2500
+    contributors: 220
+    plan: Enterprise
+    strategic_per_year: 140
+    routine_per_year: 11000
+    inconsistencies_prevented: 60
+    meeting_hours_avoided: 1100
 
 # Inputs to the value figures on the pricing page. These are ASSUMPTIONS and the
 # UI labels them as such — a CFO discounts any number whose derivation is hidden.

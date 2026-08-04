@@ -40,7 +40,7 @@ const PILLARS: Pillar[] = [
       "A subject-matter expert contributes in five seconds, from a tool they already have open.",
     proof: [
       { label: "One question", detail: "Never two. At most three lines of context, 2–5 buttons." },
-      { label: "Their app, not ours", detail: "Slack, Teams, email, or an AI assistant. Nothing to install, no login." },
+      { label: "Their app, not ours", detail: "Slack, Teams, email, or Claude. Nothing to install, no login." },
       { label: "No new vocabulary", detail: "Nobody learns branches, pull requests, or what a semantic layer is." },
       { label: "31 seconds", detail: "Median time to answer across the routine question types." },
     ],

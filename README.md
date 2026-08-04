@@ -240,11 +240,27 @@ taps per year. Honest steady state for this account is ~200–260/month, or abou
 — **10x lower**. Worse, metering on a number that structurally decays means revenue falls
 as the product succeeds.
 
-> **Resolved: pricing is now capability tiers.** Taps are unlimited on every plan. Price is
-> a function of connectors, whether strategic (company-level) taps are included, channels,
-> decision-ledger export and AI agent access, and governance features. Charging per tap
-> would have put us in the business of sending more of them, and metering a number that
-> structurally decays means revenue falls as the product succeeds.
+> **Resolved: pricing is now capability tiers, metered on CONTRIBUTORS.** Taps are unlimited
+> on every plan. Three things scale together, and all three grow as the product succeeds:
+>
+> 1. **End users who can answer taps** — 10 / 50 / unlimited. Contribution is the value, so
+>    contributors are what we meter. It is also a number a buyer can verify without
+>    trusting our telemetry.
+> 2. **Question categories unlocked** — the family x class grid (`site/src/lib/taxonomy.ts`).
+>    Starter gets three tactical cells; Enterprise gets all fourteen.
+> 3. **How much detection we do for you** — deterministic triggers, then automatic pattern
+>    detection, then an AI agent audit. Each needs strictly more inference than the last, so
+>    the axis prices itself.
+>
+> Charging per tap would have put us in the business of sending more of them, and metering a
+> number that structurally decays means revenue falls as the product succeeds.
+>
+> **The taxonomy has two axes, not one.** A tap's **class** (tactical / operational /
+> strategic) is how much of the company the answer binds. Its **category** (records, data
+> quality, business logic, metrics, governance) is what the question is about. They are
+> orthogonal: retiring an unused metric and settling the canonical definition of one are the
+> same category and wildly different stakes. A one-dimensional taxonomy forces you to throw
+> one of those facts away, and you need both to route correctly.
 >
 > **Also removed: the incentive pool.** Paying people per contribution added real
 > administrative weight — eligibility, caps, durability windows, payout cycles — to buy

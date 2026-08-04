@@ -39,8 +39,22 @@ const DIMENSIONS: Dimension[] = [
     why: "Treating a routine call and a company decision the same way is how governance tools become noise.",
   },
   {
-    key: "pacing",
+    key: "category",
     pin: 2,
+    name: "Category",
+    summary: "What the question is about — the second axis, independent of class.",
+    values: [
+      { label: "Records and mappings", note: "A value arrived that nothing recognizes. Where does it belong?" },
+      { label: "Data quality", note: "Is the number wrong, or is the business genuinely different?" },
+      { label: "Business logic", note: "The rule in code says X. Is X still what the business means?" },
+      { label: "Metrics", note: "Does everyone mean the same thing by this number?" },
+      { label: "Governance", note: "Who may see this, who signed off, and when was that last true?" },
+    ],
+    why: "Class and category are orthogonal on purpose. Retiring an unused metric and settling the canonical definition of one are the same category and wildly different stakes — a single axis forces you to throw one of those facts away.",
+  },
+  {
+    key: "pacing",
+    pin: 3,
     name: "Pacing",
     summary: "How often someone can be asked, and when they cannot be asked at all.",
     values: [
@@ -53,7 +67,7 @@ const DIMENSIONS: Dimension[] = [
   },
   {
     key: "routing",
-    pin: 3,
+    pin: 4,
     name: "Routing",
     summary: "Who is allowed to answer, and what happens when they cannot.",
     values: [
@@ -66,7 +80,7 @@ const DIMENSIONS: Dimension[] = [
   },
   {
     key: "channel",
-    pin: 4,
+    pin: 5,
     name: "Channel",
     summary: "Where it arrives, and whether it arrives alone or in a digest.",
     values: [
@@ -79,7 +93,7 @@ const DIMENSIONS: Dimension[] = [
   },
   {
     key: "sla",
-    pin: 5,
+    pin: 6,
     name: "Deadline",
     summary: "How long an answer has, and what happens if none arrives.",
     values: [
@@ -92,7 +106,7 @@ const DIMENSIONS: Dimension[] = [
   },
   {
     key: "writeback",
-    pin: 6,
+    pin: 7,
     name: "Write-back",
     summary: "Where the answer becomes durable.",
     values: [
@@ -104,7 +118,7 @@ const DIMENSIONS: Dimension[] = [
   },
   {
     key: "memory",
-    pin: 7,
+    pin: 8,
     name: "Memory",
     summary: "How long the system remembers, so it stops asking.",
     values: [
@@ -304,7 +318,7 @@ export function TapAnatomy() {
         </div>
 
         <p className="mt-3 px-1 text-[11.5px] leading-relaxed text-slate-500">
-          All seven dimensions are declared in a versioned config file, one per tap type — so a new
+          All eight dimensions are declared in a versioned config file, one per tap type — so a new
           kind of tap is configuration, not a release. Your team can author them, review them in a
           pull request, and kill one that turns out to be noisy without waiting on us.
         </p>

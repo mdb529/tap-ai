@@ -1,6 +1,10 @@
 import { Journey } from "@/components/journey";
 import { Opportunity } from "@/components/opportunity";
 import { Values } from "@/components/values";
+import { Democratize } from "@/components/democratize";
+import { KnowledgeGraph } from "@/components/knowledge-graph";
+import { Roi } from "@/components/roi";
+import { TapMatrix } from "@/components/tap-matrix";
 import { Reveal } from "@/components/reveal";
 import { PRICING_PRINCIPLE, TIERS } from "@/lib/tiers";
 import { href } from "@/lib/href";
@@ -9,13 +13,20 @@ import { href } from "@/lib/href";
  * The Tap AI homepage.
  *
  * ORDER IS THE ARGUMENT:
- *   1. hero        one claim, one button
- *   2. opportunity why now — AI removed the barrier, but contributions still
- *                  are not actionable. This has to land before the mechanics.
- *   3. journey     experience one decision: trigger → tap → outcome
- *   4. values      lightweight / governed / active, each backed by mechanisms
- *   5. pricing
- *   6. cta
+ *   1. hero          one claim, one button
+ *   2. opportunity   why now — AI removed the barrier, but contributions still
+ *                    are not actionable. This has to land before the mechanics.
+ *   3. journey       experience one decision: trigger → tap → outcome
+ *   4. democratize   contribution stops routing through a single queue, which
+ *                    hands engineering capacity back
+ *   5. values        lightweight / governed / active, each backed by mechanisms
+ *   6. compounding   the knowledge graph enriching tap by tap, and the AI loop
+ *                    that reads from it. This is the "so what" of everything
+ *                    above — one answer is a footnote, ten thousand are an asset.
+ *   7. roi           what that is worth, with the arithmetic on screen
+ *   8. pricing       including the family × class grid, since gating is a
+ *                    pricing question
+ *   9. cta
  *
  * WHAT WAS CUT, and why: the comparison matrix and the definition-drift chart
  * moved to /how-it-works. Both are good arguments, and both were being read by
@@ -96,17 +107,16 @@ export default function Home() {
               One decision, end to end.
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-slate-300 sm:text-[16.5px]">
-              A tap is not an alert — it is a{" "}
-              <strong className="font-semibold text-white">contribution</strong>. Each one settles a
-              question your systems were about to guess at, and settled questions compound: fewer
-              competing definitions, less reconciliation, less rework, and numbers your teams stop
-              arguing about.
+              A tap is a <strong className="font-semibold text-white">contribution</strong>. Each one
+              settles a question your systems were about to guess at, and each one stays settled — so
+              trusted knowledge grows the way it is actually held: organically, a piece at a time,
+              from whoever knows that piece. No migration, no ontology project, no workshop.
             </p>
 
             <div className="mt-6 grid gap-2.5 text-left sm:grid-cols-3">
               {[
-                ["Every tap is a contribution", "Not a notification to clear — a decision that lands in your systems."],
-                ["Contributions compound", "Definitions stop drifting, so the rework they cause stops too."],
+                ["Every tap is a contribution", "Not a notification to clear — a decision that lands in your systems and stays there."],
+                ["Knowledge grows bit by bit", "Each answer is one piece. Together they become the layer that says what your business means."],
                 ["No alert fatigue", "Every question has a cooldown, a daily ceiling, and quiet hours. Answered once, never re-asked."],
               ].map(([t, b]) => (
                 <div
@@ -120,6 +130,29 @@ export default function Home() {
             </div>
           </Reveal>
           <Journey />
+        </div>
+      </section>
+
+      {/* ======================================================== democratize
+          A hinge, not a destination. The walkthrough showed one person answering
+          one question; this says what changes when that is true for everybody. */}
+      <section id="democratize" className="scroll-mt-16 border-t border-white/5 bg-slate-950">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-6 sm:py-20">
+          <Reveal className="mx-auto mb-8 max-w-2xl text-center">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-teal-300">
+              Who gets to contribute
+            </p>
+            <h2 className="mt-2 text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-[2.5rem]">
+              Everyone, without a ticket.
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-slate-300 sm:text-[16.5px]">
+              Changing what your systems believe has always required someone who can write code. That
+              makes engineering the only door — and a queue in front of it.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <Democratize />
+          </Reveal>
         </div>
       </section>
 
@@ -141,6 +174,54 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ========================================================= compounding
+          The "so what" for everything above. One answer is a footnote; the
+          accumulation is an asset, and the asset is what AI reads from. */}
+      <section id="compounding" className="scroll-mt-16 border-t border-white/5 bg-slate-950">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-6 sm:py-20">
+          <Reveal className="mx-auto mb-9 max-w-2xl text-center">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-teal-300">
+              The compounding loop
+            </p>
+            <h2 className="mt-2 text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.03em] text-white sm:text-[2.5rem]">
+              Every tap makes the next answer better.
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-slate-300 sm:text-[16.5px]">
+              Answers do not just land and stop. They accumulate into the context layer your
+              organization never had — and once it exists, AI reads from it instead of guessing.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <KnowledgeGraph />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ================================================================= roi
+          Deliberately austere and arithmetic-forward. See components/roi.tsx —
+          the persuasive move is visibly DISCARDING value, not maximising it. */}
+      <section id="roi" className="scroll-mt-16 border-t border-slate-200 bg-white">
+        <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-6 sm:py-20">
+          <Reveal className="mx-auto mb-8 max-w-2xl text-center">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-teal-700">
+              What it is worth
+            </p>
+            <h2 className="mt-2 text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.03em] text-slate-900 sm:text-[2.5rem]">
+              The arithmetic, with nothing hidden.
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+              Engineering hours returned to the backlog, reconciliation meetings that stop happening,
+              and stale definitions caught before they reach a decision. Every figure below is
+              computed from stated assumptions — and we throw away almost half of it before we claim
+              anything.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <Roi />
+          </Reveal>
+        </div>
+      </section>
+
       {/* ============================================================= pricing */}
       <section id="pricing" className="scroll-mt-16 border-y border-slate-200 bg-slate-50">
         <div className="mx-auto max-w-[1180px] px-5 py-16 sm:px-6 sm:py-20">
@@ -151,6 +232,26 @@ export default function Home() {
             <p className="mt-4 text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
               {PRICING_PRINCIPLE.body}
             </p>
+          </Reveal>
+
+          {/* The grid goes ABOVE the tier cards. "Which questions do I get" is
+              the thing a buyer actually wants answered, and the cards alone
+              cannot show it — a tap has two axes, not one. */}
+          <Reveal className="mb-10 sm:mb-12">
+            <div className="mx-auto mb-6 max-w-2xl text-center">
+              <h3 className="text-[1.15rem] font-semibold tracking-[-0.02em] text-slate-900 sm:text-[1.4rem]">
+                Two axes: how much it binds, and what it is about.
+              </h3>
+              <p className="mt-2.5 text-[13.5px] leading-relaxed text-slate-600">
+                A tap&apos;s <strong className="font-semibold text-slate-900">class</strong> is how
+                much of the company the answer binds. Its{" "}
+                <strong className="font-semibold text-slate-900">category</strong> is what the
+                question is about. They are independent — retiring an unused metric and settling the
+                canonical definition of a metric are the same category and wildly different stakes.
+                Pick a plan to see what it unlocks.
+              </p>
+            </div>
+            <TapMatrix />
           </Reveal>
 
           <div className="grid gap-3.5 lg:grid-cols-3">
@@ -270,7 +371,7 @@ export default function Home() {
               </span>
               Tap AI
             </span>
-            <span>Scenarios are illustrative. Slack, SSO and assistant delivery are simulated.</span>
+            <span>Scenarios are illustrative. Slack, Claude, SSO and reverse-ETL delivery are simulated.</span>
             <a href={href("/how-it-works/")} className="hover:text-slate-300">
               How it works →
             </a>

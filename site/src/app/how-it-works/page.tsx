@@ -9,7 +9,7 @@ import { href } from "@/lib/href";
 export const metadata: Metadata = {
   title: "How it works — Tap AI",
   description:
-    "The six stages behind a tap, the seven dimensions of the tap primitive, and the decision ledger your AI agents can read.",
+    "The six stages behind a tap, the eight dimensions of the tap primitive, and the decision ledger your AI agents can read.",
 };
 
 /**
@@ -127,7 +127,7 @@ export default function HowItWorks() {
       <Section id="anatomy" tone="tint">
         <Head
           kicker="Governed"
-          title="One primitive, seven dimensions"
+          title="One primitive, eight dimensions"
           lede="A tap is a configured object, not a notification. Its class decides who may answer, how long they have, whether an engineer reviews it, and where the answer lands. Pick a dimension to see the range."
         />
         <TapAnatomy />
