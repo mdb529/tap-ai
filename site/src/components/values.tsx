@@ -178,39 +178,68 @@ export function Values() {
 /* ------------------------------------------------- active vs passive BI */
 
 function ActiveVsPassive() {
-  const rows = [
+  const rows: [string, string, string][] = [
     ["Who starts it", "A person who already suspects something", "The system, when a decision is needed"],
     ["Who it reaches", "Whoever happens to open the tab", "The one person who owns that call"],
     ["What it asks for", "Interpretation", "A single decision"],
     ["What it produces", "A number on a screen", "A change applied to your systems"],
     ["If nobody looks", "Nothing happens, indefinitely", "It escalates, or applies a safe default"],
   ];
-  return (
-    <div className="mt-4 animate-[fadeIn_.3s_ease-out] overflow-x-auto rounded-xl ring-1 ring-inset ring-white/10">
-      <div className="grid min-w-[30rem] grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)] gap-px bg-white/10 text-[12px]">
-        <div className="bg-slate-950 px-3.5 py-2.5" />
-        <div className="bg-slate-950 px-3.5 py-2.5">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">
-            A BI dashboard
-          </p>
-          <p className="mt-0.5 text-[10.5px] text-slate-600">passive by construction</p>
-        </div>
-        <div className="bg-teal-500/10 px-3.5 py-2.5">
-          <p className="text-[11px] font-bold uppercase tracking-wide text-teal-300">A tap</p>
-          <p className="mt-0.5 text-[10.5px] text-teal-400/70">active by construction</p>
-        </div>
 
-        {rows.map(([label, passive, activeVal]) => (
-          <div key={label} className="contents">
-            <div className="bg-slate-950 px-3.5 py-2.5 text-slate-400">{label}</div>
-            <div className="bg-slate-950 px-3.5 py-2.5 text-slate-400">{passive}</div>
-            <div className="bg-teal-500/[0.07] px-3.5 py-2.5 font-medium text-slate-100">{activeVal}</div>
+  return (
+    <div className="mt-4 animate-[fadeIn_.3s_ease-out]">
+      {/* Stacked pairs on mobile, a real 3-column grid from sm up. No horizontal
+          scroll at any width -- this is the most quotable comparison on the page
+          and it should never be half off-screen. */}
+      <div className="space-y-2 sm:hidden">
+        {rows.map(([label, passive, active]) => (
+          <div key={label} className="overflow-hidden rounded-lg ring-1 ring-inset ring-white/10">
+            <p className="bg-white/[0.04] px-3 py-1.5 text-[10.5px] font-bold uppercase tracking-wider text-slate-400">
+              {label}
+            </p>
+            <div className="flex items-start gap-2 px-3 py-2">
+              <span className="mt-px shrink-0 text-[9.5px] font-bold uppercase tracking-wider text-slate-600">
+                BI
+              </span>
+              <span className="text-[12.5px] leading-snug text-slate-400">{passive}</span>
+            </div>
+            <div className="flex items-start gap-2 bg-teal-500/[0.09] px-3 py-2">
+              <span className="mt-px shrink-0 text-[9.5px] font-bold uppercase tracking-wider text-teal-400">
+                Tap
+              </span>
+              <span className="text-[12.5px] font-medium leading-snug text-slate-100">{active}</span>
+            </div>
           </div>
         ))}
       </div>
-      <p className="bg-slate-950 px-3.5 py-2.5 text-[11.5px] leading-relaxed text-slate-500">
-        This is not a knock on dashboards — they are the right tool for exploring. But a dashboard
-        cannot ask, and a question that never gets asked never gets answered.
+
+      <div className="hidden overflow-hidden rounded-xl ring-1 ring-inset ring-white/10 sm:block">
+        <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)] gap-px bg-white/10 text-[12px]">
+          <div className="bg-slate-950 px-3.5 py-2.5" />
+          <div className="bg-slate-950 px-3.5 py-2.5">
+            <p className="text-[11px] font-bold uppercase tracking-wide text-slate-500">
+              A BI dashboard
+            </p>
+            <p className="mt-0.5 text-[10.5px] text-slate-600">passive by construction</p>
+          </div>
+          <div className="bg-teal-500/10 px-3.5 py-2.5">
+            <p className="text-[11px] font-bold uppercase tracking-wide text-teal-300">A tap</p>
+            <p className="mt-0.5 text-[10.5px] text-teal-400/70">active by construction</p>
+          </div>
+
+          {rows.map(([label, passive, active]) => (
+            <div key={label} className="contents">
+              <div className="bg-slate-950 px-3.5 py-2.5 text-slate-400">{label}</div>
+              <div className="bg-slate-950 px-3.5 py-2.5 text-slate-400">{passive}</div>
+              <div className="bg-teal-500/[0.07] px-3.5 py-2.5 font-medium text-slate-100">{active}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p className="mt-2.5 text-[11.5px] leading-relaxed text-slate-500">
+        Not a knock on dashboards — they are the right tool for exploring. But a dashboard cannot
+        ask, and a question that never gets asked never gets answered.
       </p>
     </div>
   );

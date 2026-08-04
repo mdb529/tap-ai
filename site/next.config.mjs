@@ -13,6 +13,10 @@ const basePath = process.env.BASE_PATH ?? "";
 export default {
   output: "export",
   basePath,
+  // Exposed so src/lib/href.ts can prefix plain <a href> values. Next rewrites
+  // <Link> automatically but not raw anchors, and this site uses anchors so it
+  // stays a pure static export.
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   assetPrefix: basePath || undefined,
   trailingSlash: true,
   images: { unoptimized: true },

@@ -92,6 +92,12 @@ export interface Scenario {
     summary: string;
   };
 
+  /** ---- the payoff -----------------------------------------------------
+   * One line, second person: what this person just did that they could not do
+   * before. The homepage journey ends on this, so it has to be concrete and
+   * about THEM rather than about the system. */
+  contribution: string;
+
   /** ---- stage 6: shipped ----------------------------------------------- */
   shipped: {
     reviewer: string;
@@ -159,6 +165,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "A pricing policy became a rule row rather than a conversation. The margin model and the checkout guardrail now read the same number.",
         },
+        contribution:
+          "You just set company pricing policy directly in the system that enforces it — previously a Slack thread, a meeting, and a two-week wait.",
         shipped: {
           reviewer: "Elias Garrido, analytics engineer",
           checks: ["margin model rebuilt", "checkout guardrail updated", "cap enforced at 30%"],
@@ -213,6 +221,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "One answer settled a disagreement that had been running between two teams for a quarter — and wrote the resolution down where both of them read from.",
         },
+        contribution:
+          "You just settled a definition two teams had been quoting differently for a quarter, and it is now the one both of them read from.",
         shipped: {
           reviewer: "Marcus Keller, senior analytics engineer",
           checks: ["18 months restated", "cohort models rebuilt", "marketing payback refreshed"],
@@ -259,6 +269,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The rule was written at the product-class level, not per SKU — so the next 200 bottles from that supplier classify themselves.",
         },
+        contribution:
+          "You just assigned 47 products to a department without opening a spreadsheet, filing a ticket, or waiting for a data team sprint.",
         shipped: {
           reviewer: "not required for tactical taps",
           checks: ["47 SKUs assigned", "reorder model picked them up"],
@@ -322,6 +334,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The rep's five-second confirmation turned an unexplained movement into a labelled, attributable one — before finance had to chase it.",
         },
+        contribution:
+          "You just explained a number that finance would otherwise have chased you about next week — in the time it took to read the question.",
         shipped: {
           reviewer: "no engineering review needed for a record-level confirmation",
           checks: ["commission run updated", "board figure reconciled", "reason recorded"],
@@ -375,6 +389,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "One answer set the rule for this product and every future one launched the same way — not a one-off patch on three days of bookings.",
         },
+        contribution:
+          "You just set the ARR rule for this product and every future one launched the same way, without writing a spec.",
         shipped: {
           reviewer: "Priya Raman, analytics engineer",
           checks: ["ARR recalculated", "retention cohorts rebuilt", "rule applies to future launches"],
@@ -434,6 +450,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "Three competing definitions collapsed into one of record, with the two it replaced named explicitly so nobody quietly keeps using them.",
         },
+        contribution:
+          "You just retired two competing definitions and made one official across 41 dashboards. Before, that took a steering committee.",
         shipped: {
           reviewer: "Hana Yusuf, analytics engineering manager",
           checks: ["41 dashboards repointed", "churn restated", "old definitions deprecated"],
@@ -492,6 +510,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "Operational taps write a rule, not a record. One answer maps every past and future encounter on this code, batched into a reviewed patch.",
         },
+        contribution:
+          "You just brought 1,120 telehealth visits back into the census — a mapping that used to require a ticket nobody prioritized.",
         shipped: {
           reviewer: "Simone Whitaker, analytics engineer",
           checks: ["1,120 encounters remapped", "capacity model refreshed"],
@@ -551,6 +571,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The answer became a commit on the engineer's open pull request — the definition, the decision-maker, and a link back to the tap that produced it.",
         },
+        contribution:
+          "You just put your name on the definition of net patient revenue, in the same place the code that calculates it lives.",
         shipped: {
           reviewer: "Hana Yusuf, analytics engineering manager",
           checks: ["dbt build passed", "31 downstream models rebuilt", "no contract violations"],
@@ -604,6 +626,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "Routine calls are data, not code. This lands in a governed override table instead of a pull request — no engineer review, no repo noise, and it applies to every matching claim from now on.",
         },
+        contribution:
+          "You just cleared 24 stuck claims with one answer, and taught the system a rule it will apply on its own from now on.",
         shipped: {
           reviewer: "not required for tactical taps",
           checks: ["applied to 24 open claims", "mapping active for future loads"],
@@ -662,6 +686,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The alias is now known, so this wire and every future one under that trading name apply automatically.",
         },
+        contribution:
+          "You just released $340k from suspense before lunch, and the alias will never need identifying again.",
         shipped: {
           reviewer: "not required for tactical taps",
           checks: ["wire applied to CP-00418", "suspense account cleared"],
@@ -718,6 +744,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The controller said report separately, so the tap produced two metrics instead of one — and the reasoning is attached to the definition.",
         },
+        contribution:
+          "You just decided how a new product is reported externally — on the record, before the filing, rather than after someone questioned it.",
         shipped: {
           reviewer: "Elias Nakamura, staff analytics engineer",
           checks: ["dbt build passed", "filing extract regenerated", "prior periods restated"],
@@ -764,6 +792,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "One answer classified the backlog and every future transaction on that code, without an engineer touching it.",
         },
+        contribution:
+          "You just fixed 1,840 miscategorized transactions and the rewards tier that depended on them, from your phone.",
         shipped: {
           reviewer: "not required for operational taps",
           checks: ["1,840 transactions reclassified", "rewards accrual recalculated"],
@@ -821,6 +851,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "A record-level correction, recorded against the invoice with the person who made the call.",
         },
+        contribution:
+          "You just unblocked $86k of accruals with one tap, instead of a back-and-forth with finance at month end.",
         shipped: {
           reviewer: "not required for tactical taps",
           checks: ["invoice coded to M-2219", "accrual posted"],
@@ -869,6 +901,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "A legal interpretation became a row in a versioned taxonomy — reviewable, diffable, and attributable to the lawyer who made the call.",
         },
+        contribution:
+          "You just turned a clause interpretation into a versioned rule that Legal's calendar and Finance's reserve both read from.",
         shipped: {
           reviewer: "Simone Whitaker, analytics engineer",
           checks: ["3 contracts reclassified", "notice reserve recalculated", "renewal calendar updated"],
@@ -917,6 +951,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "Batched into a metadata patch — light enough not to need a full review cycle, governed enough that it still gets one.",
         },
+        contribution:
+          "You just set a retention rule with a regulatory citation attached, where before it sat at an indefinite default nobody owned.",
         shipped: {
           reviewer: "Phong Tran, analytics engineer",
           checks: ["412 documents scheduled", "purge job updated"],
@@ -975,6 +1011,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The tier, the cession, and the reasoning by analogy all landed together — so the next auditor asking why does not need to find Kwame.",
         },
+        contribution:
+          "You just released 38 blocked quotes and set the rating tier for every future policy of that type.",
         shipped: {
           reviewer: "Devon Palmer, vice president of data",
           checks: ["38 quotes released", "premium recalculated", "cession schedule updated"],
@@ -1030,6 +1068,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "The actuary asked for both views, so the tap created a second metric rather than overwriting the first — the renewal team can now negotiate against either.",
         },
+        contribution:
+          "You just shaped the reinsurance renewal three weeks early, with two defensible numbers instead of one nobody can source.",
         shipped: {
           reviewer: "Devon Palmer, vice president of data",
           checks: ["dbt build passed", "both PML views reconciled", "reinsurance extract regenerated"],
@@ -1076,6 +1116,8 @@ export const VERTICALS: Vertical[] = [
           summary:
             "Adjuster judgment recorded against the claim, with the adjuster named and the basis stated — which is exactly what a coverage dispute needs later.",
         },
+        contribution:
+          "You just routed a $62k claim to the correct treaty, and your reasoning survives if coverage is ever contested.",
         shipped: {
           reviewer: "not required for tactical taps",
           checks: ["claim routed to the correct treaty", "reserve posted"],
@@ -1108,6 +1150,49 @@ export const TARGET_LABEL: Record<WriteBackTarget, string> = {
   override_table: "Governed table",
   metadata_patch: "Metadata patch",
 };
+
+/**
+ * Seniority tier per tap class. The homepage asks visitors to pick who they are
+ * rather than what kind of question it is, because "am I a director?" is a
+ * question people can answer instantly and "is this operational?" is not.
+ *
+ * "Frontline" rather than "Analyst" on purpose -- the person closest to the work
+ * is often a coder, an adjuster or a rep, not an analyst.
+ */
+export interface Tier {
+  key: TapClass;
+  label: string;
+  who: string;
+  /** What kind of call this person gets asked to make. */
+  asks: string;
+  glyph: string;
+}
+
+export const TIERS: Tier[] = [
+  {
+    key: "tactical",
+    label: "Frontline",
+    who: "Coders, adjusters, reps, merchandisers — closest to the work",
+    asks: "A routine call only you can make, dozens of times a week",
+    glyph: "M12 3v18M3 12h18",
+  },
+  {
+    key: "operational",
+    label: "Director",
+    who: "Managers and directors who own how a function operates",
+    asks: "A recurring rule your team will live with",
+    glyph: "M4 18V9m5 9V5m5 13v-6m5 6V8",
+  },
+  {
+    key: "strategic",
+    label: "C-Suite",
+    who: "Executives who can bind the whole company to a definition",
+    asks: "A decision every team downstream will report against",
+    glyph: "M3 20h18M12 4l3.5 6.5h-7z M12 12l4 8H8z",
+  },
+];
+
+export const tierOf = (c: TapClass): Tier => TIERS.find((t) => t.key === c)!;
 
 export const CLASS_COPY: Record<TapClass, { label: string; hint: string }> = {
   tactical: { label: "Tactical", hint: "A routine call. High volume, low stakes, answered by whoever is closest." },

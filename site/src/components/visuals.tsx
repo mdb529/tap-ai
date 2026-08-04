@@ -324,153 +324,123 @@ const APPROACHES: Approach[] = [
 ];
 
 export function ApproachMatrix() {
-  const [sel, setSel] = useState(APPROACHES.length - 1);
-  const a = APPROACHES[sel];
-  const alternatives = APPROACHES.filter((x) => !x.us);
+  const [open, setOpen] = useState<string | null>("Tap AI");
   const us = APPROACHES.find((x) => x.us)!;
+  const alternatives = APPROACHES.filter((x) => !x.us);
 
-  const Mark = ({ v, big = false }: { v: 0 | 1 | 2; big?: boolean }) => (
-    <span className={big ? "text-[17px] leading-none" : "text-[15px] leading-none"}>
-      {v === 2 ? (
-        <span className="text-teal-600">●</span>
-      ) : v === 1 ? (
-        <span className="text-amber-500">◐</span>
-      ) : (
-        <span className="text-slate-300">○</span>
-      )}
-    </span>
+  const Dots = ({ a, big = false }: { a: Approach; big?: boolean }) => (
+    <div className="flex items-center gap-1">
+      {REQUIREMENTS.map((r) => {
+        const v = a.scores[r.key];
+        return (
+          <span
+            key={r.key}
+            title={`${r.label}: ${v === 2 ? "yes" : v === 1 ? "partly" : "no"}`}
+            className={`rounded-full ${big ? "h-2.5 w-2.5" : "h-2 w-2"} ${
+              v === 2 ? "bg-teal-500" : v === 1 ? "bg-amber-400" : "bg-slate-300"
+            }`}
+          />
+        );
+      })}
+    </div>
   );
 
-  const score = (x: Approach) =>
-    Object.values(x.scores).reduce<number>((n, v) => n + v, 0);
+  const met = (a: Approach) =>
+    Math.round(Object.values(a.scores).reduce<number>((n, v) => n + v, 0) / 2);
 
   return (
     <div>
-      <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
-        <table className="w-full min-w-[42rem] text-[12.5px]">
-          <thead>
-            <tr>
-              <th className="w-[13rem] px-4 pb-1 pt-3" />
-              {REQUIREMENTS.map((r) => (
-                <th key={r.key} className="px-2 pb-1 pt-3 text-center">
-                  <span className={`text-[9px] font-bold uppercase tracking-wider ${VALUE_TONE[r.value]}`}>
-                    {r.value}
-                  </span>
-                </th>
-              ))}
-              <th className="w-[4.5rem] px-3 pb-1 pt-3" />
-            </tr>
-            <tr className="border-b border-slate-200">
-              <th className="px-4 pb-2.5 text-left text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                Approach
-              </th>
-              {REQUIREMENTS.map((r) => (
-                <th key={r.key} className="px-2 pb-2.5 align-bottom">
-                  <span className="mx-auto block max-w-[6.5rem] text-[10.5px] font-medium leading-tight text-slate-600">
-                    {r.label}
-                  </span>
-                </th>
-              ))}
-              <th className="px-3 pb-2.5 text-center text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                Met
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {alternatives.map((ap) => {
-              const i = APPROACHES.indexOf(ap);
-              return (
-                <tr
-                  key={ap.name}
-                  onClick={() => setSel(i)}
-                  className={`cursor-pointer border-b border-slate-100 transition-colors ${
-                    i === sel ? "bg-slate-100" : "hover:bg-slate-50"
-                  }`}
-                >
-                  <td className="px-4 py-2.5 text-slate-700">{ap.name}</td>
-                  {REQUIREMENTS.map((r) => (
-                    <td key={r.key} className="px-2 py-2.5 text-center">
-                      <Mark v={ap.scores[r.key]} />
-                    </td>
-                  ))}
-                  <td className="px-3 py-2.5 text-center tabular-nums text-[11.5px] text-slate-400">
-                    {Math.round(score(ap) / 2)}/5
-                  </td>
-                </tr>
-              );
-            })}
+      {/* what "met" means, once, above the cards */}
+      <ul className="mb-4 grid gap-1.5 sm:grid-cols-2">
+        {REQUIREMENTS.map((r, i) => (
+          <li key={r.key} className="flex items-baseline gap-2 text-[12px] leading-snug">
+            <span className="mt-[3px] h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
+            <span className="text-slate-600">{r.label}</span>
+            <span className={`ml-auto shrink-0 text-[9.5px] font-bold uppercase tracking-wider ${VALUE_TONE[r.value]}`}>
+              {r.value}
+            </span>
+          </li>
+        ))}
+      </ul>
 
-            {/* Tap AI, deliberately set apart rather than listed alongside */}
-            <tr>
-              <td colSpan={REQUIREMENTS.length + 2} className="px-4 pb-1 pt-3">
-                <div className="flex items-center gap-2">
-                  <span className="h-px flex-1 bg-slate-200" />
-                  <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400">
-                    what we built instead
-                  </span>
-                  <span className="h-px flex-1 bg-slate-200" />
+      {/* alternatives, compact */}
+      <div className="space-y-1.5">
+        {alternatives.map((a) => {
+          const isOpen = open === a.name;
+          return (
+            <div key={a.name} className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+              <button
+                onClick={() => setOpen(isOpen ? null : a.name)}
+                aria-expanded={isOpen}
+                className="flex w-full items-center gap-3 px-3.5 py-3 text-left transition-colors hover:bg-slate-50"
+              >
+                <span className="min-w-0 flex-1 truncate text-[13px] text-slate-700">{a.name}</span>
+                <Dots a={a} />
+                <span className="shrink-0 text-[11.5px] tabular-nums text-slate-400">{met(a)}/5</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  className={`h-3 w-3 shrink-0 text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              {isOpen && (
+                <div className="animate-[fadeIn_.2s_ease-out] border-t border-slate-100 bg-slate-50/70 px-3.5 py-3">
+                  <p className="text-[12.5px] leading-relaxed text-slate-700">{a.flaw}</p>
+                  {a.contrast && (
+                    <p className="mt-2.5 flex gap-2 border-t border-slate-200 pt-2.5 text-[12.5px] leading-relaxed text-teal-900">
+                      <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white">
+                        T
+                      </span>
+                      {a.contrast}
+                    </p>
+                  )}
                 </div>
-              </td>
-            </tr>
-            <tr
-              onClick={() => setSel(APPROACHES.indexOf(us))}
-              className={`cursor-pointer bg-teal-50/70 transition-colors hover:bg-teal-50 ${
-                us === a ? "ring-2 ring-inset ring-teal-500" : "ring-1 ring-inset ring-teal-200"
-              }`}
-            >
-              <td className="px-4 py-3.5">
-                <span className="flex items-center gap-2">
-                  <span className="flex h-5 w-5 items-center justify-center rounded bg-teal-700 text-[11px] font-bold text-white">
-                    T
-                  </span>
-                  <span className="text-[14px] font-bold text-teal-900">Tap AI</span>
-                </span>
-              </td>
-              {REQUIREMENTS.map((r) => (
-                <td key={r.key} className="px-2 py-3.5 text-center">
-                  <Mark v={us.scores[r.key]} big />
-                </td>
-              ))}
-              <td className="px-3 py-3.5 text-center">
-                <span className="inline-flex items-center rounded-full bg-teal-700 px-2 py-0.5 text-[11px] font-bold tabular-nums text-white">
-                  5/5
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      <div
-        key={sel}
-        className={`mt-3 animate-[fadeIn_.25s_ease-out] rounded-lg border-l-2 px-4 py-3 ${
-          a.us ? "border-teal-600 bg-teal-50/70" : "border-slate-300 bg-slate-50"
-        }`}
-      >
-        <p
-          className={`text-[12px] font-bold uppercase tracking-wider ${
-            a.us ? "text-teal-800" : "text-slate-500"
-          }`}
-        >
-          {a.name}
-        </p>
-        <p className={`mt-1 text-[13px] leading-relaxed ${a.us ? "text-teal-950/90" : "text-slate-700"}`}>
-          {a.flaw}
-        </p>
-        {a.contrast && (
-          <p className="mt-2.5 flex gap-2 border-t border-slate-200 pt-2.5 text-[13px] leading-relaxed text-teal-900">
-            <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white">
+      {/* Tap AI, deliberately dominant rather than the last row of a table */}
+      <div className="mt-4">
+        <div className="mb-2 flex items-center gap-2">
+          <span className="h-px flex-1 bg-slate-200" />
+          <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400">
+            what we built instead
+          </span>
+          <span className="h-px flex-1 bg-slate-200" />
+        </div>
+
+        <div className="rounded-xl bg-teal-50 p-4 ring-2 ring-teal-500 sm:p-5">
+          <div className="flex items-center gap-2.5">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-700 text-[14px] font-bold text-white">
               T
             </span>
-            {a.contrast}
+            <span className="text-[17px] font-bold text-teal-900">Tap AI</span>
+            <span className="ml-auto inline-flex items-center rounded-full bg-teal-700 px-2.5 py-1 text-[12px] font-bold tabular-nums text-white">
+              5/5
+            </span>
+          </div>
+
+          <div className="mt-3 flex items-center gap-2">
+            <Dots a={us} big />
+            <span className="text-[11.5px] font-medium text-teal-800">all five, no partials</span>
+          </div>
+
+          <p className="mt-3 border-t border-teal-200 pt-3 text-[13px] leading-relaxed text-teal-950/90">
+            {us.flaw}
           </p>
-        )}
+        </div>
       </div>
 
-      <p className="mt-3 px-1 text-[11px] text-slate-500">
-        <span className="text-teal-600">●</span> yes ·{" "}
-        <span className="text-amber-500">◐</span> partly ·{" "}
-        <span className="text-slate-300">○</span> no · click any row for the detail
+      <p className="mt-3 text-[11px] text-slate-500">
+        <span className="text-teal-500">●</span> yes ·{" "}
+        <span className="text-amber-400">●</span> partly ·{" "}
+        <span className="text-slate-300">●</span> no · tap any row for detail
       </p>
     </div>
   );

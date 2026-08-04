@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { href } from "@/lib/href";
 
 /**
  * Sticky site nav with a real mobile menu.
@@ -10,13 +11,13 @@ import { useEffect, useState } from "react";
  * routing to get wrong — which is also why this site can be a static export.
  */
 
-const LINKS = [
-  ["Why it works", "#values"],
-  ["See it", "#flow"],
-  ["On your phone", "#surfaces"],
-  ["Alternatives", "#alternatives"],
-  ["For AI agents", "#agents"],
-  ["Pricing", "#pricing"],
+/** In-page anchors, plus one real route. */
+const LINKS: [string, string][] = [
+  ["Walk through it", "/#flow"],
+  ["Why it works", "/#values"],
+  ["Alternatives", "/#alternatives"],
+  ["Pricing", "/#pricing"],
+  ["How it works", "/how-it-works/"],
 ];
 
 export function SiteNav() {
@@ -40,7 +41,7 @@ export function SiteNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/85 backdrop-blur">
       <div className="mx-auto flex max-w-[1180px] items-center gap-4 px-5 py-3 sm:px-6">
-        <a href="#top" className="flex shrink-0 items-center gap-2">
+        <a href={href("/")} className="flex shrink-0 items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-teal-600 text-sm font-bold text-white">
             T
           </span>
@@ -48,10 +49,10 @@ export function SiteNav() {
         </a>
 
         <nav className="ml-auto hidden items-center gap-0.5 lg:flex">
-          {LINKS.map(([label, href]) => (
+          {LINKS.map(([label, target]) => (
             <a
-              key={href}
-              href={href}
+              key={target}
+              href={href(target)}
               className="rounded-md px-2.5 py-1.5 text-[13px] text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
             >
               {label}
@@ -60,7 +61,7 @@ export function SiteNav() {
         </nav>
 
         <a
-          href="#cta"
+          href={href("/#cta")}
           className="ml-auto hidden shrink-0 rounded-lg bg-white/10 px-3.5 py-1.5 text-[13px] font-medium text-white ring-1 ring-inset ring-white/15 transition-colors hover:bg-white/15 sm:block lg:ml-3"
         >
           Get in touch
@@ -85,10 +86,10 @@ export function SiteNav() {
       {open && (
         <div className="animate-[fadeIn_.2s_ease-out] border-t border-white/10 bg-slate-950 lg:hidden">
           <nav className="mx-auto flex max-w-[1180px] flex-col px-5 py-2 sm:px-6">
-            {LINKS.map(([label, href]) => (
+            {LINKS.map(([label, target]) => (
               <a
-                key={href}
-                href={href}
+                key={target}
+                href={href(target)}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-2 py-2.5 text-[14px] text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
               >
@@ -96,7 +97,7 @@ export function SiteNav() {
               </a>
             ))}
             <a
-              href="#cta"
+              href={href("/#cta")}
               onClick={() => setOpen(false)}
               className="mt-2 mb-2 rounded-lg bg-white px-3 py-2.5 text-center text-[14px] font-semibold text-slate-900"
             >
