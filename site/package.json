@@ -9,7 +9,9 @@
     "start": "npx serve out",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm run build",
-    "check:pages": "npm run typecheck && BASE_PATH=/tap-ai npm run build"
+    "check:pages": "npm run typecheck && BASE_PATH=/tap-ai npm run build",
+    "preview": "next build && npx serve out",
+    "preview:pages": "BASE_PATH=/tap-ai next build && rm -rf .preview && mkdir -p .preview/tap-ai && cp -R out/. .preview/tap-ai/ && npx serve .preview"
   },
   "dependencies": {
     "next": "^15.4.0",

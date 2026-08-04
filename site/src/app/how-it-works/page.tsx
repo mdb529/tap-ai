@@ -3,6 +3,7 @@ import { Walkthrough } from "@/components/walkthrough";
 import { TapAnatomy } from "@/components/tap-anatomy";
 import { AiLedger } from "@/components/ai-ledger";
 import { MobileSurfaces } from "@/components/mobile-surfaces";
+import { ApproachMatrix, DriftChart } from "@/components/visuals";
 import { href } from "@/lib/href";
 
 export const metadata: Metadata = {
@@ -94,6 +95,7 @@ export default function HowItWorks() {
           <nav className="mt-6 flex flex-wrap gap-1.5">
             {[
               ["The six stages", "#stages"],
+              ["Why not X", "#alternatives"],
               ["Anatomy of a tap", "#anatomy"],
               ["For AI agents", "#agents"],
               ["Delivery surfaces", "#surfaces"],
@@ -151,6 +153,52 @@ export default function HowItWorks() {
         />
         <div className="rounded-2xl bg-slate-950 px-4 py-8 sm:px-8">
           <MobileSurfaces />
+        </div>
+      </Section>
+
+      {/* ======================================================== alternatives
+          Moved here from the homepage. A visitor who has read this far has
+          decided they care; on the homepage this was being read by someone who
+          had not. */}
+      <Section id="alternatives">
+        <Head
+          dark
+          kicker="Active, not passive"
+          title="Every obvious approach asks for more than a busy expert will give"
+          lede="You have probably tried two of these. They are not bad products — each needs the expert to come to the tool, keep something current, or wait for someone to notice a chart."
+        />
+        <div className="rounded-2xl bg-white p-4 sm:p-6">
+          <ApproachMatrix />
+        </div>
+      </Section>
+
+      {/* ================================================================ cost */}
+      <Section tone="tint">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12">
+          <div>
+            <Head
+              kicker="What the gap costs"
+              title="Nothing breaks, which is why it persists"
+              lede="No outage, no alert, no red dashboard. Just definitions nobody had a moment to decide on."
+            />
+            <div className="space-y-2">
+              {[
+                ["Definitions drift apart", "Two reasonable choices, eighteen months apart."],
+                ["Rework, not errors", "The cost is rebuilding what was already built."],
+                ["Knowledge walks out", "The person who knew why left. The rule still runs."],
+                ["AI raises the stakes", "Agents inherit every unresolved assumption."],
+              ].map(([t, b]) => (
+                <div key={t} className="flex gap-2.5 rounded-lg bg-white px-3.5 py-2.5 ring-1 ring-slate-200">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+                  <p className="text-[12.5px] leading-relaxed">
+                    <span className="font-semibold text-slate-900">{t}.</span>{" "}
+                    <span className="text-slate-600">{b}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <DriftChart />
         </div>
       </Section>
 

@@ -13,9 +13,9 @@ import { href } from "@/lib/href";
 
 /** In-page anchors, plus one real route. */
 const LINKS: [string, string][] = [
-  ["Walk through it", "/#flow"],
+  ["The opportunity", "/#opportunity"],
+  ["Try a tap", "/#flow"],
   ["Why it works", "/#values"],
-  ["Alternatives", "/#alternatives"],
   ["Pricing", "/#pricing"],
   ["How it works", "/how-it-works/"],
 ];
@@ -42,7 +42,7 @@ export function SiteNav() {
     <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/85 backdrop-blur">
       <div className="mx-auto flex max-w-[1180px] items-center gap-4 px-5 py-3 sm:px-6">
         <a href={href("/")} className="flex shrink-0 items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-teal-600 text-sm font-bold text-white">
+          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-teal-600 text-sm font-bold text-white" aria-hidden>
             T
           </span>
           <span className="text-[15px] font-semibold tracking-tight text-white">Tap AI</span>

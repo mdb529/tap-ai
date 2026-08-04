@@ -118,7 +118,7 @@ function SlackBody({ answered, onAnswer }: { answered: boolean; onAnswer: () => 
 
       <div className="space-y-3 px-4 py-3">
         <div className="flex gap-2.5">
-          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-teal-700 text-[11px] font-bold text-white">
+          <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-teal-700 text-[11px] font-bold text-white" aria-hidden>
             T
           </span>
           <div className="min-w-0 flex-1">
@@ -169,7 +169,7 @@ function SlackBody({ answered, onAnswer }: { answered: boolean; onAnswer: () => 
 
         {answered && (
           <div className="animate-[fadeIn_.3s_ease-out] flex gap-2.5">
-            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-teal-700 text-[11px] font-bold text-white">
+            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-teal-700 text-[11px] font-bold text-white" aria-hidden>
               T
             </span>
             <div className="min-w-0 flex-1">
@@ -202,7 +202,7 @@ function ClaudeBody({ answered, onAnswer }: { answered: boolean; onAnswer: () =>
   return (
     <div className="min-h-[24rem] sm:min-h-[26rem]">
       <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-2.5">
-        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d97757] text-[10px] font-bold text-white">
+        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#d97757] text-[10px] font-bold text-white" aria-hidden>
           ✳
         </span>
         <p className="text-[13px] font-semibold text-slate-900">Claude</p>

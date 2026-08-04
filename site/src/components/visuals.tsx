@@ -392,7 +392,7 @@ export function ApproachMatrix() {
                   <p className="text-[12.5px] leading-relaxed text-slate-700">{a.flaw}</p>
                   {a.contrast && (
                     <p className="mt-2.5 flex gap-2 border-t border-slate-200 pt-2.5 text-[12.5px] leading-relaxed text-teal-900">
-                      <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white">
+                      <span className="mt-px flex h-4 w-4 shrink-0 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white" aria-hidden>
                         T
                       </span>
                       {a.contrast}
@@ -417,7 +417,7 @@ export function ApproachMatrix() {
 
         <div className="rounded-xl bg-teal-50 p-4 ring-2 ring-teal-500 sm:p-5">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-700 text-[14px] font-bold text-white">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-700 text-[14px] font-bold text-white" aria-hidden>
               T
             </span>
             <span className="text-[17px] font-bold text-teal-900">Tap AI</span>

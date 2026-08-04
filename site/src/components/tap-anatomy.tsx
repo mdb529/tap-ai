@@ -150,7 +150,7 @@ export function TapAnatomy() {
       <div>
         <div className="overflow-hidden rounded-xl bg-white ring-1 ring-slate-200">
           <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-3.5 py-2">
-            <span className="flex h-4 w-4 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white">
+            <span className="flex h-4 w-4 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white" aria-hidden>
               T
             </span>
             <span className="text-[12px] font-semibold text-slate-800">Tap AI</span>

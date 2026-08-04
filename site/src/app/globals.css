@@ -3,7 +3,7 @@
 :root { color-scheme: light; }
 
 html, body {
-  background: #f8fafc;
+  background: #020617;
   -webkit-font-smoothing: antialiased;
 }
 body {
@@ -13,20 +13,63 @@ code, pre, .font-mono {
   font-family: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-/* Used by the tap simulator's resolved state. */
+/* Anchor scrolling should ease rather than jump. */
+html { scroll-behavior: smooth; }
+
+/* ------------------------------------------------------------------ motion
+ * Every animation here is either an ENTRANCE (content arriving as you scroll)
+ * or an ANNOTATION (a label pointing at something that just changed). Nothing
+ * loops, nothing decorative moves on its own -- ambient motion on a marketing
+ * page reads as noise and competes with the thing you want read.
+ * -------------------------------------------------------------------------- */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes riseIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+/* Annotations arrive from the side, so they read as pointing AT something
+   rather than being part of it. */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* Used for the connector between journey beats: draws downward. */
+@keyframes drawDown {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+/* One-shot attention pull when the tap card first becomes active. */
+@keyframes tapPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(45, 212, 191, .55); }
+  70%  { box-shadow: 0 0 0 14px rgba(45, 212, 191, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
+}
+
+/* Scroll-reveal. The class is applied up front and the `data-shown` attribute is
+   flipped by an IntersectionObserver, so content is visible even if JS never
+   runs -- important for a static site that people will open from a link. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.reveal[data-shown="true"] { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* No-JS fallback: without the observer, nothing would ever be revealed. */
+@media (scripting: none) {
+  .reveal { opacity: 1; transform: none; }
 }

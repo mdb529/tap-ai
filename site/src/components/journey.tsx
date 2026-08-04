@@ -101,10 +101,7 @@ export function Journey() {
     <div className="w-full">
       {/* ============================================ who are you (sticky) */}
       <div className="sticky top-[52px] z-20 -mx-5 mb-6 bg-slate-950/92 px-5 py-3 backdrop-blur sm:-mx-6 sm:px-6">
-        <p className="mb-2 text-[10.5px] font-bold uppercase tracking-wider text-slate-500">
-          Pick who you are
-        </p>
-        <div className="grid grid-cols-3 gap-1.5">
+        <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
           {TIERS.map((x) => {
             const on = x.key === tier;
             const xt = TONE[x.key];
@@ -116,11 +113,17 @@ export function Journey() {
                   reset();
                 }}
                 aria-pressed={on}
-                className={`rounded-lg px-2 py-2 text-center transition-all ring-1 ring-inset ${
-                  on ? `${xt.soft} ${xt.ring}` : "ring-white/10 hover:bg-white/5"
+                className={`group rounded-xl px-2 py-3 text-center transition-all duration-300 ring-1 ring-inset sm:py-3.5 ${
+                  on
+                    ? `${xt.soft} ${xt.ring} scale-[1.02]`
+                    : "ring-white/10 hover:bg-white/[0.07] hover:ring-white/20"
                 }`}
               >
-                <span className={`block text-[12.5px] font-semibold ${on ? "text-white" : "text-slate-400"}`}>
+                <span
+                  className={`block text-[13.5px] font-semibold transition-colors sm:text-[15px] ${
+                    on ? "text-white" : "text-slate-400 group-hover:text-slate-200"
+                  }`}
+                >
                   {x.label}
                 </span>
               </button>
@@ -175,6 +178,7 @@ export function Journey() {
           refs.current[0] = el;
         }}
         n={1}
+        active={beat === 0}
         label="The trigger"
         sub="Something happens that needs a person"
       >
@@ -182,7 +186,7 @@ export function Journey() {
           <span className="inline-flex rounded-full bg-amber-100 px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-wide text-amber-800">
             {s.detected.eventType}
           </span>
-          <p className="mt-3 text-[17px] font-semibold leading-snug tracking-[-0.01em] text-slate-900 sm:text-[19px]">
+          <p className="mt-3.5 text-[19px] font-semibold leading-[1.25] tracking-[-0.02em] text-slate-900 sm:text-[24px]">
             {s.detected.signal}
           </p>
           <p className="mt-3 border-t border-slate-100 pt-3 text-[12.5px] leading-relaxed text-slate-500">
@@ -198,13 +202,19 @@ export function Journey() {
           refs.current[1] = el;
         }}
         n={2}
+        active={beat === 1}
         label="The tap"
         sub={`It reaches you in ${s.channel}. Answering is the whole job.`}
       >
-        <div ref={tapRef} className="rounded-xl bg-white shadow-2xl shadow-black/30">
+        <div
+          ref={tapRef}
+          className={`rounded-2xl bg-white shadow-2xl shadow-black/40 transition-transform duration-500 ${
+            beat === 1 && answered === null ? "animate-[tapPulse_1.6s_ease-out_.3s_1] sm:scale-[1.015]" : ""
+          }`}
+        >
           {/* channel chrome */}
           <div className="flex items-center gap-2 rounded-t-xl border-b border-slate-100 bg-slate-50 px-3.5 py-2.5">
-            <span className="flex h-4.5 w-4.5 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white">
+            <span className="flex h-4.5 w-4.5 items-center justify-center rounded bg-teal-700 text-[9px] font-bold text-white" aria-hidden>
               T
             </span>
             <span className="text-[12px] font-semibold text-slate-800">Tap AI</span>
@@ -214,7 +224,7 @@ export function Journey() {
           </div>
 
           <div className="px-4 py-4 sm:px-5">
-            <p className="text-[17px] font-medium leading-snug tracking-[-0.01em] text-slate-900 sm:text-[19px]">
+            <p className="text-[19px] font-medium leading-[1.25] tracking-[-0.02em] text-slate-900 sm:text-[23px]">
               {s.question}
             </p>
 
@@ -237,12 +247,12 @@ export function Journey() {
                   <button
                     key={o}
                     onClick={() => answer(i)}
-                    className={`w-full rounded-lg px-3.5 py-3 text-left text-[13.5px] font-medium transition-all sm:py-2.5 ${
+                    className={`w-full rounded-xl px-4 py-3.5 text-left text-[15px] font-medium transition-all duration-200 ${
                       chosen
                         ? "bg-teal-600 text-white ring-2 ring-teal-600"
                         : dim
                           ? "bg-slate-50 text-slate-300 ring-1 ring-inset ring-slate-200"
-                          : "bg-white text-slate-800 ring-1 ring-inset ring-slate-300 active:scale-[0.99] active:bg-slate-50 hover:bg-slate-50"
+                          : "bg-white text-slate-800 ring-1 ring-inset ring-slate-300 hover:-translate-y-px hover:bg-slate-50 hover:shadow-md active:translate-y-0 active:scale-[.99]"
                     }`}
                   >
                     {chosen && <span className="mr-1.5">✓</span>}
@@ -274,6 +284,7 @@ export function Journey() {
           refs.current[2] = el;
         }}
         n={3}
+        active={beat === 2}
         label="The outcome"
         sub="What changed, and what you just contributed"
       >
@@ -291,7 +302,7 @@ export function Journey() {
                 <p className="text-[10.5px] font-bold uppercase tracking-wider text-white/60">
                   You just did something you could not do before
                 </p>
-                <p className="mt-2 text-[16px] font-medium leading-snug text-white sm:text-[17px]">
+                <p className="mt-2.5 text-[17px] font-medium leading-[1.35] text-white sm:text-[20px]">
                   {s.contribution}
                 </p>
               </div>
@@ -385,22 +396,43 @@ const Block = ({
   n,
   label,
   sub,
+  active = false,
   children,
 }: {
   ref: (el: HTMLDivElement | null) => void;
   n: number;
   label: string;
   sub: string;
+  /** Drives the numeral, the heading colour and the connector draw. */
+  active?: boolean;
   children: React.ReactNode;
 }) => (
-  <div ref={ref} className="mb-9 scroll-mt-32 last:mb-0">
-    <div className="mb-3 flex items-start gap-2.5">
-      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-[12px] font-bold text-slate-900">
+  <div ref={ref} className="relative mb-10 scroll-mt-32 pl-0 last:mb-0 sm:pl-11">
+    {/* connector: only on wide enough screens to have a gutter for it */}
+    <span
+      aria-hidden
+      className={`absolute left-[15px] top-9 hidden w-px origin-top bg-gradient-to-b from-white/25 to-transparent sm:block ${
+        active ? "animate-[drawDown_.8s_ease-out]" : ""
+      }`}
+      style={{ height: "calc(100% - 1rem)" }}
+    />
+    <div className="mb-3.5 flex items-start gap-2.5 sm:mb-4 sm:block">
+      <span
+        className={`z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[13px] font-bold transition-all duration-500 sm:absolute sm:-left-11 sm:top-0 ${
+          active ? "scale-110 bg-white text-slate-900" : "bg-white/15 text-slate-400"
+        }`}
+      >
         {n}
       </span>
       <div className="min-w-0">
-        <p className="text-[14px] font-semibold leading-tight text-white">{label}</p>
-        <p className="mt-0.5 text-[12px] leading-snug text-slate-400">{sub}</p>
+        <p
+          className={`text-[15px] font-semibold leading-tight transition-colors duration-500 sm:text-[17px] ${
+            active ? "text-white" : "text-slate-400"
+          }`}
+        >
+          {label}
+        </p>
+        <p className="mt-0.5 text-[12.5px] leading-snug text-slate-400">{sub}</p>
       </div>
     </div>
     {children}
